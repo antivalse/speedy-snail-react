@@ -1,0 +1,46 @@
+/* General Styles */
+
+@use "../variables/colors" as c;
+@import "../globals/fonts";
+
+$primary-50: map-get(map-get(c.$colors, primary), 100);
+$primary-100: map-get(map-get(c.$colors, primary), 100);
+$secondary-100: map-get(map-get(c.$colors, secondary), 100);
+$secondary-400: map-get(map-get(c.$colors, secondary), 400);
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: $secondary-400;
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 10rem;
+}
+
+body {
+  background-color: $primary-50;
+  margin: 0 auto;
+  max-width: 1600px;
+  min-height: 100vh;
+  font-family: $josefin-sans;
+}
+
+a {
+  text-decoration: none;
+  color: #4f453e;
+}
+
+.modal-overlay {
+  background-color: #352e2e;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease-in-out 30ms;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

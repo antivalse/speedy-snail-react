@@ -1,0 +1,42 @@
+/* Color Variables */
+
+$colors: (
+  primary: (
+    50: #f6f6f4,
+    100: #f0ebe7,
+    150: #f4f1ed,
+    200: #9f4739,
+    300: #4f453e,
+  ),
+  secondary: (
+    0: #ffffff,
+    50: #f6f6f4,
+    100: #f2f2f2,
+    200: #e0e0dc,
+    300: #675e54,
+    400: #352e2e,
+    500: #e0eded,
+  ),
+);
+
+@each $color, $value in map-get($colors, primary) {
+  .bg-p#{$color} {
+    background-color: $value;
+  }
+}
+@each $color, $value in map-get($colors, secondary) {
+  .bg-s#{$color} {
+    background-color: $value;
+  }
+}
+
+@each $color, $value in map-get($colors, primary) {
+  .color-p#{$color} {
+    color: $value;
+  }
+}
+@each $color, $value in map-get($colors, secondary) {
+  .color-s#{$color} {
+    color: $value;
+  }
+}

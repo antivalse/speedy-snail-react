@@ -1,0 +1,21 @@
+/* Fonts */
+
+@import "../variables/colors";
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("../../assets/fonts/JosefinSans-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Genty";
+  src: url("../../assets/fonts/GentyDemo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$josefin-sans: "Josefin Sans", Arial, Helvetica, sans-serif;
+$genty: "Genty", Arial, Helvetica, sans-serif;
