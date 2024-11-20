@@ -3,7 +3,7 @@
 @use "../variables/colors" as c;
 @import "../globals/fonts";
 
-$primary-50: map-get(map-get(c.$colors, primary), 100);
+$primary-50: map-get(map-get(c.$colors, primary), 50);
 $primary-100: map-get(map-get(c.$colors, primary), 100);
 $secondary-100: map-get(map-get(c.$colors, secondary), 100);
 $secondary-400: map-get(map-get(c.$colors, secondary), 400);
