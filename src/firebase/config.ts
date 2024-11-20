@@ -30,7 +30,6 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 // Firebase collections
-
 const createCollection = <T = DocumentData>(collectionType: string) => {
   return collection(db, collectionType) as CollectionReference<T>;
 };
