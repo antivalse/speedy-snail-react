@@ -1,0 +1,17 @@
+/* Breakpoint Variables */
+
+$breakpoints: (
+  "xs": 320px,
+  "sm": 768px,
+  "md": 1024px,
+  "md-lg": 1260px,
+  "lg": 1408px,
+);
+
+$breakpoints-up: (
+  "xs": 320.98px,
+  "sm": 768.98px,
+  "md": 1024.98px,
+  "md-lg": 1260.98px,
+  "lg": 1408.98px,
+);

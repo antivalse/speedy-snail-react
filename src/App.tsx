@@ -11,16 +11,19 @@ import ImageGalleryPage from "./pages/protected /ImageGalleryPage";
 import AddNewImagePage from "./pages/protected /AddNewImagePage";
 import EditImagePage from "./pages/protected /EditImagePage";
 import AccountSettingsPage from "./pages/protected /AccountSettingsPage";
+import PublicLayout from "./layouts/PublicLayout";
 
 function App() {
   return (
     <div id="app">
       <Routes>
         {/** Public Routes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
 
         {/** Protected Routes */}
         <Route path="/today" element={<PlanPage />} />

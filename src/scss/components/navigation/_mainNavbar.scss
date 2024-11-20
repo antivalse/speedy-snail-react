@@ -1,0 +1,19 @@
+/* Main Navbar Styles */
+
+@use "../../utils/mixins" as *;
+
+.main-navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2px;
+
+  &__left {
+    margin-top: 12rem;
+  }
+
+  &__right {
+    margin-top: 2.5rem;
+  }
+}

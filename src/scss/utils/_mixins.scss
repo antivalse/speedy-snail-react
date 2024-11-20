@@ -1,0 +1,20 @@
+/* Mixins */
+
+// Import the variables file to have access to $breakpoints-up
+@use "../variables/breakpoints" as b;
+
+// Breakpoints
+
+@mixin breakpoint-up($size) {
+  $breakpoint: map-get(b.$breakpoints-up, $size);
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($size) {
+  $breakpoint: map-get(b.$breakpoints, $size);
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}

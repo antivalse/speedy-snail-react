@@ -1,0 +1,68 @@
+/* Typography Styles */
+
+@use "../variables/colors" as c;
+@use "../utils/mixins" as m;
+@import "../globals/fonts";
+
+$primary-100: map-get(map-get(c.$colors, primary), 100);
+$secondary-100: map-get(map-get(c.$colors, secondary), 100);
+$secondary-400: map-get(map-get(c.$colors, secondary), 400);
+
+.heading {
+  &--primary {
+    font-weight: 400;
+    font-family: $josefin-sans;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    @include m.breakpoint-up("sm") {
+      font-size: 1.75rem;
+    }
+  }
+
+  &--logo {
+    font-weight: 400;
+    font-family: $genty;
+    font-size: 3rem;
+    text-shadow: 2px 2px $secondary-400;
+    text-transform: none;
+  }
+
+  &--logo-dark {
+    font-weight: 400;
+    font-family: $genty;
+    font-size: 2rem;
+    text-shadow: 2px 2px $secondary-100;
+    text-transform: none;
+    transition: 0.3s ease-in-out;
+
+    &:hover,
+    :focus {
+      font-size: 2.125rem;
+    }
+    @include m.breakpoint-up("sm") {
+      font-size: 3rem;
+      &:hover,
+      :focus {
+        font-size: 3.125rem;
+      }
+    }
+  }
+}
+
+.body {
+  &--primary {
+    font-weight: 400;
+    font-family: $josefin-sans;
+  }
+
+  &--secondary {
+    font-weight: 400;
+    font-family: $josefin-sans;
+    font-size: 0.825rem;
+    text-transform: uppercase;
+
+    @include m.breakpoint-up("sm") {
+      font-size: 1.25rem;
+    }
+  }
+}
