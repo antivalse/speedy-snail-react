@@ -1,16 +1,15 @@
 /* Protected Layout */
 
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import SecondaryNavbar from "../components/navigation/SecondaryNavbar";
 import useAuth from "../hooks/useAuth";
 
 const ProtectedLayout = () => {
   const { user } = useAuth();
 
-  const navigate = useNavigate();
-
+  // Redirect to "/" if no user is logged in
   if (!user) {
-    navigate("/");
+    return <Navigate to="/" replace />;
   }
 
   return (

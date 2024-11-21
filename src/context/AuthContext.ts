@@ -15,6 +15,7 @@ interface AuthContextType {
   email: string | null;
   userName: string | null;
   user: User | null;
+  loading: boolean;
 }
 
 // Create auth context

@@ -101,6 +101,7 @@ export const AuthContextProvider = ({
         userName,
         email,
         user,
+        loading,
       }}
     >
       {loading ? "loading" : <>{children}</>}
