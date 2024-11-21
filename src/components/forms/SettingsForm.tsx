@@ -24,7 +24,7 @@ const SettingsForm = () => {
   const navigate = useNavigate();
 
   // Get the signup function from auth context
-  const { updateUserEmail } = useAuth();
+  const { user, updateUserEmail } = useAuth();
 
   // Get reference to password
   const passwordRef = useRef("");
@@ -65,6 +65,7 @@ const SettingsForm = () => {
             type="email"
             className="form__input-field"
             {...register("email")}
+            placeholder={user?.email || ""}
           />
           {errors.email && <p>{errors.email.message || "Invalid value"}</p>}
         </div>
