@@ -1,14 +1,10 @@
 /* Image Gallery Page */
 
-// import SecondaryNavbar from "../components/navigation /SecondaryNavbar";
 import { Link } from "react-router-dom";
 import { arrowDown } from "../../assets/icons";
 import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import Button from "../../components/buttons/Button";
-import SecondaryNavbar from "../../components/navigation/SecondaryNavbar";
 import Pagination from "../../utils/Pagination";
-
-// import Pagination from "../components/utils/Pagination";
 
 const ImageGalleryPage = () => {
   const testItems = [
@@ -40,7 +36,6 @@ const ImageGalleryPage = () => {
   ];
   return (
     <>
-      <SecondaryNavbar />
       <div className="image-gallery bg-p100 p-10">
         <div className="image-gallery__sorting flex flex-col justify-center items-center gap-10">
           <h2 className="heading heading--primary color-p300 py-3">

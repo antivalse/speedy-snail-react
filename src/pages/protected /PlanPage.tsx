@@ -1,6 +1,5 @@
 /* Plan Page */
 
-import SecondaryNavbar from "../../components/navigation/SecondaryNavbar";
 import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import AddImage from "../../components/ui/AddImage";
 
@@ -24,7 +23,6 @@ const PlanPage = () => {
   ];
   return (
     <>
-      <SecondaryNavbar />
       <div className="plan-page flex flex-col items-center my-10 ">
         <h2 className="heading heading--primary mb-10 color-p300">{date}</h2>
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">

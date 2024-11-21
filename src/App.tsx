@@ -13,6 +13,7 @@ import EditImagePage from "./pages/protected /EditImagePage";
 import AccountSettingsPage from "./pages/protected /AccountSettingsPage";
 import PublicLayout from "./layouts/PublicLayout";
 import Footer from "./components/navigation/Footer";
+import ProtectedLayout from "./layouts/ProtectedLayout";
 
 function App() {
   return (
@@ -27,12 +28,15 @@ function App() {
         </Route>
 
         {/** Protected Routes */}
-        <Route path="/today" element={<PlanPage />} />
-        <Route path="/image-gallery" element={<ImageGalleryPage />} />
-        <Route path="/add-image" element={<AddNewImagePage />} />
-        <Route path="/edit-image" element={<EditImagePage />} />
-        <Route path="/settings" element={<AccountSettingsPage />} />
+        <Route element={<ProtectedLayout />}>
+          <Route path="/today" element={<PlanPage />} />
+          <Route path="/image-gallery" element={<ImageGalleryPage />} />
+          <Route path="/add-image" element={<AddNewImagePage />} />
+          <Route path="/edit-image" element={<EditImagePage />} />
+          <Route path="/settings" element={<AccountSettingsPage />} />
+        </Route>
       </Routes>
+
       <Footer />
     </div>
   );
