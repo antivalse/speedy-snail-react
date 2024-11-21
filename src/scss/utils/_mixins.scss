@@ -4,7 +4,6 @@
 @use "../variables/breakpoints" as b;
 
 // Breakpoints
-
 @mixin breakpoint-up($size) {
   $breakpoint: map-get(b.$breakpoints-up, $size);
   @media (min-width: $breakpoint) {

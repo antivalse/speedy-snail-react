@@ -1,0 +1,15 @@
+/* About Page Styles */
+
+@use "../utils/mixins" as m;
+
+.about {
+  width: 80%;
+  border-radius: 1.25rem;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+  text-align: justify;
+
+  @include m.breakpoint-up(sm) {
+    width: 65%;
+  }
+}
