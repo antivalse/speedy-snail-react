@@ -79,9 +79,9 @@ const SecondaryNavbar = () => {
           </div>
         )}
       </div>
-      <Link to={"/"} className="heading heading--logo-dark color-p300">
+      <h2 className="heading heading--logo-dark color-p300 cursor-default">
         Speedy Snail
-      </Link>{" "}
+      </h2>{" "}
       <span className="secondary-nav__avatar">{snailAvatar}</span>
     </nav>
   );

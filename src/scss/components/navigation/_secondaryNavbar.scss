@@ -1,0 +1,17 @@
+/* Secondary Navbar Styles */
+
+@use "../../variables/colors" as c;
+
+$primary-100: map-get(map-get(c.$colors, primary), 100);
+
+.secondary-nav {
+  position: sticky;
+  z-index: 99;
+  top: 0;
+  &__avatar {
+    cursor: pointer;
+    svg {
+      width: 4.375rem;
+    }
+  }
+}
