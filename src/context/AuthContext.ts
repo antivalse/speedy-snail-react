@@ -4,6 +4,10 @@ import { createContext } from "react";
 import { User, UserCredential } from "firebase/auth";
 
 interface AuthContextType {
+  email: string | null;
+  userName: string | null;
+  user: User | null;
+  loading: boolean;
   signup: (
     email: string,
     password: string,
@@ -12,10 +16,9 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-  email: string | null;
-  userName: string | null;
-  user: User | null;
-  loading: boolean;
+  updateUserPassword: (newPassword: string) => Promise<void>;
+  updateUserEmail: (newEmail: string) => Promise<void>;
+  deleteUserAccount: () => Promise<void>;
 }
 
 // Create auth context

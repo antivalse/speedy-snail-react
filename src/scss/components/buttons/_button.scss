@@ -55,6 +55,15 @@ $secondary-300: map-get(map-get(c.$colors, secondary), 300);
     &:focus {
       background-color: $secondary-300;
     }
+    &--danger {
+      background-color: #d9534f;
+      width: 12rem;
+      padding: 0;
+      &:hover,
+      :focus {
+        background-color: #a8403c;
+      }
+    }
   }
 }
 

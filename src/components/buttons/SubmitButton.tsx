@@ -4,19 +4,17 @@ import React from "react";
 
 interface SubmitButtonProps {
   btnText: string;
+  className: string;
   submittingForm?: boolean;
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   btnText,
+  className,
   submittingForm,
 }) => {
   return (
-    <button
-      className="btn btn--submit self-center cursor-pointer"
-      type="submit"
-      disabled={submittingForm}
-    >
+    <button className={className} type="submit" disabled={submittingForm}>
       {btnText}
     </button>
   );

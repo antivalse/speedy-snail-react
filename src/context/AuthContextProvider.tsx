@@ -8,10 +8,12 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updateEmail,
+  updatePassword,
   User,
 } from "firebase/auth";
 import { auth, usersCollection } from "../firebase/config";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "./AuthContext";
 
 // Create the auth context provider
@@ -75,6 +77,38 @@ export const AuthContextProvider = ({
     return sendPasswordResetEmail(auth, email);
   };
 
+  // Update Password
+  const updateUserPassword = async (newPassword: string) => {
+    if (!auth.currentUser) {
+      throw new Error("You are not authenticated to perform this action");
+    }
+    await updatePassword(auth.currentUser, newPassword);
+  };
+
+  // Update Email
+  const updateUserEmail = (newEmail: string) => {
+    if (!auth.currentUser) {
+      throw new Error("You are not authenticated to perform this action");
+    }
+
+    const userRef = doc(usersCollection, auth.currentUser.uid);
+    updateDoc(userRef, {
+      email,
+      updatedAt: serverTimestamp(),
+    });
+
+    setEmail(email);
+    return updateEmail(auth.currentUser, newEmail);
+  };
+
+  // Delete User
+  const deleteUserAccount = async () => {
+    if (!auth.currentUser) {
+      throw new Error("You are not authenticated to perform this action");
+    }
+    await deleteUserAccount();
+  };
+
   useEffect(() => {
     const authStateListener = onAuthStateChanged(auth, (authUser) => {
       setUser(authUser);
@@ -94,14 +128,17 @@ export const AuthContextProvider = ({
   return (
     <AuthContext.Provider
       value={{
-        signup,
-        login,
-        logout,
-        resetPassword,
         userName,
         email,
         user,
         loading,
+        signup,
+        login,
+        logout,
+        resetPassword,
+        updateUserPassword,
+        updateUserEmail,
+        deleteUserAccount,
       }}
     >
       {loading ? "loading" : <>{children}</>}

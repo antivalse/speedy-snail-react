@@ -1,11 +1,11 @@
 /* Account Settings Page */
 
-import SignupForm from "../../components/forms/SignupForm";
+import SettingsForm from "../../components/forms/SettingsForm";
 
 const AccountSettingsPage = () => {
   return (
     <>
-      <SignupForm />
+      <SettingsForm />
     </>
   );
 };
