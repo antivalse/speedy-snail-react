@@ -1,0 +1,21 @@
+/* Plan Page Styles */
+
+@use "../utils/mixins" as m;
+
+.plan-page {
+  &__schedule {
+    width: 100%;
+
+    @include m.breakpoint-up("sm") {
+      width: 60%;
+      border-radius: 1.25rem;
+    }
+    &__images {
+      &__image {
+        width: 24.063rem;
+        height: 24.063rem;
+        object-fit: contain;
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/* Icons Styles */
+
+@use "../../utils/mixins" as m;
+
+/* Downward Arrow Icon */
+
+.arrow-down {
+  @include m.breakpoint-down("sm") {
+    width: 15px;
+  }
+}

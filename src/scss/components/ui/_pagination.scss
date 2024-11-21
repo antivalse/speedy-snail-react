@@ -1,0 +1,12 @@
+/* Pagination Styles */
+
+.pagination {
+  &__current-page {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 180%;
+    span {
+      font-size: 1.5rem;
+    }
+  }
+}
