@@ -11,9 +11,7 @@ const Footer = () => {
       <Link to="/about">
         <img src={SnailLogo} alt="Happy Snail Logo" />
       </Link>
-      <p className="body body--secondary footer__social-media-header">
-        Follow Us On Social Media
-      </p>
+      <p className="body body--secondary footer__social-media-header">Follow</p>
       <div className="footer__social-media-links flex gap-4">
         <a
           className="footer__social-media-links__link"
