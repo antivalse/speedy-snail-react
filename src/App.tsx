@@ -12,6 +12,7 @@ import AddNewImagePage from "./pages/protected /AddNewImagePage";
 import EditImagePage from "./pages/protected /EditImagePage";
 import AccountSettingsPage from "./pages/protected /AccountSettingsPage";
 import PublicLayout from "./layouts/PublicLayout";
+import Footer from "./components/navigation/Footer";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/edit-image" element={<EditImagePage />} />
         <Route path="/settings" element={<AccountSettingsPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
