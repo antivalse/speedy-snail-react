@@ -103,7 +103,7 @@ export const octopusAvatar = (
     xmlns="http://www.w3.org/2000/svg"
     width="129"
     height="125"
-    viewBox="0 0 129 125"
+    viewBox="-10 -10 149 145"
     fill="none"
   >
     <ellipse cx="64.5" cy="62.5" rx="64.5" ry="62.5" fill="#E7F8D2" />
