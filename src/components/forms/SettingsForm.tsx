@@ -63,7 +63,6 @@ const SettingsForm = () => {
   const onUpdate: SubmitHandler<UpdateUserDetails> = async (data) => {
     setSubmittingForm(true);
 
-    console.log("submitting form is: ", submittingForm);
     try {
       // Re-authenticate user with the current password
       if (!email) {
