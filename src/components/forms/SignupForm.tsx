@@ -30,7 +30,7 @@ const SignupForm = () => {
   const navigate = useNavigate();
 
   // Get the signup function from auth context
-  const { signup } = useAuth();
+  const { signup, setAvatar } = useAuth();
 
   // Get reference to password
   const passwordRef = useRef("");
@@ -42,6 +42,7 @@ const SignupForm = () => {
     try {
       await signup(data.email, data.password, data.avatarId);
       navigate("/today");
+      setAvatar(selectedAvatar);
     } catch (err) {
       if (err instanceof Error) {
         console.error(err.message);

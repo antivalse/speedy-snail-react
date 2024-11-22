@@ -35,6 +35,7 @@ export const AuthContextProvider = ({
   const [user, setUser] = useState<User | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
+  const [avatar, setAvatar] = useState<number | null>(null);
 
   // Sign up the user
   const signup = async (
@@ -188,6 +189,8 @@ export const AuthContextProvider = ({
         email,
         user,
         loading,
+        avatar,
+        setAvatar,
         signup,
         login,
         logout,

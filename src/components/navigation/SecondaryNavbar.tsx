@@ -2,14 +2,17 @@
 
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { hamburgerMenuIcon, snailAvatar } from "../../assets/icons";
+import { avatars, hamburgerMenuIcon } from "../../assets/icons";
 import { Link } from "react-router-dom";
 
 const SecondaryNavbar = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   // Get the logout function from auth context
-  const { logout } = useAuth();
+  const { logout, avatar } = useAuth();
+
+  const userAvatar = avatars.find((item) => item.id === avatar);
+
   return (
     <nav className="secondary-nav flex justify-between items-center p-3 bg-p50">
       <div className="relative">
@@ -82,7 +85,7 @@ const SecondaryNavbar = () => {
       <h2 className="heading heading--logo-dark color-p300 cursor-default">
         Speedy Snail
       </h2>{" "}
-      <span className="secondary-nav__avatar">{snailAvatar}</span>
+      <span className="secondary-nav__avatar">{userAvatar?.icon}</span>
     </nav>
   );
 };
