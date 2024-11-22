@@ -134,12 +134,13 @@ const SettingsForm = () => {
                 message: "You have to enter at least 8 characters",
                 value: 8,
               },
-              // validate: (passwordValue) => {
-              //   return (
-              //     passwordValue === passwordRef.current ||
-              //     "Passwords do not match"
-              //   );
-              // },
+              validate: (passwordValue) => {
+                return (
+                  !passwordRef.current ||
+                  passwordValue === passwordRef.current ||
+                  "Passwords do not match"
+                );
+              },
             })}
           />
           {errors.confirmPassword && (
