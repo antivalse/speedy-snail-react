@@ -2,16 +2,26 @@
 
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { avatars, hamburgerMenuIcon, snailAvatar } from "../../assets/icons";
+import { avatars, hamburgerMenuIcon } from "../../assets/icons";
 import { Link } from "react-router-dom";
+import useGetDocument from "../../hooks/useGetDocument";
+import { usersCollection } from "../../firebase/config";
 
 const SecondaryNavbar = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   // Get the logout function from auth context
-  const { logout, avatar } = useAuth();
+  const { user, logout } = useAuth();
 
-  const userAvatar = avatars.find((item) => item.id === avatar);
+  const { data } = useGetDocument(usersCollection, user?.uid || "");
+
+  // Convert data.avatar to number for comparison with avatars in array
+  const userAvatar = Number(data?.avatar);
+
+  const foundAvatar =
+    avatars && userAvatar
+      ? avatars.find((item) => item.id == userAvatar)
+      : undefined;
 
   return (
     <nav className="secondary-nav flex justify-between items-center p-3 bg-p50">
@@ -85,9 +95,7 @@ const SecondaryNavbar = () => {
       <h2 className="heading heading--logo-dark color-p300 cursor-default">
         Speedy Snail
       </h2>{" "}
-      <span className="secondary-nav__avatar">
-        {userAvatar?.icon ? userAvatar?.icon : snailAvatar}
-      </span>
+      <span className="secondary-nav__avatar">{foundAvatar?.icon}</span>
     </nav>
   );
 };

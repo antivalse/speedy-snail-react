@@ -8,7 +8,6 @@ interface AuthContextType {
   userName: string | null;
   user: User | null;
   loading: boolean;
-  avatar: number | null;
   signup: (
     email: string,
     password: string,
@@ -22,7 +21,6 @@ interface AuthContextType {
   updateUserCredentials: () => boolean;
   deleteUserAccount: () => Promise<void>;
   reAuthenticateUser: (password: string) => Promise<void>;
-  setAvatar: (avatarId: number | null) => void;
 }
 
 // Create auth context

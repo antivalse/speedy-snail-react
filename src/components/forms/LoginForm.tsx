@@ -19,10 +19,8 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
 
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
-
-  console.log("user is: ", user?.email);
 
   const {
     handleSubmit,
