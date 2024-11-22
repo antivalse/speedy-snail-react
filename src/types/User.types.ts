@@ -16,3 +16,7 @@ export type SignupDetails = {
   confirmPassword: string;
   avatarId: number;
 };
+
+export type UpdateUserDetails = SignupDetails & {
+  currentPassword: string; // Add current password as a required field
+};

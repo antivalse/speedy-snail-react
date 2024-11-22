@@ -127,6 +127,25 @@ export const AuthContextProvider = ({
     }
   };
 
+  // Update avatar
+
+  const updateUserAvatar = async (newAvatarId: number) => {
+    if (!auth.currentUser) {
+      throw new Error("You are not authenticated to perform this action");
+    }
+    try {
+      // Update Firestore
+      const userRef = doc(usersCollection, auth.currentUser.uid);
+      await updateDoc(userRef, {
+        avatar: newAvatarId,
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+    }
+  };
+
   // Delete User
   const deleteUserAccount = async () => {
     if (!auth.currentUser) {
@@ -192,6 +211,7 @@ export const AuthContextProvider = ({
         resetPassword,
         updateUserPassword,
         updateUserEmail,
+        updateUserAvatar,
         updateUserCredentials,
         deleteUserAccount,
         reAuthenticateUser,

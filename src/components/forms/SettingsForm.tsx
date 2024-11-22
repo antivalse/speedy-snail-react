@@ -6,11 +6,8 @@ import SubmitButton from "../buttons/SubmitButton";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { avatars } from "../../assets/icons";
-import { SignupDetails } from "./SignupForm";
-
-export type UpdateUserDetails = SignupDetails & {
-  currentPassword: string; // Add current password as a required field
-};
+import { UpdateUserDetails } from "../../types/User.types";
+import useGetUser from "../../hooks/useGetUser";
 
 const SettingsForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
@@ -21,10 +18,15 @@ const SettingsForm = () => {
     email,
     updateUserEmail,
     updateUserPassword,
+    updateUserAvatar,
     updateUserCredentials,
     deleteUserAccount,
     reAuthenticateUser,
   } = useAuth();
+
+  // Get avatar id from useGetUser hook
+
+  const { avatarId } = useGetUser();
 
   // Access useForm hook from React hook form
   const {
@@ -78,6 +80,12 @@ const SettingsForm = () => {
       // Update password if provided
       if (data.password) {
         await updateUserPassword(data.password);
+      }
+
+      // Update avatar if new one is chosen
+
+      if (data.avatarId !== avatarId) {
+        await updateUserAvatar(data.avatarId);
       }
 
       reset();
@@ -196,7 +204,7 @@ const SettingsForm = () => {
         </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="color-p300 text-left" htmlFor="currentPassword">
-            Verify changes with your current password
+            Please enter current password to verify changes
           </label>
           <input
             type="password"
