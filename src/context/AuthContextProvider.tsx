@@ -22,6 +22,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { AuthContext } from "./AuthContext";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 // Create the auth context provider
 export const AuthContextProvider = ({
@@ -217,7 +218,7 @@ export const AuthContextProvider = ({
         reAuthenticateUser,
       }}
     >
-      {loading ? "loading" : <>{children}</>}
+      {loading ? <LoadingSpinner /> : <>{children}</>}
     </AuthContext.Provider>
   );
 };

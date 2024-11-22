@@ -1,0 +1,30 @@
+/* Loading Spinner Styles */
+
+.loading-spinner {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease-in-out 30ms;
+  z-index: 2;
+
+  &__spinner {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    z-index: 3;
+    animation: rotation 0.75s infinite ease;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
