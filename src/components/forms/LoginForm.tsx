@@ -81,7 +81,11 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         {errors.password && (
           <p>{errors.password.message || "Invalid password"}</p>
         )}
-        <SubmitButton btnText="Login" submittingForm={submittingForm} />
+        <SubmitButton
+          btnText="Login"
+          submittingForm={submittingForm}
+          className="btn btn--submit self-center cursor-pointer"
+        />
       </form>
     </div>
   );

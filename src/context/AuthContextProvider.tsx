@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -13,7 +14,13 @@ import {
   User,
 } from "firebase/auth";
 import { auth, usersCollection } from "../firebase/config";
-import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import {
+  deleteDoc,
+  doc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { AuthContext } from "./AuthContext";
 
 // Create the auth context provider
@@ -106,7 +113,19 @@ export const AuthContextProvider = ({
     if (!auth.currentUser) {
       throw new Error("You are not authenticated to perform this action");
     }
-    await deleteUserAccount();
+    const userId = auth.currentUser.uid;
+    try {
+      // Delete the user data from Firestore
+      const userDocRef = doc(usersCollection, userId);
+      await deleteDoc(userDocRef);
+
+      // Delete the user from Firebase Authentication
+      await deleteUser(auth.currentUser);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+    }
   };
 
   useEffect(() => {

@@ -24,11 +24,23 @@ const SettingsForm = () => {
   const navigate = useNavigate();
 
   // Get the signup function from auth context
-  const { user, updateUserEmail } = useAuth();
+  const { user, updateUserEmail, deleteUserAccount } = useAuth();
 
   // Get reference to password
   const passwordRef = useRef("");
   passwordRef.current = watch("password");
+
+  const onDelete = () => {
+    alert("Are you sure you want to delete?");
+    try {
+      deleteUserAccount();
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+      navigate("/");
+    }
+  };
 
   const onUpdate: SubmitHandler<SignupDetails> = async (data) => {
     setSubmittingForm(true);
@@ -125,9 +137,7 @@ const SettingsForm = () => {
                   <input
                     type="radio"
                     value={avatar.id}
-                    {...register("avatarId", {
-                      required: "You must select an avatar",
-                    })}
+                    {...register("avatarId", {})}
                     className="hidden"
                     onClick={() => handleAvatarSelect(avatar.id)}
                   />
@@ -157,7 +167,7 @@ const SettingsForm = () => {
           <SubmitButton
             btnText="Delete Account"
             className="btn btn--submit btn--submit--danger cursor-pointer"
-            submittingForm={submittingForm}
+            onClick={onDelete}
           />
         </div>
       </form>
