@@ -6,13 +6,7 @@ import SubmitButton from "../buttons/SubmitButton";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { avatars } from "../../assets/icons";
-
-export type SignupDetails = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  avatarId: number;
-};
+import { SignupDetails } from "../../types/User.Types";
 
 const SignupForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);

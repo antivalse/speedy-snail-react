@@ -9,3 +9,10 @@ export type UserInfo = {
   uid: string;
   updatedAt: Timestamp;
 };
+
+export type SignupDetails = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  avatarId: number;
+};
