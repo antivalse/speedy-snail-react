@@ -63,6 +63,7 @@ const SettingsForm = () => {
   const onUpdate: SubmitHandler<UpdateUserDetails> = async (data) => {
     setSubmittingForm(true);
 
+    console.log("submitting form is: ", submittingForm);
     try {
       // Re-authenticate user with the current password
       if (!email) {
@@ -79,14 +80,16 @@ const SettingsForm = () => {
       if (data.password) {
         await updateUserPassword(data.password);
       }
+
+      reset();
+      updateUserCredentials();
+      setSubmittingForm(false);
     } catch (err) {
       if (err instanceof Error) {
         console.error(err.message);
+        reset();
+        setSubmittingForm(false);
       }
-
-      updateUserCredentials();
-      reset();
-      setSubmittingForm(false);
     }
   };
 
