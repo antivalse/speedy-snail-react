@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { avatars, hamburgerMenuIcon } from "../../assets/icons";
+import { avatars, hamburgerMenuIcon, snailAvatar } from "../../assets/icons";
 import { Link } from "react-router-dom";
 
 const SecondaryNavbar = () => {
@@ -85,7 +85,9 @@ const SecondaryNavbar = () => {
       <h2 className="heading heading--logo-dark color-p300 cursor-default">
         Speedy Snail
       </h2>{" "}
-      <span className="secondary-nav__avatar">{userAvatar?.icon}</span>
+      <span className="secondary-nav__avatar">
+        {userAvatar?.icon ? userAvatar?.icon : snailAvatar}
+      </span>
     </nav>
   );
 };
