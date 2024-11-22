@@ -12,6 +12,8 @@ import {
   updateEmail,
   updatePassword,
   User,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { auth, usersCollection } from "../firebase/config";
 import {
@@ -33,8 +35,6 @@ export const AuthContextProvider = ({
   const [user, setUser] = useState<User | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-
-  console.log("User is: ", user);
 
   // Sign up the user
   const signup = async (
@@ -149,6 +149,22 @@ export const AuthContextProvider = ({
     }
   };
 
+  // Re-authenticate user
+
+  const reAuthenticateUser = async (password: string) => {
+    if (!auth.currentUser) {
+      throw new Error("You are not authenticated to perform this action");
+    }
+
+    // Create credential
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser.email || "",
+      password
+    );
+
+    await reauthenticateWithCredential(auth.currentUser, credential);
+  };
+
   useEffect(() => {
     const authStateListener = onAuthStateChanged(auth, (authUser) => {
       setUser(authUser);
@@ -180,6 +196,7 @@ export const AuthContextProvider = ({
         updateUserEmail,
         updateUserCredentials,
         deleteUserAccount,
+        reAuthenticateUser,
       }}
     >
       {loading ? "loading" : <>{children}</>}

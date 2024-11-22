@@ -8,6 +8,10 @@ import useAuth from "../../hooks/useAuth";
 import { avatars } from "../../assets/icons";
 import { SignupDetails } from "./SignupForm";
 
+export type UpdateUserDetails = SignupDetails & {
+  currentPassword: string; // Add current password as a required field
+};
+
 const SettingsForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null); // State to track selected avatar
@@ -19,6 +23,7 @@ const SettingsForm = () => {
     updateUserPassword,
     updateUserCredentials,
     deleteUserAccount,
+    reAuthenticateUser,
   } = useAuth();
 
   // Access useForm hook from React hook form
@@ -28,7 +33,7 @@ const SettingsForm = () => {
     watch,
     reset,
     formState: { errors },
-  } = useForm<SignupDetails>({
+  } = useForm<UpdateUserDetails>({
     defaultValues: {
       email: email ?? "",
     },
@@ -55,14 +60,22 @@ const SettingsForm = () => {
   };
 
   // Handle case where user choses to submit the form and update their information
-  const onUpdate: SubmitHandler<SignupDetails> = async (data) => {
+  const onUpdate: SubmitHandler<UpdateUserDetails> = async (data) => {
     setSubmittingForm(true);
 
     try {
+      // Re-authenticate user with the current password
+      if (!email) {
+        throw new Error("Unable to retrieve email for re-authentication.");
+      }
+
+      await reAuthenticateUser(data.currentPassword);
+
+      // Update email if provided
       if (data.email && data.email !== email) {
         await updateUserEmail(data.email);
       }
-
+      // Update password if provided
       if (data.password) {
         await updateUserPassword(data.password);
       }
@@ -178,6 +191,23 @@ const SettingsForm = () => {
               {errors.avatarId.message || "Please select an avatar"}
             </p>
           )}
+        </div>
+        <div className="flex flex-col gap-2 w-full">
+          <label className="color-p300 text-left" htmlFor="currentPassword">
+            Verify changes with your current password
+          </label>
+          <input
+            type="password"
+            className="form__input-field"
+            {...register("currentPassword", {
+              required: "Current password is required",
+              minLength: {
+                message: "Password must be at least 8 characters",
+                value: 8,
+              },
+            })}
+          />
+          {errors.password && <p>{errors.password.message}</p>}
         </div>
         <div className="flex justify-center gap-5">
           <SubmitButton

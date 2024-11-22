@@ -20,6 +20,7 @@ interface AuthContextType {
   updateUserEmail: (newEmail: string) => Promise<void>;
   updateUserCredentials: () => boolean;
   deleteUserAccount: () => Promise<void>;
+  reAuthenticateUser: (password: string) => Promise<void>;
 }
 
 // Create auth context
