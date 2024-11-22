@@ -204,7 +204,7 @@ const SettingsForm = () => {
         </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="color-p300 text-left" htmlFor="currentPassword">
-            Please enter current password to verify changes
+            Enter current password to verify changes
           </label>
           <input
             type="password"

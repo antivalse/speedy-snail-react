@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import useGetUser from "../../hooks/useGetUser";
 
 const SecondaryNavbar = () => {
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [showNavDropdown, setShowNavDropdown] = useState<boolean>(false);
+  const [showUserDropdown, setShowUserDropdown] = useState<boolean>(false);
 
   // Get the logout function from auth context
   const { logout } = useAuth();
@@ -25,18 +26,18 @@ const SecondaryNavbar = () => {
           className="hamburger-icon "
           aria-expanded="true"
           aria-haspopup="true"
-          onClick={() => setShowDropdown(!showDropdown)}
+          onClick={() => setShowNavDropdown(!showNavDropdown)}
         >
           {hamburgerMenuIcon}
         </span>
-        {showDropdown && (
+        {showNavDropdown && (
           <div
-            className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+            className="absolute left-0 z-10 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="menu-button"
             tabIndex={-1}
-            onClick={() => setShowDropdown(!showDropdown)}
+            onClick={() => setShowNavDropdown(!showNavDropdown)}
           >
             <div className="py-1" role="none">
               <a
@@ -45,7 +46,6 @@ const SecondaryNavbar = () => {
                 role="menuitem"
                 tabIndex={-1}
                 id="menu-item-1"
-                onClick={() => setShowDropdown(!showDropdown)}
               >
                 Daily Plan Page
               </a>
@@ -55,17 +55,42 @@ const SecondaryNavbar = () => {
                 role="menuitem"
                 tabIndex={-1}
                 id="menu-item-2"
-                onClick={() => setShowDropdown(!showDropdown)}
               >
                 Image Gallery
               </a>
+            </div>
+          </div>
+        )}
+      </div>
+      <h2 className="heading heading--logo-dark color-p300 cursor-default">
+        Speedy Snail
+      </h2>{" "}
+      <div className="relative">
+        {" "}
+        <span
+          className=" secondary-nav__avatar"
+          aria-expanded="true"
+          aria-haspopup="true"
+          onClick={() => setShowUserDropdown(!showUserDropdown)}
+        >
+          {userAvatar?.icon}
+        </span>
+        {showUserDropdown && (
+          <div
+            className="absolute right-0 mt-2 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="menu-button"
+            tabIndex={-1}
+            onClick={() => setShowNavDropdown(!showUserDropdown)}
+          >
+            <div className="py-1" role="none">
               <a
                 href="/settings"
                 className="block px-4 py-2 text-sm text-gray-700"
                 role="menuitem"
                 tabIndex={-1}
                 id="menu-item-0"
-                onClick={() => setShowDropdown(!showDropdown)}
               >
                 Account settings
               </a>
@@ -86,10 +111,6 @@ const SecondaryNavbar = () => {
           </div>
         )}
       </div>
-      <h2 className="heading heading--logo-dark color-p300 cursor-default">
-        Speedy Snail
-      </h2>{" "}
-      <span className="secondary-nav__avatar">{userAvatar?.icon}</span>
     </nav>
   );
 };
