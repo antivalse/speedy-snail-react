@@ -9,7 +9,7 @@ import {
   DocumentData,
   getFirestore,
 } from "firebase/firestore";
-import { UserInfo } from "../types/User.Types";
+import { UserInfo } from "../types/User.types";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
