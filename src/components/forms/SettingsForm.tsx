@@ -12,24 +12,36 @@ const SettingsForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null); // State to track selected avatar
 
+  // Get user details and update functions from auth context
+  const {
+    email,
+    updateUserEmail,
+    updateUserPassword,
+    updateUserCredentials,
+    deleteUserAccount,
+  } = useAuth();
+
   // Access useForm hook from React hook form
   const {
     handleSubmit,
     register,
     watch,
+    reset,
     formState: { errors },
-  } = useForm<SignupDetails>();
+  } = useForm<SignupDetails>({
+    defaultValues: {
+      email: email ?? "",
+    },
+  });
 
   // Add navigate to send user to today page
   const navigate = useNavigate();
-
-  // Get the signup function from auth context
-  const { user, updateUserEmail, deleteUserAccount } = useAuth();
 
   // Get reference to password
   const passwordRef = useRef("");
   passwordRef.current = watch("password");
 
+  // Handle case where user choses to press delete button to delete their account
   const onDelete = () => {
     alert("Are you sure you want to delete?");
     try {
@@ -42,16 +54,25 @@ const SettingsForm = () => {
     }
   };
 
+  // Handle case where user choses to submit the form and update their information
   const onUpdate: SubmitHandler<SignupDetails> = async (data) => {
     setSubmittingForm(true);
 
     try {
-      await updateUserEmail(data.email);
-      navigate("/today");
+      if (data.email && data.email !== email) {
+        await updateUserEmail(data.email);
+      }
+
+      if (data.password) {
+        await updateUserPassword(data.password);
+      }
     } catch (err) {
       if (err instanceof Error) {
         console.error(err.message);
       }
+
+      updateUserCredentials();
+      reset();
       setSubmittingForm(false);
     }
   };
@@ -77,7 +98,6 @@ const SettingsForm = () => {
             type="email"
             className="form__input-field"
             {...register("email")}
-            placeholder={user?.email || ""}
           />
           {errors.email && <p>{errors.email.message || "Invalid value"}</p>}
         </div>
@@ -114,12 +134,12 @@ const SettingsForm = () => {
                 message: "You have to enter at least 8 characters",
                 value: 8,
               },
-              validate: (passwordValue) => {
-                return (
-                  passwordValue === passwordRef.current ||
-                  "Passwords do not match"
-                );
-              },
+              // validate: (passwordValue) => {
+              //   return (
+              //     passwordValue === passwordRef.current ||
+              //     "Passwords do not match"
+              //   );
+              // },
             })}
           />
           {errors.confirmPassword && (

@@ -104,20 +104,29 @@ export const AuthContextProvider = ({
     await updatePassword(auth.currentUser, newPassword);
   };
 
-  // Update Email
-  const updateUserEmail = (newEmail: string) => {
+  const updateUserEmail = async (newEmail: string) => {
     if (!auth.currentUser) {
       throw new Error("You are not authenticated to perform this action");
     }
 
-    const userRef = doc(usersCollection, auth.currentUser.uid);
-    updateDoc(userRef, {
-      email,
-      updatedAt: serverTimestamp(),
-    });
+    try {
+      // Update email in Firebase Authentication
+      await updateEmail(auth.currentUser, newEmail);
 
-    setEmail(email);
-    return updateEmail(auth.currentUser, newEmail);
+      // Update Firestore after updating Firebase Authentication
+      const userRef = doc(usersCollection, auth.currentUser.uid);
+      await updateDoc(userRef, {
+        email: newEmail,
+        updatedAt: serverTimestamp(),
+      });
+
+      // Update context
+      setEmail(newEmail);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+    }
   };
 
   // Delete User
