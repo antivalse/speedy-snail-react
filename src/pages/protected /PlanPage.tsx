@@ -8,11 +8,10 @@ const PlanPage = () => {
   const date = new Date()
     .toLocaleDateString("en-us", {
       weekday: "long",
-      year: "numeric",
       month: "long",
       day: "numeric",
     })
-    .replace(/,/g, "\u00A0"); // Remove commas
+    .replace(/,/g, "\n"); // Remove commas
 
   const testItems = [
     { id: 1, name: "Eat breakfast", image: PlaceholderImg },
@@ -24,7 +23,9 @@ const PlanPage = () => {
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
-        <h2 className="heading heading--primary mb-10 color-p300">{date}</h2>
+        <h2 className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center">
+          {date}
+        </h2>
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {testItems.map((item) => (
