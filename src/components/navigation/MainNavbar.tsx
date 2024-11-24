@@ -16,13 +16,13 @@ const MainNavbar = () => {
         </h1>
         <p className="body body--secondary color-p200">Getting Stuff Done</p>
       </div>
-      <div className="main-navbar__right flex gap-5 p-5">
+      <div className="main-navbar__right flex gap-5 p-5 mb-20">
         <Button
           scrollToView={true}
           onClick={() => scrollToDiv("login-form")}
           btnText="Login"
           className="btn btn--primary"
-          href={"/"}
+          href={"/login"}
         />
         <Button
           scrollToView={false}

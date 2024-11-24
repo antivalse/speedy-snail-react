@@ -2,7 +2,6 @@
 
 import { Route, Routes } from "react-router-dom";
 import "./scss/main.scss";
-import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -14,6 +13,7 @@ import AccountSettingsPage from "./pages/protected /AccountSettingsPage";
 import PublicLayout from "./layouts/PublicLayout";
 import Footer from "./components/navigation/Footer";
 import ProtectedLayout from "./layouts/ProtectedLayout";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -21,8 +21,9 @@ function App() {
       <Routes>
         {/** Public Routes */}
         <Route element={<PublicLayout />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

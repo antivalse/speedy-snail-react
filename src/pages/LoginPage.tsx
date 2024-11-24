@@ -1,9 +1,9 @@
-/* Home Page */
+/* Login Page */
 
 import LoginForm from "../components/forms/LoginForm";
 
-const HomePage = () => {
+const LoginPage = () => {
   return <LoginForm />;
 };
 
-export default HomePage;
+export default LoginPage;

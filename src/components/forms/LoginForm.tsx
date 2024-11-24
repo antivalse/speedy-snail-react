@@ -1,11 +1,12 @@
 /* Login Form Component */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FirebaseError } from "firebase/app";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SubmitButton from "../buttons/SubmitButton";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
 
 type LoginDetails = {
   email: string;
@@ -43,6 +44,10 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     }
     setSubmittingForm(false);
   };
+
+  useEffect(() => {
+    scrollToDiv("login-form");
+  }, []);
 
   return (
     <div
