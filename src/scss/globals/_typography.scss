@@ -60,9 +60,9 @@ $secondary-400: map-get(map-get(c.$colors, secondary), 400);
     font-family: $josefin-sans;
     font-size: 0.825rem;
     text-transform: uppercase;
+  }
 
-    @include m.breakpoint-up("sm") {
-      font-size: 1.25rem;
-    }
+  @include m.breakpoint-up("sm") {
+    font-size: 1.25rem;
   }
 }

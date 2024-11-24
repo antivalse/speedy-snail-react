@@ -1,0 +1,54 @@
+/* Not Found Page Styles */
+
+@use "../variables/colors" as c;
+@use "../utils/mixins" as m;
+
+$primary-100: map-get(map-get(c.$colors, primary), 100);
+$primary-200: map-get(map-get(c.$colors, primary), 200);
+$primary-300: map-get(map-get(c.$colors, primary), 300);
+
+.not-found {
+  background-color: $primary-300;
+  background-image: url("src/assets/images/logos/speedy_snail_footerlogo.svg");
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  &__content {
+    border-radius: 1.875rem;
+    width: 80%;
+    @include m.breakpoint-up("sm") {
+      width: 40%;
+    }
+    animation: float 10s infinite ease-in-out; // floating animation
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  15% {
+    transform: translate(30px, -50px);
+  }
+  30% {
+    transform: translate(-60px, 40px) rotate(10deg);
+  }
+  45% {
+    transform: translate(70px, -20px) rotate(-8deg);
+  }
+  60% {
+    transform: translate(-80px, 60px);
+  }
+  75% {
+    transform: translate(50px, -70px) rotate(5deg);
+  }
+  90% {
+    transform: translate(-30px, 80px) rotate(-12deg);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}

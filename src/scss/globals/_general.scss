@@ -24,6 +24,10 @@ body {
   max-width: 1600px;
   min-height: 100vh;
   font-family: $josefin-sans;
+
+  &::-webkit-scrollbar {
+    display: none; // For Chrome, Safari, and Edge
+  }
 }
 
 a {
@@ -42,5 +46,5 @@ a {
   z-index: 2;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
