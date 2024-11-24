@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logos/speedy_snail_logo.svg";
 import Button from "../buttons/Button";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
 
 const MainNavbar = () => {
   return (
@@ -17,13 +18,14 @@ const MainNavbar = () => {
       </div>
       <div className="main-navbar__right flex gap-5 p-5">
         <Button
-          hasLink={true}
+          scrollToView={true}
+          onClick={() => scrollToDiv("login-form")}
           btnText="Login"
           className="btn btn--primary"
           href={"/"}
         />
         <Button
-          hasLink={true}
+          scrollToView={false}
           btnText="Sign-up"
           className="btn btn--secondary"
           href={"/signup"}

@@ -1,12 +1,13 @@
 /* Signup Form Component */
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import SubmitButton from "../buttons/SubmitButton";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { avatars } from "../../assets/icons";
 import { SignupDetails } from "../../types/User.types";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
 
 const SignupForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
@@ -48,8 +49,15 @@ const SignupForm = () => {
     setSelectedAvatar(id);
   };
 
+  useEffect(() => {
+    scrollToDiv("signup-form");
+  }, []);
+
   return (
-    <div className="form container mx-auto p-12 flex flex-col items-center gap-12">
+    <div
+      id="signup-form"
+      className="form container mx-auto p-12 flex flex-col items-center gap-12"
+    >
       <h2 className="heading heading--primary color-p300">
         Let&apos;s get started!
       </h2>
