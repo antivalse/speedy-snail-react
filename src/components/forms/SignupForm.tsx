@@ -10,7 +10,7 @@ import { SignupDetails } from "../../types/User.types";
 
 const SignupForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
-  const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null); // State to track selected avatar
+  const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null);
 
   // Access useForm hook from React hook form
   const {
@@ -34,7 +34,7 @@ const SignupForm = () => {
     setSubmittingForm(true);
 
     try {
-      await signup(data.email, data.password, data.avatarId);
+      await signup(data.email, data.password, data.username, data.avatarId);
       navigate("/today");
     } catch (err) {
       if (err instanceof Error) {
@@ -45,7 +45,7 @@ const SignupForm = () => {
   };
 
   const handleAvatarSelect = (id: number) => {
-    setSelectedAvatar(id); // Update the selected avatar on click
+    setSelectedAvatar(id);
   };
 
   return (
@@ -58,6 +58,21 @@ const SignupForm = () => {
         className="flex flex-col gap-6 w-full max-w-md"
       >
         {" "}
+        <div className="flex flex-col gap-2 w-full">
+          <label className="color-p300 text-left"> Username</label>
+          <input
+            type="text"
+            className="form__input-field"
+            {...register("username", {
+              required: "Please enter a username",
+              minLength: {
+                message: "Please choose a username with at least 3 characters",
+                value: 3,
+              },
+            })}
+          />
+          {errors.email && <p>{errors.email.message || "Invalid value"}</p>}
+        </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="color-p300 text-left" htmlFor="email">
             {" "}

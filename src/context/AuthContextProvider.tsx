@@ -32,13 +32,15 @@ export const AuthContextProvider = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
-  const [userName, setUserName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
+
+  console.log("user is: ", user);
 
   // Sign up the user
   const signup = async (
     email: string,
     password: string,
+    username: string,
     selectedAvatar: number
   ) => {
     const userCredential = await createUserWithEmailAndPassword(
@@ -46,12 +48,14 @@ export const AuthContextProvider = ({
       email,
       password
     );
-    const user = userCredential.user;
 
+    const user = userCredential.user;
     const userDocRef = doc(usersCollection, user.uid);
+
     setDoc(userDocRef, {
       uid: user.uid,
       email: user.email || "",
+      username: username,
       avatar: selectedAvatar,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
@@ -83,17 +87,17 @@ export const AuthContextProvider = ({
     return sendPasswordResetEmail(auth, email);
   };
 
-  // Update user credentials
+  // // Update user credentials
 
-  const updateUserCredentials = () => {
-    if (!auth.currentUser) {
-      return false;
-    }
+  // const updateUserCredentials = () => {
+  //   if (!auth.currentUser) {
+  //     return false;
+  //   }
 
-    setUserName(auth.currentUser.displayName);
-    setEmail(auth.currentUser.email);
-    return true;
-  };
+  //   setUserName(auth.currentUser.displayName);
+  //   setEmail(auth.currentUser.email);
+  //   return true;
+  // };
 
   // Update Password
   const updateUserPassword = async (newPassword: string) => {
@@ -188,10 +192,8 @@ export const AuthContextProvider = ({
       setUser(authUser);
 
       if (authUser) {
-        setUserName(authUser.displayName);
         setEmail(authUser.email);
       } else {
-        setUserName(null);
         setEmail(null);
       }
       setLoading(false);
@@ -202,7 +204,6 @@ export const AuthContextProvider = ({
   return (
     <AuthContext.Provider
       value={{
-        userName,
         email,
         user,
         loading,
@@ -213,7 +214,7 @@ export const AuthContextProvider = ({
         updateUserPassword,
         updateUserEmail,
         updateUserAvatar,
-        updateUserCredentials,
+        // updateUserCredentials,
         deleteUserAccount,
         reAuthenticateUser,
       }}

@@ -8,12 +8,14 @@ export type UserInfo = {
   email: string;
   uid: string;
   updatedAt: Timestamp;
+  username: string;
 };
 
 export type SignupDetails = {
   email: string;
   password: string;
   confirmPassword: string;
+  username: string;
   avatarId: number;
 };
 

@@ -2,8 +2,12 @@
 
 import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import AddImage from "../../components/ui/AddImage";
+import useGetUser from "../../hooks/useGetUser";
 
 const PlanPage = () => {
+  // Get username
+
+  const { data } = useGetUser();
   // Get today's date
   const date = new Date()
     .toLocaleDateString("en-us", {
@@ -26,6 +30,10 @@ const PlanPage = () => {
         <h2 className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center">
           {date}
         </h2>
+
+        <p className="m-5">
+          Welcome {data?.username}! What do you want to do today?
+        </p>
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {testItems.map((item) => (

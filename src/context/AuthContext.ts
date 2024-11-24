@@ -5,12 +5,12 @@ import { User, UserCredential } from "firebase/auth";
 
 interface AuthContextType {
   email: string | null;
-  userName: string | null;
   user: User | null;
   loading: boolean;
   signup: (
     email: string,
     password: string,
+    username: string,
     selectedAvatar: number
   ) => Promise<UserCredential>;
   login: (email: string, password: string) => Promise<UserCredential>;
@@ -19,7 +19,7 @@ interface AuthContextType {
   updateUserPassword: (newPassword: string) => Promise<void>;
   updateUserEmail: (newEmail: string) => Promise<void>;
   updateUserAvatar: (newAvatarId: number) => Promise<void>;
-  updateUserCredentials: () => boolean;
+  // updateUserCredentials: () => boolean;
   deleteUserAccount: () => Promise<void>;
   reAuthenticateUser: (password: string) => Promise<void>;
 }
