@@ -9,7 +9,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
 
 .not-found {
   background-color: $primary-300;
-  background-image: url("src/assets/images/logos/speedy_snail_footerlogo.svg");
+  background-image: url("/Applications/MAMP/htdocs/FED23 code-stuffs/fed23-examensarbete/speedy-snail-react/src/assets/images/logos/speedy_snail_footerlogo.svg");
   width: 100vw;
   height: 100vh;
   position: fixed;
