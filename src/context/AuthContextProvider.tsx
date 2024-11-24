@@ -87,18 +87,6 @@ export const AuthContextProvider = ({
     return sendPasswordResetEmail(auth, email);
   };
 
-  // // Update user credentials
-
-  // const updateUserCredentials = () => {
-  //   if (!auth.currentUser) {
-  //     return false;
-  //   }
-
-  //   setUserName(auth.currentUser.displayName);
-  //   setEmail(auth.currentUser.email);
-  //   return true;
-  // };
-
   // Update Password
   const updateUserPassword = async (newPassword: string) => {
     if (!auth.currentUser) {

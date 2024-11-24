@@ -19,7 +19,6 @@ interface AuthContextType {
   updateUserPassword: (newPassword: string) => Promise<void>;
   updateUserEmail: (newEmail: string) => Promise<void>;
   updateUserAvatar: (newAvatarId: number) => Promise<void>;
-  // updateUserCredentials: () => boolean;
   deleteUserAccount: () => Promise<void>;
   reAuthenticateUser: (password: string) => Promise<void>;
 }
