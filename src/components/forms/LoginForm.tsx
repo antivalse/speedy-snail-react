@@ -103,7 +103,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           />
         </form>
       </div>
-      {showModal && <ForgotPassword />}
+      {showModal && <ForgotPassword setShowModal={setShowModal} />}
     </>
   );
 };

@@ -26,6 +26,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
     border-radius: 0.938rem;
     font-size: 2rem;
     padding: 1rem;
+    text-align: center;
     &:focus {
       outline: none;
       border: 0.15rem solid $primary-300;

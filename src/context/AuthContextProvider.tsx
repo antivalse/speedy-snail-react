@@ -84,6 +84,7 @@ export const AuthContextProvider = ({
 
   // Reset Password
   const resetPassword = (email: string) => {
+    setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
 
@@ -195,6 +196,7 @@ export const AuthContextProvider = ({
         email,
         user,
         loading,
+        setLoading,
         signup,
         login,
         logout,
