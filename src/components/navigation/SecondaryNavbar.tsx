@@ -15,7 +15,7 @@ const SecondaryNavbar = () => {
   const { logout } = useAuth();
 
   // Get the avatar id from useGetUser hook
-  const { avatarId, loading } = useGetUser();
+  const { data, avatarId, loading } = useGetUser();
 
   // Find user avatar and render in navbar
   const userAvatar = avatars.find((item) => item.id == avatarId);
@@ -97,7 +97,15 @@ const SecondaryNavbar = () => {
               tabIndex={-1}
               onClick={() => setShowNavDropdown(!showUserDropdown)}
             >
-              <div className="py-1" role="none">
+              <div role="none">
+                <p
+                  className="block px-4 py-2 text-sm text-gray-700 bg-s500"
+                  role="menuitem"
+                  tabIndex={-1}
+                  id="menu-item-0"
+                >
+                  {data?.username}
+                </p>
                 <a
                   href="/settings"
                   className="block px-4 py-2 text-sm text-gray-700"
