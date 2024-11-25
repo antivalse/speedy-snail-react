@@ -90,7 +90,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           <p className="mt-5">
             Forgot your password?{" "}
             <span
-              className="underline cursor-pointer"
+              className="form__reset underline cursor-pointer"
               onClick={() => setShowModal(true)}
             >
               Click here to reset

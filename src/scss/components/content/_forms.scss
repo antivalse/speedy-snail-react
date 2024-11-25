@@ -33,6 +33,12 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
     }
   }
 
+  &__reset {
+    &:hover {
+      color: $primary-200;
+    }
+  }
+
   &__avatars {
     width: 120%;
 
