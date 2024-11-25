@@ -62,6 +62,15 @@ const SecondaryNavbar = () => {
                 >
                   Image Gallery
                 </a>
+                <a
+                  href="/add-image"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex={-1}
+                  id="menu-item-2"
+                >
+                  Add New Image
+                </a>
               </div>
             </div>
           )}

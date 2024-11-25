@@ -1,7 +1,19 @@
 /* Image Gallery Page Styles */
 
 .image-gallery {
+  &__sorting {
+    .btn--sort {
+      transition: background-color 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        background-color: $secondary-200;
+      }
+    }
+  }
   &__images {
+    &__li {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
     &__image {
       height: 10.469rem;
       object-fit: cover;
