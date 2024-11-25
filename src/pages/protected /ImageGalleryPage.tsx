@@ -9,7 +9,7 @@ import useGetCategories from "../../hooks/useGetCategories";
 
 const ImageGalleryPage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
   // Get image data from Firebase and store in variable
   const images = useGetImages();
@@ -25,7 +25,7 @@ const ImageGalleryPage = () => {
       <div className="image-gallery bg-p100 p-10">
         <div className="image-gallery__sorting flex justify-between items-center">
           <h2 className="heading heading--primary color-p300 py-3">
-            Category: All
+            Category: {activeCategory}
           </h2>
           <div className="relative">
             <button
@@ -53,6 +53,7 @@ const ImageGalleryPage = () => {
                       role="menuitem"
                       tabIndex={-1}
                       id="menu-item-1"
+                      onClick={() => setActiveCategory(item.title)}
                     >
                       {item.title}
                     </li>
