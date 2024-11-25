@@ -19,13 +19,24 @@ const ImageGalleryPage = () => {
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
-  console.log("categories are: ", categories);
+  // Filter images array based on active category
+  const filteredImages = imageArray?.filter(
+    (image) => image.category === activeCategory
+  );
+
+  // Determine images to display based on active category unless active category is default "All"
+  const imagesToDisplay =
+    activeCategory !== "All" ? filteredImages : imageArray;
+
+  console.log("active category is", activeCategory);
+  console.log("filtered images: ", filteredImages);
+
   return (
     <>
       <div className="image-gallery bg-p100 p-10">
         <div className="image-gallery__sorting flex justify-between items-center">
           <h2 className="heading heading--primary color-p300 py-3">
-            Category: {activeCategory}
+            Category: <span className="color-p200">{activeCategory}</span>
           </h2>
           <div className="relative">
             <button
@@ -46,6 +57,16 @@ const ImageGalleryPage = () => {
                 onClick={() => setShowCategories(!showCategories)}
               >
                 <ul className="py-1" role="none">
+                  <li
+                    key="default_category"
+                    className="block px-4 py-2 text-sm color-p300 cursor-pointer"
+                    role="menuitem"
+                    tabIndex={-1}
+                    id="menu-item-1"
+                    onClick={() => setActiveCategory("All")}
+                  >
+                    All
+                  </li>
                   {categoriesArray?.map((item) => (
                     <li
                       key={item._id}
@@ -64,7 +85,7 @@ const ImageGalleryPage = () => {
           </div>
         </div>
         <ul className="image-gallery__images grid grid-cols-1 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 my-10">
-          {imageArray?.map((item, index) => (
+          {imagesToDisplay?.map((item, index) => (
             <li
               key={index}
               className="image-gallery__images__li flex flex-col items-center bg-p50 pb-5 cursor-pointer"
