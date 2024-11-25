@@ -12,6 +12,7 @@
   }
   &__images {
     &__li {
+      border-radius: 1.875rem;
       transition: transform 0.5s ease, box-shadow 0.3s ease;
       &:hover {
         transform: translateY(-0.625rem); // Move the card up on hover
