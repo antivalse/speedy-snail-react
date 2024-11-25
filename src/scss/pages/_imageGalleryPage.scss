@@ -1,0 +1,10 @@
+/* Image Gallery Page Styles */
+
+.image-gallery {
+  &__images {
+    &__image {
+      height: 10.469rem;
+      object-fit: cover;
+    }
+  }
+}

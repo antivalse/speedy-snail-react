@@ -26,7 +26,7 @@ const ImageGalleryPage = () => {
             icon={arrowDown}
           />
         </div>
-        <ul className="image-gallery__images grid grid-cols-1 sm:grid-cols-2 gap-6 md:grid-cols-3 my-10">
+        <ul className="image-gallery__images grid grid-cols-1 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 my-10">
           {imageArray?.map((item, index) => (
             <li key={index} className="flex flex-col items-center">
               <h3 className="body body--secondary color-p200 my-5">
