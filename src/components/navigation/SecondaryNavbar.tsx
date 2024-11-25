@@ -17,6 +17,7 @@ const SecondaryNavbar = () => {
   // Get the avatar id from useGetUser hook
   const { avatarId, loading } = useGetUser();
 
+  // Find user avatar and render in navbar
   const userAvatar = avatars.find((item) => item.id == avatarId);
 
   return (
@@ -26,7 +27,7 @@ const SecondaryNavbar = () => {
         <div className="relative">
           {" "}
           <span
-            className="hamburger-icon "
+            className="hamburger-icon"
             aria-expanded="true"
             aria-haspopup="true"
             onClick={() => setShowNavDropdown(!showNavDropdown)}
