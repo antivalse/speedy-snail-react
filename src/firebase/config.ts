@@ -10,6 +10,7 @@ import {
   getFirestore,
 } from "firebase/firestore";
 import { UserInfo } from "../types/User.types";
+import { Image } from "../types/Image.types";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -35,7 +36,6 @@ const createCollection = <T = DocumentData>(collectionType: string) => {
 };
 
 export const usersCollection = createCollection<UserInfo>("users");
-export const publicImagesCollection = createCollection("public_images");
-export const privateImagesCollection = createCollection("private_images");
+export const imagesCollection = createCollection<Image>("images");
 
 export default app;

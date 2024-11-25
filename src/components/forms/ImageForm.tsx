@@ -43,7 +43,10 @@ const ImageForm: React.FC<ImageFormProps> = ({
         </label>
         <input type="text" className="form__input-field" />
 
-        <SubmitButton btnText={btnText} />
+        <SubmitButton
+          className="btn btn--submit self-center"
+          btnText={btnText}
+        />
       </form>
     </div>
   );

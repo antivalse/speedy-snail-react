@@ -2,38 +2,16 @@
 
 import { Link } from "react-router-dom";
 import { arrowDown } from "../../assets/icons";
-import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import Button from "../../components/buttons/Button";
 import Pagination from "../../utils/Pagination";
+import useGetImages from "../../hooks/useGetImages";
+import AddImage from "../../components/ui/AddImage";
 
 const ImageGalleryPage = () => {
-  const testItems = [
-    { id: 1, name: "Eat breakfast", category: "food", image: PlaceholderImg },
-    {
-      id: 2,
-      name: "Eat more breakfast",
-      category: "food",
-      image: PlaceholderImg,
-    },
-    {
-      id: 3,
-      name: "Eat breakfast again",
-      category: "school",
-      image: PlaceholderImg,
-    },
-    {
-      id: 4,
-      name: "Eat last breakfast",
-      category: "play",
-      image: PlaceholderImg,
-    },
-    {
-      id: 5,
-      name: "Go shopping",
-      category: "activities",
-      image: PlaceholderImg,
-    },
-  ];
+  const images = useGetImages();
+  const imageArray = images.data;
+
+  console.log("images are: ", images);
   return (
     <>
       <div className="image-gallery bg-p100 p-10">
@@ -42,27 +20,28 @@ const ImageGalleryPage = () => {
             Category: All
           </h2>
           <Button
-            hasLink={false}
+            scrollToView={false}
             btnText="SORT"
             className="btn btn--sort flex justify-center items-center gap-2"
             icon={arrowDown}
           />
         </div>
         <ul className="image-gallery__images grid grid-cols-1 sm:grid-cols-2 gap-6 md:grid-cols-3 my-10">
-          {testItems.map((item) => (
-            <li key={item.id} className="flex flex-col items-center">
+          {imageArray?.map((item, index) => (
+            <li key={index} className="flex flex-col items-center">
               <h3 className="body body--secondary color-p200 my-5">
-                {item.name}
+                {item.title}
               </h3>
               <Link to={"/edit-image"}>
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={item.url}
+                  alt={item.title}
                   className="image-gallery__images__image cursor-pointer"
                 />
               </Link>
             </li>
           ))}
+          <AddImage />
         </ul>
         <Pagination />
       </div>
