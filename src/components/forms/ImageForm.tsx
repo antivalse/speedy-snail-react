@@ -59,7 +59,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
     e.preventDefault(); // Prevent form reload
 
     if (file.file) {
-      uploadImage(file.file, user?.uid, selectedCategory);
+      uploadImage(file.file, user?.uid, selectedCategory, title);
     }
   };
 
