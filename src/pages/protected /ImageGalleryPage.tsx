@@ -9,7 +9,7 @@ import useGetCategories from "../../hooks/useGetCategories";
 
 const ImageGalleryPage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("All Images");
 
   // Get image data from Firebase and store in variable
   const images = useGetImages();
@@ -26,7 +26,7 @@ const ImageGalleryPage = () => {
 
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
-    activeCategory !== "All" ? filteredImages : imageArray;
+    activeCategory !== "All Images" ? filteredImages : imageArray;
 
   console.log("active category is", activeCategory);
   console.log("filtered images: ", filteredImages);
@@ -63,7 +63,7 @@ const ImageGalleryPage = () => {
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-1"
-                    onClick={() => setActiveCategory("All")}
+                    onClick={() => setActiveCategory("All Images")}
                   >
                     All
                   </li>
