@@ -11,7 +11,11 @@ export const useUploadImage = () => {
   const [error, setError] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const uploadImage = async (file: File, uid: string, category: string) => {
+  const uploadImage = async (
+    file: File,
+    uid: string | undefined,
+    category: string | null
+  ) => {
     setIsUploading(true);
     setError(null);
 
@@ -38,7 +42,7 @@ export const useUploadImage = () => {
         userId: isDefaultImage ? "" : uid,
         url: downloadURL,
         title: file.name,
-        category: category,
+        category: category || "",
         isDefault: false,
       };
 

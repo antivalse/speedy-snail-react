@@ -5,6 +5,8 @@ import { arrowDown, editImageIcon, plusIcon } from "../../assets/icons";
 import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
+import { useUploadImage } from "../../hooks/useUploadImage";
+import useAuth from "../../hooks/useAuth";
 
 interface ImageFormProps {
   heading: string;
@@ -19,16 +21,30 @@ const ImageForm: React.FC<ImageFormProps> = ({
 }) => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [file, setFile] = useState<string | null>(null);
-
+  const [title, setTitle] = useState<string | null>(null);
+  const [file, setFile] = useState<{
+    file: File | null;
+    preview: string | null;
+  }>({
+    file: null,
+    preview: null,
+  });
+  // Access user
+  const { user } = useAuth();
   // Get categories from database
   const { data } = useGetCategories();
+
+  // Access upload image hook
+  const { uploadImage } = useUploadImage();
 
   // Handle change on image input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
-      setFile(URL.createObjectURL(selectedFile));
+      setFile({
+        file: selectedFile,
+        preview: URL.createObjectURL(selectedFile),
+      });
     }
   };
 
@@ -38,16 +54,25 @@ const ImageForm: React.FC<ImageFormProps> = ({
     setShowCategories(false);
   };
 
+  // Handle form submittion
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent form reload
+
+    if (file.file) {
+      uploadImage(file.file, user?.uid, selectedCategory);
+    }
+  };
+
   return (
     <div className="form mx-auto p-12 flex flex-col items-center gap-12">
       <h2 className="heading heading--primary color-p300">{heading}</h2>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {isAddNew ? (
           <div>
             <h3>Image</h3>
-            {file ? (
+            {file.preview ? (
               <img
-                src={file}
+                src={file.preview}
                 alt="Uploaded Preview"
                 className="form__add-image"
               />
@@ -82,6 +107,8 @@ const ImageForm: React.FC<ImageFormProps> = ({
           className="form__input-field"
           required={isAddNew}
           minLength={3}
+          value={title || ""}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <div className="relative">
           <div
@@ -125,6 +152,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
         <SubmitButton
           className="btn btn--submit self-center"
           btnText={btnText}
+          onClick={() => handleSubmit}
         />
       </form>
     </div>
