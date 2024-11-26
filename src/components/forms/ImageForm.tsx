@@ -55,12 +55,23 @@ const ImageForm: React.FC<ImageFormProps> = ({
   };
 
   // Handle form submittion
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent form reload
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (file.file) {
-      uploadImage(file.file, user?.uid, selectedCategory, title);
+    if (!file.file) {
+      console.error("No file selected.");
+      return; // Prevent submission if no file is selected
     }
+
+    // Call the uploadImage function
+    await uploadImage(file.file, user?.uid, selectedCategory, title);
+
+    // Reset form state after the upload attempt
+    setSelectedCategory(null);
+    setFile({ file: null, preview: null });
+    setTitle(null);
+
+    console.log("Form successfully submitted and reset.");
   };
 
   return (
@@ -74,7 +85,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
               <img
                 src={file.preview}
                 alt="Uploaded Preview"
-                className="form__add-image"
+                className="form__add-image bg-p100"
               />
             ) : (
               <label
