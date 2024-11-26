@@ -34,7 +34,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
         {isAddNew ? (
           <div>
             <h3>Image</h3>
-            <div className="form__add-image bg-p100 flex justify-center items-center mt-3">
+            <div className="form__add-image bg-p100 flex justify-center items-center mt-3 cursor-pointer">
               <span>{plusIcon}</span>
             </div>
           </div>
