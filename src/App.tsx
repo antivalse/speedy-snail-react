@@ -33,7 +33,7 @@ function App() {
           <Route path="/today" element={<PlanPage />} />
           <Route path="/image-gallery" element={<ImageGalleryPage />} />
           <Route path="/add-image" element={<AddNewImagePage />} />
-          <Route path="/edit-image" element={<EditImagePage />} />
+          <Route path="/edit-image/:id" element={<EditImagePage />} />
           <Route path="/settings" element={<AccountSettingsPage />} />
         </Route>
       </Routes>

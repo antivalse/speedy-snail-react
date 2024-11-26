@@ -1,11 +1,11 @@
 /* Image Gallery Page */
 
-import { Link } from "react-router-dom";
 import { arrowDown } from "../../assets/icons";
 import Pagination from "../../utils/Pagination";
 import useGetImages from "../../hooks/useGetImages";
 import { useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";
+import { Link } from "react-router-dom";
 
 const ImageGalleryPage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
@@ -23,7 +23,6 @@ const ImageGalleryPage = () => {
     (image) => image.category === activeCategory
   );
 
-  console.log("data is: ", data);
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
     activeCategory !== "All Images" ? filteredImages : data;
@@ -90,7 +89,7 @@ const ImageGalleryPage = () => {
               <h3 className="body body--secondary color-p200 my-5">
                 {item.title}
               </h3>
-              <Link to={"/edit-image"}>
+              <Link to={`/edit-image/${item._id}`}>
                 <img
                   src={item.url}
                   alt={item.title}

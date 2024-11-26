@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { arrowDown, editImageIcon, plusIcon } from "../../assets/icons";
-import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
 import { useUploadImage } from "../../hooks/useUploadImage";
@@ -13,12 +12,15 @@ interface ImageFormProps {
   heading: string;
   btnText: string;
   isAddNew: boolean;
+  imgUrl?: string;
+  imgAlt?: string;
 }
 
 const ImageForm: React.FC<ImageFormProps> = ({
   heading,
   btnText,
   isAddNew,
+  imgUrl,
 }) => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -116,7 +118,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
             <span className="absolute top-2 right-2 cursor-pointer">
               {editImageIcon}
             </span>
-            <img src={PlaceholderImg} alt="Image" />
+            <img src={imgUrl} alt="Image" className="form__add-image" />
           </div>
         )}
         <label className="color-p300" htmlFor="title">
