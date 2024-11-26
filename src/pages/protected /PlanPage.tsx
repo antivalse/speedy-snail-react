@@ -32,7 +32,7 @@ const PlanPage = () => {
         </h2>
 
         <p className="m-5">
-          Welcome {data?.username}! What do you want to do today?
+          Hello there, {data?.username}! What do you want to do today?
         </p>
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">

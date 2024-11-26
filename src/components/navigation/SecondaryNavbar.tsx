@@ -69,7 +69,7 @@ const SecondaryNavbar = () => {
                   tabIndex={-1}
                   id="menu-item-2"
                 >
-                  Add New Image
+                  Add Image
                 </a>
               </div>
             </div>
