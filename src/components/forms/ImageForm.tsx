@@ -49,7 +49,12 @@ const ImageForm: React.FC<ImageFormProps> = ({
         <label className="color-p300" htmlFor="title">
           Title
         </label>
-        <input type="text" className="form__input-field" />
+        <input
+          type="text"
+          className="form__input-field"
+          required={isAddNew}
+          minLength={3}
+        />
         <div className="relative">
           <div
             className="form-dropdown flex items-center justify-center cursor-pointer"
