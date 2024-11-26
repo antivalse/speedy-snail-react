@@ -7,6 +7,7 @@ import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
 import { useUploadImage } from "../../hooks/useUploadImage";
 import useAuth from "../../hooks/useAuth";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 interface ImageFormProps {
   heading: string;
@@ -35,7 +36,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
   const { data } = useGetCategories();
 
   // Access upload image hook
-  const { uploadImage } = useUploadImage();
+  const { uploadImage, isUploading } = useUploadImage();
 
   // Handle change on image input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +64,12 @@ const ImageForm: React.FC<ImageFormProps> = ({
       return; // Prevent submission if no file is selected
     }
 
+    // Validate category selection
+    if (!selectedCategory) {
+      console.error("Please select a category.");
+      return;
+    }
+
     // Call the uploadImage function
     await uploadImage(file.file, user?.uid, selectedCategory, title);
 
@@ -76,6 +83,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
 
   return (
     <div className="form mx-auto p-12 flex flex-col items-center gap-12">
+      {isUploading && <LoadingSpinner />}
       <h2 className="heading heading--primary color-p300">{heading}</h2>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {isAddNew ? (
