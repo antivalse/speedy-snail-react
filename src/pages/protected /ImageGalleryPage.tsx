@@ -12,21 +12,21 @@ const ImageGalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
 
   // Get image data from Firebase and store in variable
-  const images = useGetImages();
-  const imageArray = images.data;
+  const { data } = useGetImages();
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
   // Filter images array based on active category
-  const filteredImages = imageArray?.filter(
+  const filteredImages = data?.filter(
     (image) => image.category === activeCategory
   );
 
+  console.log("data is: ", data);
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : imageArray;
+    activeCategory !== "All Images" ? filteredImages : data;
 
   return (
     <>

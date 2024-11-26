@@ -32,6 +32,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
   });
   // Access user
   const { user } = useAuth();
+
   // Get categories from database
   const { data } = useGetCategories();
 
