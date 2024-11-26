@@ -28,9 +28,6 @@ const ImageGalleryPage = () => {
   const imagesToDisplay =
     activeCategory !== "All Images" ? filteredImages : imageArray;
 
-  console.log("active category is", activeCategory);
-  console.log("filtered images: ", filteredImages);
-
   return (
     <>
       <div className="image-gallery bg-p100 p-10">
