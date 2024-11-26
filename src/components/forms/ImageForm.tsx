@@ -19,9 +19,20 @@ const ImageForm: React.FC<ImageFormProps> = ({
 }) => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [file, setFile] = useState<string | null>(null);
+
   // Get categories from database
   const { data } = useGetCategories();
 
+  // Handle change on image input
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      setFile(URL.createObjectURL(selectedFile));
+    }
+  };
+
+  // Handle selection of category in dropdown
   const handleSelect = (category: string) => {
     setSelectedCategory(category);
     setShowCategories(false);
@@ -34,9 +45,26 @@ const ImageForm: React.FC<ImageFormProps> = ({
         {isAddNew ? (
           <div>
             <h3>Image</h3>
-            <div className="form__add-image bg-p100 flex justify-center items-center mt-3 cursor-pointer">
-              <span>{plusIcon}</span>
-            </div>
+            {file ? (
+              <img
+                src={file}
+                alt="Uploaded Preview"
+                className="form__add-image"
+              />
+            ) : (
+              <label
+                htmlFor="file-upload"
+                className="form__add-image bg-p100 flex justify-center items-center mt-3 border-dotted border-2 cursor-pointer"
+              >
+                <span>{plusIcon}</span>
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden" // Hide the input but keep it accessible
+                  onChange={handleChange}
+                />
+              </label>
+            )}
           </div>
         ) : (
           <div className="relative">
@@ -70,7 +98,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
           </div>
           {showCategories && (
             <div
-              className="absolute right-3 mt-2 z-10 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+              className="absolute right-3 mt-2 z-10 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
               role="listbox"
               aria-orientation="vertical"
               aria-labelledby="menu-button"

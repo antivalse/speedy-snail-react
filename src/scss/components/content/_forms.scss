@@ -59,7 +59,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
   &__add-image {
     height: 15.25rem;
     border-radius: 0.938rem;
-    border: 1px dotted $primary-300;
+    object-fit: contain;
   }
 }
 
