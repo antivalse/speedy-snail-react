@@ -60,6 +60,12 @@ $secondary-400: map-get(map-get(c.$colors, secondary), 400);
     font-family: $josefin-sans;
     font-size: 0.825rem;
     text-transform: uppercase;
+
+    &--greeting {
+      &:hover {
+        font-weight: 800;
+      }
+    }
   }
 
   @include m.breakpoint-up("sm") {

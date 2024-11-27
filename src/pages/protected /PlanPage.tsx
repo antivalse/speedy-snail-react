@@ -29,9 +29,11 @@ const PlanPage = () => {
           {date}
         </h2>
 
-        <p className="m-5">
-          Hello there, {data?.username}! What do you want to do today?
-        </p>
+        <div className="plan-page__greeting mb-8">
+          <p className="p-3 body body--secondary--greeting color-p300 text-center">
+            Hello there, {data?.username}! What do you want to do today?
+          </p>
+        </div>
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {testItems.map((item) => (
