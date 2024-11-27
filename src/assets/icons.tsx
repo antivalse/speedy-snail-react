@@ -14,8 +14,8 @@ export const facebookIcon = (
       <path
         className="social-media-icon-background"
         d="M32 63C49.1208 63 63 49.1208 63 32C63 14.8792 49.1208 1 32 1C14.8792 1 1 14.8792 1 32C1 49.1208 14.8792 63 32 63Z"
-        fill="#4F453E"
-        stroke="#F6F1E3"
+        fill="#94b3b3"
+        stroke="#4F453E"
         strokeWidth="2"
       />
       <mask
@@ -58,8 +58,8 @@ export const instagramIcon = (
       <path
         className="social-media-icon-background"
         d="M32 63C49.1208 63 63 49.1208 63 32C63 14.8792 49.1208 1 32 1C14.8792 1 1 14.8792 1 32C1 49.1208 14.8792 63 32 63Z"
-        fill="#4F453E"
-        stroke="#F6F1E3"
+        fill="#94b3b3"
+        stroke="#4F453E"
         strokeWidth="2"
       />
       <mask
