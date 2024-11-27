@@ -3,15 +3,17 @@
 import { useState, useRef, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import SubmitButton from "../buttons/SubmitButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { avatars } from "../../assets/icons";
 import { SignupDetails } from "../../types/User.types";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import { FirebaseError } from "firebase/app";
 
 const SignupForm = () => {
   const [submittingForm, setSubmittingForm] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Access useForm hook from React hook form
   const {
@@ -39,7 +41,11 @@ const SignupForm = () => {
       navigate("/today");
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(err.message);
+      } else if (err instanceof FirebaseError) {
+        setError(err.message);
+      } else {
+        setError("Something unexpected happened, please try again later");
       }
       setSubmittingForm(false);
     }
@@ -180,6 +186,19 @@ const SignupForm = () => {
           submittingForm={submittingForm}
         />
       </form>
+      {error && error.length > 0 && (
+        <div
+          className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <p>
+            {error} Go to{" "}
+            <Link className="form__reset underline color-p300" to="/login">
+              login
+            </Link>
+          </p>
+        </div>
+      )}
     </div>
   );
 };
