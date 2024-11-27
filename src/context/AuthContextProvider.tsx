@@ -204,7 +204,6 @@ export const AuthContextProvider = ({
         updateUserPassword,
         updateUserEmail,
         updateUserAvatar,
-        // updateUserCredentials,
         deleteUserAccount,
         reAuthenticateUser,
       }}

@@ -14,6 +14,8 @@ const ImageGalleryPage = () => {
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();
 
+  console.log("data is: ", data);
+
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
   const categoriesArray = categories.data;

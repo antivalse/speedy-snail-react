@@ -5,8 +5,6 @@ import AddImage from "../../components/ui/AddImage";
 import useGetUser from "../../hooks/useGetUser";
 
 const PlanPage = () => {
-  // Get username
-
   const { data } = useGetUser();
   // Get today's date
   const date = new Date()
