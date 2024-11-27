@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FirebaseError } from "firebase/app";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import SubmitButton from "../buttons/SubmitButton";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
@@ -19,8 +19,9 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = () => {
-  const [submittingForm, setSubmittingForm] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [submittingForm, setSubmittingForm] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -38,10 +39,10 @@ const LoginForm: React.FC<LoginFormProps> = () => {
       navigate("/today");
     } catch (err) {
       if (err instanceof FirebaseError) {
-        alert(err.message);
+        setError(err.message);
       }
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(err.message);
       }
     }
     setSubmittingForm(false);
@@ -102,6 +103,19 @@ const LoginForm: React.FC<LoginFormProps> = () => {
             className="btn btn--submit self-center cursor-pointer"
           />
         </form>
+        {error && error.length > 0 && (
+          <div
+            className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            <p>
+              {error} Try again or{" "}
+              <Link className="form__reset underline color-p300" to="/signup">
+                go to signup
+              </Link>{" "}
+            </p>
+          </div>
+        )}
       </div>
       {showModal && <ForgotPassword setShowModal={setShowModal} />}
     </>

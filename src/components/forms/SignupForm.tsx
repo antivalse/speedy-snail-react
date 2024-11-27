@@ -192,10 +192,11 @@ const SignupForm = () => {
           role="alert"
         >
           <p>
-            {error} Go to{" "}
+            {error} Try{" "}
             <Link className="form__reset underline color-p300" to="/login">
-              login
-            </Link>
+              logging in
+            </Link>{" "}
+            instead?
           </p>
         </div>
       )}
