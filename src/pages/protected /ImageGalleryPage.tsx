@@ -6,15 +6,15 @@ import useGetImages from "../../hooks/useGetImages";
 import { useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const ImageGalleryPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();
-
-  console.log("data is: ", data);
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
@@ -28,6 +28,15 @@ const ImageGalleryPage = () => {
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
     activeCategory !== "All Images" ? filteredImages : data;
+
+  // Function to handle selection of new category and fake loading state
+  const handleSelection = (category: string) => {
+    setLoading(true);
+    setTimeout(() => {
+      setActiveCategory(category);
+      setLoading(false);
+    }, 1000);
+  };
 
   return (
     <>
@@ -61,7 +70,7 @@ const ImageGalleryPage = () => {
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-1"
-                    onClick={() => setActiveCategory("All Images")}
+                    onClick={() => handleSelection("All Images")}
                   >
                     All
                   </li>
@@ -72,7 +81,7 @@ const ImageGalleryPage = () => {
                       role="menuitem"
                       tabIndex={-1}
                       id="menu-item-1"
-                      onClick={() => setActiveCategory(item.title)}
+                      onClick={() => handleSelection(item.title)}
                     >
                       {item.title}
                     </li>
@@ -102,6 +111,7 @@ const ImageGalleryPage = () => {
           ))}
         </ul>
         <Pagination />
+        {loading && <LoadingSpinner />}
       </div>
     </>
   );
