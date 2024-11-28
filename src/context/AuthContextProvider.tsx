@@ -73,8 +73,8 @@ export const AuthContextProvider = ({
   const logout = async () => {
     try {
       await signOut(auth);
-
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      window.scrollTo(0, 0);
     } catch (error) {
       if (error) {
         console.error("Failed to log out");

@@ -1,8 +1,10 @@
 /* Plan Page */
 
+import { useEffect } from "react";
 import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
 import AddImage from "../../components/ui/AddImage";
 import useGetUser from "../../hooks/useGetUser";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
 
 const PlanPage = () => {
   const { data } = useGetUser();
@@ -22,10 +24,17 @@ const PlanPage = () => {
     { id: 4, name: "Eat last breakfast", image: PlaceholderImg },
     { id: 5, name: "Smoothie", image: PlaceholderImg },
   ];
+
+  useEffect(() => {
+    scrollToDiv("date");
+  }, []);
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
-        <h2 className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center">
+        <h2
+          id="date"
+          className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
+        >
           {date}
         </h2>
 
