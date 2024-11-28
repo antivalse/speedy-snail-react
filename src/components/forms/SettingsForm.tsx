@@ -10,12 +10,15 @@ import { UpdateUserDetails } from "../../types/User.types";
 import useGetUser from "../../hooks/useGetUser";
 import { FirebaseError } from "firebase/app";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import ConfirmationModal from "../modals/ConfirmationModal";
 
 const SettingsForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [submittingForm, setSubmittingForm] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null); // State to track selected avatar
+  const [showConfirmationModal, setShowConfirmationModal] =
+    useState<boolean>(false);
 
   // Get user details and update functions from auth context
   const {
@@ -50,17 +53,32 @@ const SettingsForm = () => {
   const passwordRef = useRef("");
   passwordRef.current = watch("password");
 
-  // Handle case where user choses to press delete button to delete their account
-  const onDelete = () => {
-    alert("Are you sure you want to delete?");
+  // Get reference to current password input
+  const modalPasswordRef = useRef("");
+  modalPasswordRef.current = watch("currentPassword");
+
+  // Handle case where user choses confirm deletion on confirmation modal
+  const onDelete = async () => {
     try {
-      deleteUserAccount();
+      // Re-authenticate user with the current password
+      if (!email) {
+        throw new Error("Unable to retrieve email for re-authentication.");
+      }
+
+      await deleteUserAccount();
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
       }
       navigate("/");
     }
+  };
+
+  // Handle case where user choses to cancel delete in confirmation modal
+
+  const handleCancel = () => {
+    setShowConfirmationModal(false);
+    reset();
   };
 
   // Handle case where user choses to submit the form and update their information
@@ -127,7 +145,7 @@ const SettingsForm = () => {
             {...register("email", {
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Regex for email validation
-                message: "Please enter a valid email address", // Error message
+                message: "Please enter a valid email address",
               },
             })}
           />
@@ -214,7 +232,8 @@ const SettingsForm = () => {
             type="password"
             className="form__input-field"
             {...register("currentPassword", {
-              required: "Current password is required",
+              required:
+                "Current password is required for update/delete actions!",
               minLength: {
                 message: "Password must be at least 8 characters",
                 value: 8,
@@ -232,7 +251,7 @@ const SettingsForm = () => {
           <SubmitButton
             btnText="Delete Account"
             className="btn btn--submit btn--submit--danger cursor-pointer"
-            onClick={onDelete}
+            onClick={() => setShowConfirmationModal(true)}
           />
         </div>
       </form>
@@ -251,6 +270,14 @@ const SettingsForm = () => {
         >
           <p>Updated account ✅</p>
         </div>
+      )}
+      {showConfirmationModal && (
+        <ConfirmationModal
+          heading="Want to delete your account?"
+          textContent="Enter password before proceeding"
+          onCancel={handleCancel}
+          onConfirm={onDelete}
+        />
       )}
       {submittingForm && <LoadingSpinner />}
     </div>

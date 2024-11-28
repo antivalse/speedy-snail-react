@@ -50,12 +50,15 @@ $secondary-300: map-get(map-get(c.$colors, secondary), 300);
     width: 9.9375rem;
     height: 4rem;
     border-radius: 0.9375rem;
+    border: 1px solid $primary-300;
     margin: 1.25rem 0 0 0;
     &:hover,
     &:focus {
       background-color: $secondary-300;
+      color: $primary-50;
     }
     &--danger {
+      border: none;
       background-color: #d9534f;
       width: 12rem;
       padding: 0;
