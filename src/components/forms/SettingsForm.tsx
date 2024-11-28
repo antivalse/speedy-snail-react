@@ -8,8 +8,12 @@ import useAuth from "../../hooks/useAuth";
 import { avatars } from "../../assets/icons";
 import { UpdateUserDetails } from "../../types/User.types";
 import useGetUser from "../../hooks/useGetUser";
+import { FirebaseError } from "firebase/app";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 const SettingsForm = () => {
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
   const [submittingForm, setSubmittingForm] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null); // State to track selected avatar
 
@@ -19,13 +23,11 @@ const SettingsForm = () => {
     updateUserEmail,
     updateUserPassword,
     updateUserAvatar,
-    updateUserCredentials,
     deleteUserAccount,
     reAuthenticateUser,
   } = useAuth();
 
   // Get avatar id from useGetUser hook
-
   const { avatarId } = useGetUser();
 
   // Access useForm hook from React hook form
@@ -55,7 +57,7 @@ const SettingsForm = () => {
       deleteUserAccount();
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(err.message);
       }
       navigate("/");
     }
@@ -64,7 +66,6 @@ const SettingsForm = () => {
   // Handle case where user choses to submit the form and update their information
   const onUpdate: SubmitHandler<UpdateUserDetails> = async (data) => {
     setSubmittingForm(true);
-
     try {
       // Re-authenticate user with the current password
       if (!email) {
@@ -83,17 +84,21 @@ const SettingsForm = () => {
       }
 
       // Update avatar if new one is chosen
-
       if (data.avatarId !== avatarId) {
         await updateUserAvatar(data.avatarId);
       }
 
       reset();
-      updateUserCredentials();
+      setSuccess(true);
       setSubmittingForm(false);
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(err.message);
+        reset();
+        setSubmittingForm(false);
+      }
+      if (err instanceof FirebaseError) {
+        setError(err.message);
         reset();
         setSubmittingForm(false);
       }
@@ -114,13 +119,17 @@ const SettingsForm = () => {
         {" "}
         <div className="flex flex-col gap-2 w-full">
           <label className="color-p300 text-left" htmlFor="email">
-            {" "}
             Update Email
           </label>
           <input
             type="email"
             className="form__input-field"
-            {...register("email")}
+            {...register("email", {
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Regex for email validation
+                message: "Please enter a valid email address", // Error message
+              },
+            })}
           />
           {errors.email && <p>{errors.email.message || "Invalid value"}</p>}
         </div>
@@ -196,11 +205,6 @@ const SettingsForm = () => {
               </li>
             ))}
           </ul>
-          {errors.avatarId && (
-            <p className="error-message">
-              {errors.avatarId.message || "Please select an avatar"}
-            </p>
-          )}
         </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="color-p300 text-left" htmlFor="currentPassword">
@@ -217,7 +221,7 @@ const SettingsForm = () => {
               },
             })}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.currentPassword && <p>{errors.currentPassword.message}</p>}
         </div>
         <div className="flex justify-center gap-5">
           <SubmitButton
@@ -232,6 +236,23 @@ const SettingsForm = () => {
           />
         </div>
       </form>
+      {error && error.length > 0 && (
+        <div
+          className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <p>{error}. Something went wrong, try again later?</p>
+        </div>
+      )}
+      {success && (
+        <div
+          className="p-4 mb-4 text-green-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <p>Updated account ✅</p>
+        </div>
+      )}
+      {submittingForm && <LoadingSpinner />}
     </div>
   );
 };
