@@ -94,7 +94,13 @@ const ImageForm: React.FC<ImageFormProps> = ({
       navigate("/image-gallery");
     } else {
       // Else call upDateImage
-      await updateImage();
+      await updateImage(
+        imageData?._id,
+        user?.uid,
+        file.file,
+        selectedCategory,
+        title
+      );
       navigate("/image-gallery");
     }
 
