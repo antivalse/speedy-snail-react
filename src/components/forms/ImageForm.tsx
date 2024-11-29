@@ -22,6 +22,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
   isAddNew,
   imgUrl,
 }) => {
+  const [error, setError] = useState<string | null>(null);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
@@ -63,13 +64,18 @@ const ImageForm: React.FC<ImageFormProps> = ({
     e.preventDefault();
 
     if (!file.file) {
-      console.error("No file selected.");
+      setError("Please add an image.");
       return; // Prevent submission if no file is selected
     }
 
     // Validate category selection
-    if (!selectedCategory) {
-      console.error("Please select a category.");
+    if (isAddNew && !title) {
+      setError("Please enter a title.");
+      return;
+    }
+    // Validate category selection
+    if (isAddNew && !selectedCategory) {
+      setError("Please select a category.");
       return;
     }
 
@@ -80,6 +86,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
     setSelectedCategory(null);
     setFile({ file: null, preview: null });
     setTitle(null);
+    setError(null);
 
     console.log("Form successfully submitted and reset.");
   };
@@ -108,9 +115,13 @@ const ImageForm: React.FC<ImageFormProps> = ({
                   id="file-upload"
                   type="file"
                   className="hidden" // Hide the input but keep it accessible
+                  accept=".png,.jpg,.jpeg,.webp,image/png"
                   onChange={handleChange}
                 />
               </label>
+            )}
+            {error && error.length > 0 && error.includes("image") && (
+              <p>{error}</p>
             )}
           </div>
         ) : (
@@ -127,11 +138,12 @@ const ImageForm: React.FC<ImageFormProps> = ({
         <input
           type="text"
           className="form__input-field"
-          required={isAddNew}
           minLength={3}
           value={title || ""}
           onChange={(e) => setTitle(e.target.value)}
         />
+
+        {error && error.length > 0 && error.includes("title") && <p>{error}</p>}
         <div className="relative">
           <div
             className="form-dropdown flex items-center justify-center cursor-pointer"
@@ -168,6 +180,9 @@ const ImageForm: React.FC<ImageFormProps> = ({
                 ))}
               </div>
             </div>
+          )}
+          {error && error.length > 0 && error.includes("category") && (
+            <p>{error}</p>
           )}
         </div>
 
