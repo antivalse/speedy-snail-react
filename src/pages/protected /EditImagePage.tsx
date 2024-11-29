@@ -2,16 +2,14 @@
 
 import { useParams } from "react-router-dom";
 import ImageForm from "../../components/forms/ImageForm";
-import useGetImages from "../../hooks/useGetImages";
+import useGetDocument from "../../hooks/useGetDocument";
+import { imagesCollection } from "../../firebase/config";
 
 const EditImagePage = () => {
   const { id } = useParams();
 
-  // Get images
-  const { data } = useGetImages();
-
-  // Find image that was clicked
-  const imageToDisplay = data?.find((image) => image._id === id);
+  // Get image
+  const { data } = useGetDocument(imagesCollection, id);
 
   return (
     <>
@@ -19,8 +17,7 @@ const EditImagePage = () => {
         heading="Edit Image Details"
         btnText="Edit"
         isAddNew={false}
-        imgUrl={imageToDisplay?.url}
-        imgAlt={imageToDisplay?.title}
+        imageData={data}
       />
     </>
   );

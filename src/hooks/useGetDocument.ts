@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const useGetDocument = <T>(
   colRef: CollectionReference<T>,
-  documentId: string
+  documentId: string | undefined
 ) => {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState(false);

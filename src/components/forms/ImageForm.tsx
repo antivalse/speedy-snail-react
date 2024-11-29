@@ -8,20 +8,21 @@ import { useUploadImage } from "../../hooks/useUploadImage";
 import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { Image } from "../../types/Image.types";
+import useUpdateImage from "../../hooks/useUpdateImage";
 
 interface ImageFormProps {
   heading: string;
   btnText: string;
   isAddNew: boolean;
-  imgUrl?: string;
-  imgAlt?: string;
+  imageData?: Image | null;
 }
 
 const ImageForm: React.FC<ImageFormProps> = ({
   heading,
   btnText,
   isAddNew,
-  imgUrl,
+  imageData,
 }) => {
   const [error, setError] = useState<string | null>(null);
   const [showCategories, setShowCategories] = useState<boolean>(false);
@@ -34,14 +35,18 @@ const ImageForm: React.FC<ImageFormProps> = ({
     file: null,
     preview: null,
   });
-  // Access user
-  const { user } = useAuth();
 
   // Get categories from database
   const { data } = useGetCategories();
 
+  // Access user
+  const { user } = useAuth();
+
   // Access upload image hook
   const { uploadImage, isUploading } = useUploadImage();
+
+  // Access update image hook
+  const { updateImage } = useUpdateImage();
 
   // Navigate
   const navigate = useNavigate();
@@ -83,9 +88,15 @@ const ImageForm: React.FC<ImageFormProps> = ({
       return;
     }
 
-    // Call the uploadImage function
-    await uploadImage(file.file, user?.uid, selectedCategory, title);
-    navigate("/image-gallery");
+    if (isAddNew) {
+      // Call the uploadImage function if isAddNew is truthy
+      await uploadImage(file.file, user?.uid, selectedCategory, title);
+      navigate("/image-gallery");
+    } else {
+      // Else call upDateImage
+      await updateImage();
+      navigate("/image-gallery");
+    }
 
     // Reset form state after the upload attempt
     setSelectedCategory(null);
@@ -134,7 +145,11 @@ const ImageForm: React.FC<ImageFormProps> = ({
             <span className="absolute top-2 right-2 cursor-pointer">
               {editImageIcon}
             </span>
-            <img src={imgUrl} alt="Image" className="form__add-image" />
+            <img
+              src={imageData?.url}
+              alt={"Image"}
+              className="form__add-image"
+            />
           </div>
         )}
         <label className="color-p300" htmlFor="title">
@@ -144,7 +159,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
           type="text"
           className="form__input-field"
           minLength={3}
-          value={title || ""}
+          value={imageData?.title.toUpperCase() || ""}
           onChange={(e) => setTitle(e.target.value)}
         />
 
@@ -158,7 +173,11 @@ const ImageForm: React.FC<ImageFormProps> = ({
             onClick={() => setShowCategories(!showCategories)}
           >
             <p className="heading heading--primary">
-              {selectedCategory ? selectedCategory : "Categories"}
+              {selectedCategory
+                ? selectedCategory
+                : imageData?.category
+                ? imageData.category
+                : "Categories"}
             </p>
             <span className="form-dropdown__icon p-5">{arrowDown}</span>
           </div>
