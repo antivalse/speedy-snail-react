@@ -7,6 +7,7 @@ import SubmitButton from "../buttons/SubmitButton";
 import { useUploadImage } from "../../hooks/useUploadImage";
 import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 interface ImageFormProps {
   heading: string;
@@ -41,6 +42,9 @@ const ImageForm: React.FC<ImageFormProps> = ({
 
   // Access upload image hook
   const { uploadImage, isUploading } = useUploadImage();
+
+  // Navigate
+  const navigate = useNavigate();
 
   // Handle change on image input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +85,7 @@ const ImageForm: React.FC<ImageFormProps> = ({
 
     // Call the uploadImage function
     await uploadImage(file.file, user?.uid, selectedCategory, title);
+    navigate("/image-gallery");
 
     // Reset form state after the upload attempt
     setSelectedCategory(null);
