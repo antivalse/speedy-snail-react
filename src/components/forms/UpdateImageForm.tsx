@@ -42,8 +42,8 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
   const navigate = useNavigate();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0] || null;
-    if (selectedFile) {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
       setFile({
         file: selectedFile,
         preview: URL.createObjectURL(selectedFile),
@@ -91,11 +91,10 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
       </h2>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="relative">
-          <label htmlFor="file-upload">
+          <label htmlFor="file">
             <span className="absolute top-2 right-2 cursor-pointer">
               {editImageIcon}
             </span>
-
             <input
               type="file"
               id="file"
@@ -122,7 +121,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
           type="text"
           className="form__input-field"
           minLength={3}
-          placeholder={imageData?.title || ""}
+          placeholder={imageData?.title.toUpperCase() || ""}
           onChange={(e) => setTitle(e.target.value)}
         />
 
