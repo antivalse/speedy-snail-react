@@ -75,7 +75,6 @@ const SettingsForm = () => {
   };
 
   // Handle case where user choses to cancel delete in confirmation modal
-
   const handleCancel = () => {
     setShowConfirmationModal(false);
     reset();

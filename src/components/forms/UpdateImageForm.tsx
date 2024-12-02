@@ -8,6 +8,10 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import useUpdateImage from "../../hooks/useUpdateImage";
 import { Image } from "../../types/Image.types";
+import ConfirmationModal from "../modals/ConfirmationModal";
+import { ref } from "firebase/storage";
+import { storage } from "../../firebase/config";
+import useAuth from "../../hooks/useAuth";
 
 interface ImageFormProps {
   btnText: string;
@@ -20,6 +24,8 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
     imageData?.category || null
   );
   const [title, setTitle] = useState<string | null>(imageData?.title || null);
+  const [showConfirmationModal, setShowConfirmationModal] =
+    useState<boolean>(false);
   const [file, setFile] = useState<{
     file: File | null;
     preview: string | null;
@@ -28,15 +34,32 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
     preview: imageData?.url || null,
   });
 
+  // storage ref test:
+
+  const { user } = useAuth();
+
+  // Decode the URL to handle %2F (which is '/')
+  const decodedUrl = decodeURIComponent(imageData?.url || "");
+
+  const fileName = decodedUrl.split("/").pop()?.split("?")[0];
+
+  console.log("filename is: ", fileName);
+
+  const storageRef = ref(storage, `user_images/${user?.uid}/${fileName}`);
+
+  console.log("storage ref is: ", storageRef);
+
+  console.log("image url is: ", imageData?.url);
+
   // Get categories from database
   const { data } = useGetCategories();
 
   // Get id from params
-
   const { id } = useParams();
 
   // Access update image hook
-  const { updateImage, isUpdating, error, setError } = useUpdateImage();
+  const { error, isUpdating, deleteImage, setError, updateImage } =
+    useUpdateImage();
 
   // Navigate
   const navigate = useNavigate();
@@ -55,6 +78,17 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
   const handleSelect = (category: string) => {
     setSelectedCategory(category);
     setShowCategories(false);
+  };
+
+  // Handle delete
+  const handleDelete = () => {
+    deleteImage(id, storageRef.toString());
+    navigate("/image-gallery");
+  };
+
+  // Handle case where user choses to cancel delete in confirmation modal
+  const handleCancel = () => {
+    setShowConfirmationModal(false);
   };
 
   // Handle form submittion
@@ -178,6 +212,19 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
           onClick={() => handleSubmit}
         />
       </form>
+      <SubmitButton
+        className="btn btn--submit btn--submit--danger"
+        btnText="Delete"
+        onClick={() => setShowConfirmationModal(true)}
+      />
+      {showConfirmationModal && (
+        <ConfirmationModal
+          heading="Want to delete your account?"
+          textContent="Enter password before proceeding"
+          onCancel={handleCancel}
+          onConfirm={handleDelete}
+        />
+      )}
     </div>
   );
 };
