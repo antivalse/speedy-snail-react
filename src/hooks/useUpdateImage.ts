@@ -36,7 +36,6 @@ const useUpdateImage = () => {
           storage,
           `user_images/${user?.uid}/${file.name}`
         );
-        console.log("storage ref is: ", storageRef);
 
         await uploadBytes(storageRef, file);
         const downloadURL = await getDownloadURL(storageRef);
@@ -81,7 +80,6 @@ const useUpdateImage = () => {
       await deleteObject(storageRef);
     } catch (err) {
       if (err instanceof Error) {
-        console.error("Delete failed:", err.message);
         setError(
           `Something went wrong when trying to delete the image: ${err.message}`
         );

@@ -38,19 +38,6 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
 
   const { user } = useAuth();
 
-  // Decode the URL to handle %2F (which is '/')
-  const decodedUrl = decodeURIComponent(imageData?.url || "");
-
-  const fileName = decodedUrl.split("/").pop()?.split("?")[0];
-
-  console.log("filename is: ", fileName);
-
-  const storageRef = ref(storage, `user_images/${user?.uid}/${fileName}`);
-
-  console.log("storage ref is: ", storageRef);
-
-  console.log("image url is: ", imageData?.url);
-
   // Get categories from database
   const { data } = useGetCategories();
 
@@ -63,6 +50,13 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
 
   // Navigate
   const navigate = useNavigate();
+
+  // Decode the URL to be able to provide path for storage reference
+  const decodedUrl = decodeURIComponent(imageData?.url || "");
+  // Extract the filename
+  const fileName = decodedUrl.split("/").pop()?.split("?")[0];
+  // Store reference to image in storage
+  const storageRef = ref(storage, `user_images/${user?.uid}/${fileName}`);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -113,8 +107,6 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
         setError("Failed to update image. Please try again.");
       }
     }
-
-    console.log("Form successfully submitted and reset.");
   };
 
   return (
