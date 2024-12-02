@@ -1,9 +1,9 @@
 /* Edit Image Page */
 
 import { useParams } from "react-router-dom";
-import ImageForm from "../../components/forms/ImageForm";
 import useGetDocument from "../../hooks/useGetDocument";
 import { imagesCollection } from "../../firebase/config";
+import UpdateImageForm from "../../components/forms/UpdateImageForm";
 
 const EditImagePage = () => {
   const { id } = useParams();
@@ -13,12 +13,7 @@ const EditImagePage = () => {
 
   return (
     <>
-      <ImageForm
-        heading="Edit Image Details"
-        btnText="Edit"
-        isAddNew={false}
-        imageData={data}
-      />
+      <UpdateImageForm btnText="Edit" imageData={data} />
     </>
   );
 };

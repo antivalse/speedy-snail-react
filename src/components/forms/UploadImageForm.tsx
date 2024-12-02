@@ -9,7 +9,6 @@ import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { Image } from "../../types/Image.types";
-import useUpdateImage from "../../hooks/useUpdateImage";
 
 interface ImageFormProps {
   heading: string;
@@ -18,7 +17,7 @@ interface ImageFormProps {
   imageData?: Image | null;
 }
 
-const ImageForm: React.FC<ImageFormProps> = ({
+const UploadImageForm: React.FC<ImageFormProps> = ({
   heading,
   btnText,
   isAddNew,
@@ -44,9 +43,6 @@ const ImageForm: React.FC<ImageFormProps> = ({
 
   // Access upload image hook
   const { uploadImage, isUploading } = useUploadImage();
-
-  // Access update image hook
-  const { updateImage } = useUpdateImage();
 
   // Navigate
   const navigate = useNavigate();
@@ -91,16 +87,6 @@ const ImageForm: React.FC<ImageFormProps> = ({
     if (isAddNew) {
       // Call the uploadImage function if isAddNew is truthy
       await uploadImage(file.file, user?.uid, selectedCategory, title);
-      navigate("/image-gallery");
-    } else {
-      // Else call upDateImage
-      await updateImage(
-        imageData?._id,
-        user?.uid,
-        file.file,
-        selectedCategory,
-        title
-      );
       navigate("/image-gallery");
     }
 
@@ -165,7 +151,6 @@ const ImageForm: React.FC<ImageFormProps> = ({
           type="text"
           className="form__input-field"
           minLength={3}
-          value={imageData?.title.toUpperCase() || ""}
           onChange={(e) => setTitle(e.target.value)}
         />
 
@@ -226,4 +211,4 @@ const ImageForm: React.FC<ImageFormProps> = ({
   );
 };
 
-export default ImageForm;
+export default UploadImageForm;

@@ -1,53 +1,60 @@
-/* Custom hook to update an image */
+/* Custom hook to update an image in Firebase Storage and Image Collection */
 
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { storage, imagesCollection } from "../firebase/config";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Image } from "../types/Image.types";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import useAuth from "./useAuth";
 
 const useUpdateImage = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  // Get the uid
+  const { user } = useAuth();
 
   const updateImage = async (
     id: string | undefined,
-    uid: string | undefined,
-    file: File | null,
-    category: string | null,
-    title: string | null
+    file?: File,
+    category?: string | null,
+    title?: string | null
   ) => {
     setIsUpdating(true);
     setError(null);
 
-    // storage reference
-    const storageRef = ref(storage, `user_images/${uid}}/${file?.name}`);
-    // document reference
-    const imageRef = doc(imagesCollection, id);
-
-    // Upload the file to Firebase Storage
-    const uploadResult = await uploadBytes(storageRef, file);
-    console.log("File uploaded successfully:", uploadResult);
-
-    // Get the download URL of the uploaded image
-    const downloadURL = await getDownloadURL(uploadResult.ref);
-    setImageUrl(downloadURL); // Store the URL in state
-
     try {
-      // Save the image metadata to Firestore
-      const imageData: Image = {
-        userId: uid,
-        url: downloadURL,
-        title: title || "",
-        category: category || "",
-        isDefault: false,
-      };
+      const updates: { [key: string]: any } = {};
 
-      await updateDoc(imageRef, imageData);
+      // Update file in storage if provided
+      if (file) {
+        const storageRef = ref(
+          storage,
+          `user_images/${user?.uid}/${file.name}`
+        );
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        updates.url = downloadURL; // Update the image URL in the database
+      }
+
+      // Update title if provided
+      if (title) {
+        updates.title = title;
+      }
+
+      // Update category if provided
+      if (category) {
+        updates.category = category;
+      }
+      // Update Firestore document if any updates exist
+      if (Object.keys(updates).length > 0) {
+        const imageRef = doc(imagesCollection, id);
+        await updateDoc(imageRef, updates);
+      }
     } catch (err) {
       if (err instanceof Error) {
-        setError("Something went trong when updating image. Try again later");
+        setError(
+          `Something went wrong when trying to update image: ${err.message} `
+        );
       }
     }
   };
@@ -55,6 +62,7 @@ const useUpdateImage = () => {
     updateImage,
     isUpdating,
     error,
+    setError,
   };
 };
 

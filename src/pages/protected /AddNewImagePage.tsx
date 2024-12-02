@@ -1,11 +1,11 @@
 /* Add New Image Page */
 
-import ImageForm from "../../components/forms/ImageForm";
+import UploadImageForm from "../../components/forms/UploadImageForm";
 
 const AddNewImagePage = () => {
   return (
     <>
-      <ImageForm heading="Add New Image" btnText="Add" isAddNew={true} />
+      <UploadImageForm heading="Add New Image" btnText="Add" isAddNew={true} />
     </>
   );
 };
