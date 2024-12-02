@@ -5,7 +5,7 @@ import { arrowDown, editImageIcon } from "../../assets/icons";
 import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
 import LoadingSpinner from "../ui/LoadingSpinner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUpdateImage from "../../hooks/useUpdateImage";
 import { Image } from "../../types/Image.types";
 
@@ -30,6 +30,10 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
 
   // Get categories from database
   const { data } = useGetCategories();
+
+  // Get id from params
+
+  const { id } = useParams();
 
   // Access update image hook
   const { updateImage, isUpdating, error, setError } = useUpdateImage();
@@ -59,7 +63,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
 
     try {
       await updateImage(
-        imageData?._id,
+        id,
         file.file || undefined,
         selectedCategory !== imageData?.category ? selectedCategory : undefined,
         title !== imageData?.title ? title : undefined

@@ -23,7 +23,7 @@ const useUpdateImage = () => {
     setError(null);
 
     try {
-      const updates: { [key: string]: any } = {};
+      const updates: Record<string, string | null> = {};
 
       // Update file in storage if provided
       if (file) {
