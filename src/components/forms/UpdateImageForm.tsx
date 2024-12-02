@@ -211,7 +211,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
       />
       {showConfirmationModal && (
         <ConfirmationModal
-          heading="Want to delete your account?"
+          heading="Are you sure you want to delete image?"
           textContent="Enter password before proceeding"
           onCancel={handleCancel}
           onConfirm={handleDelete}
