@@ -1,6 +1,6 @@
 /* Settings Form Component */
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import SubmitButton from "../buttons/SubmitButton";
 import { useNavigate } from "react-router-dom";
@@ -125,6 +125,13 @@ const SettingsForm = () => {
   const handleAvatarSelect = (id: number) => {
     setSelectedAvatar(id); // Update the selected avatar on click
   };
+
+  // Use effect to reset form when email changes
+  useEffect(() => {
+    reset({
+      email: email ?? "",
+    });
+  }, [email, reset]);
 
   return (
     <div className="form container mx-auto p-12 flex flex-col items-center gap-12">
