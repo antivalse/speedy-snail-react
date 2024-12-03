@@ -10,7 +10,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ data }) => {
   return (
     <div className="suggestions flex flex-col">
-      <div className="relative suggestions__carousel bg-s500 flex flex-col">
+      <div className="relative suggestions__carousel bg-s700 flex flex-col">
         <div className="suggestions__carousel__content-wrapper ">
           <h2 className="heading heading--primary color-p300 m-10">
             Suggestions
@@ -24,7 +24,7 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
                 <img
                   src={item.url}
                   alt={item.title}
-                  className="suggestions__carousel__img flex bg-s500"
+                  className="suggestions__carousel__img flex bg-s700"
                 />
                 {}
               </li>
