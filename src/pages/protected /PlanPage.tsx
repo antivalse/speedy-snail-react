@@ -8,7 +8,7 @@ import useGetImages from "../../hooks/useGetImages";
 import { Image } from "../../types/Image.types";
 
 const PlanPage = () => {
-  const [schedule, setSchedule] = useState<Image[] | null>([]);
+  const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const { data } = useGetUser();
   // Get today's date
@@ -26,9 +26,33 @@ const PlanPage = () => {
   // Extract array
   const allImages = imageData.data;
 
+  // // Create schedule array
+  // const schedule: Image[] = [];
+
+  console.log("shedule is: ", schedule);
+
+  // Handle image click - add image to schedule array
+  const handleImageClick = (id: string) => {
+    const selectedImage = allImages.find((img) => img._id === id);
+
+    // Abort if no image was selected
+    if (!selectedImage) {
+      return;
+    }
+    schedule.push(selectedImage);
+    setShowModal(false);
+  };
+
+  // Clear the array
+  const handleClear = () => {
+    console.log("clear");
+    setSchedule([]);
+  };
+
   useEffect(() => {
     scrollToDiv("date");
   }, []);
+
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
@@ -39,16 +63,16 @@ const PlanPage = () => {
           {date}
         </h2>
 
-        <div className="plan-page__greeting mb-8">
+        {/* <div className="plan-page__greeting mb-8">
           <p className="p-3 body body--secondary--greeting color-p300 text-center">
             Hello there, {data?.username}! What do you want to do today?
           </p>
-        </div>
+        </div> */}
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {schedule?.map((item, index) => (
               <div key={index} className="flex flex-col items-center">
-                <h3 className="body body--secondary color-p200 my-5">
+                <h3 className="body body--secondary color-p200">
                   {item.title}
                 </h3>
                 <img
@@ -85,7 +109,7 @@ const PlanPage = () => {
                       className="select-image__image"
                       src={item.url}
                       alt={item.title}
-                      onClick={() => setShowModal(false)}
+                      onClick={() => handleImageClick(item._id || "")}
                     />
                   </li>
                 ))}
@@ -93,6 +117,9 @@ const PlanPage = () => {
             </div>
           </div>
         )}
+        <button className="btn btn--clear" onClick={handleClear}>
+          Clear
+        </button>
         <div className="today-page__suggestions"></div>
       </div>
     </>

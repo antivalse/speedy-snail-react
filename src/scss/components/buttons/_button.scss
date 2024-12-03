@@ -5,9 +5,11 @@
 
 /* Button Colors */
 $primary-50: map-get(map-get(c.$colors, primary), 50);
+$primary-200: map-get(map-get(c.$colors, primary), 200);
 $primary-300: map-get(map-get(c.$colors, primary), 300);
 $secondary-200: map-get(map-get(c.$colors, secondary), 200);
 $secondary-300: map-get(map-get(c.$colors, secondary), 300);
+$secondary-500: map-get(map-get(c.$colors, secondary), 500);
 
 .btn {
   width: 8rem;
@@ -57,6 +59,7 @@ $secondary-300: map-get(map-get(c.$colors, secondary), 300);
       background-color: $secondary-300;
       color: $primary-50;
     }
+
     &--danger {
       border: none;
       background-color: #d9534f;
@@ -66,6 +69,22 @@ $secondary-300: map-get(map-get(c.$colors, secondary), 300);
       :focus {
         background-color: #a8403c;
       }
+    }
+  }
+
+  &--clear {
+    background-color: #94b3b3;
+    color: $primary-50;
+    font-size: 1.25rem;
+    width: 12rem;
+    height: 4rem;
+    border-radius: 0.9375rem;
+    margin: 1.25rem 0 0 0;
+    padding: 0;
+    &:hover,
+    :focus :active {
+      color: $primary-300;
+      background-color: $secondary-500;
     }
   }
 }

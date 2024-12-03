@@ -18,7 +18,7 @@ $primary-100: map-get(map-get(c.$colors, primary), 100);
   scrollbar-width: none;
   -ms-overflow-style: none;
 
-  @include m.breakpoint-up("sm") {
+  @include m.breakpoint-up("md") {
     width: 50%;
   }
   &__li {
