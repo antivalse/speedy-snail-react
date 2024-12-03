@@ -97,18 +97,26 @@ const ImageGalleryPage = () => {
           {imagesToDisplay?.map((item, index) => (
             <li
               key={index}
-              className="image-gallery__images__li flex flex-col items-center bg-p50 pb-5 cursor-pointer"
+              className="image-gallery__images__li flex flex-col items-center bg-p50 pb-5"
             >
               <h3 className="body body--secondary color-p200 my-5">
                 {item.title}
               </h3>
-              <Link to={`/edit-image/${item._id}`}>
+              {item.isDefault ? (
                 <img
                   src={item.url}
                   alt={item.title}
                   className="image-gallery__images__image"
                 />
-              </Link>
+              ) : (
+                <Link to={`/edit-image/${item._id}`}>
+                  <img
+                    src={item.url}
+                    alt={item.title}
+                    className="image-gallery__images__image"
+                  />
+                </Link>
+              )}
             </li>
           ))}
         </ul>
