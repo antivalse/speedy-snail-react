@@ -125,20 +125,24 @@ const PlanPage = () => {
             <div className="select-image bg-p50 p-10 flex flex-col">
               <span
                 onClick={handleClose}
-                className="p-5 cursor-pointer self-end"
+                id="close-icon"
+                className="pr-2 mb-6 cursor-pointer self-end"
               >
                 {closeIcon}
               </span>
-              <h2 className="heading heading--primary color-p300 py-3">
-                {activeCategory}{" "}
-              </h2>
               <div>
-                <SortByCategory
-                  data={categoriesArray}
-                  handleSelection={handleSelection}
-                  showCategories={showCategories}
-                  setShowCategories={setShowCategories}
-                />
+                <div className="flex justify-between mt-5">
+                  <h2 className="heading heading--primary color-p300 py-3">
+                    {activeCategory}{" "}
+                  </h2>
+
+                  <SortByCategory
+                    data={categoriesArray}
+                    handleSelection={handleSelection}
+                    showCategories={showCategories}
+                    setShowCategories={setShowCategories}
+                  />
+                </div>
                 <ul className="grid grid-cols-4 gap-5">
                   {imagesToDisplay?.map((item, index) => (
                     <li
@@ -159,9 +163,14 @@ const PlanPage = () => {
                 {/* <button className="btn btn--submit shrink-0 self-center">
                   More
                 </button> */}
-                <button className="btn btn--clear shrink-0 self-center">
-                  Back to top
-                </button>
+                {imagesToDisplay.length > 8 && (
+                  <button
+                    className="btn btn--clear shrink-0 self-center"
+                    onClick={() => scrollToDiv("close-icon")}
+                  >
+                    Back to top
+                  </button>
+                )}
               </div>
             </div>
           </div>
