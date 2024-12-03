@@ -7,10 +7,17 @@ import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import useGetImages from "../../hooks/useGetImages";
 import { Image } from "../../types/Image.types";
 import { closeIcon } from "../../assets/icons";
+import SortByCategory from "../../components/content/SortByCategory";
+import useGetCategories from "../../hooks/useGetCategories";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const PlanPage = () => {
+  const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
+  const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+
   const { data } = useGetUser();
   // Get today's date
   const date = new Date()
@@ -23,14 +30,11 @@ const PlanPage = () => {
 
   // Get all images
   const imageData = useGetImages();
-
-  // Extract array
   const allImages = imageData.data;
 
-  // // Create schedule array
-  // const schedule: Image[] = [];
-
-  console.log("shedule is: ", schedule);
+  // Get categories data from Firebase and store in variable
+  const categories = useGetCategories();
+  const categoriesArray = categories.data;
 
   // Handle image click - add image to schedule array
   const handleImageClick = (id: string) => {
@@ -44,9 +48,32 @@ const PlanPage = () => {
     setShowModal(false);
   };
 
+  // Filter images array based on active category
+  const filteredImages = allImages?.filter(
+    (image) => image.category === activeCategory
+  );
+
+  // Determine images to display based on active category unless active category is default "All"
+  const imagesToDisplay =
+    activeCategory !== "All Images" ? filteredImages : allImages;
+
+  // Function to handle selection of new category and fake loading state
+  const handleSelection = (category: string) => {
+    setLoading(true);
+    setTimeout(() => {
+      setActiveCategory(category);
+      setLoading(false);
+    }, 1000);
+  };
+
+  // Handle closing images modal
+  const handleClose = () => {
+    setActiveCategory("All Images");
+    setShowModal(false);
+  };
+
   // Clear the array
   const handleClear = () => {
-    console.log("clear");
     setSchedule([]);
   };
 
@@ -97,29 +124,45 @@ const PlanPage = () => {
           <div className="modal-overlay modal-overlay--lighter">
             <div className="select-image bg-p50 p-10 flex flex-col">
               <span
-                onClick={() => setShowModal(false)}
+                onClick={handleClose}
                 className="p-5 cursor-pointer self-end"
               >
                 {closeIcon}
               </span>
-              <ul className="grid grid-cols-4 gap-5">
-                {allImages.map((item, index) => (
-                  <li
-                    key={index}
-                    className="select-image__li cursor-pointer bg-p100 flex justify-center items-center"
-                  >
-                    <img
-                      className="select-image__image"
-                      src={item.url}
-                      alt={item.title}
-                      onClick={() => handleImageClick(item._id || "")}
-                    />
-                  </li>
-                ))}
-              </ul>
-              <button className="btn btn--clear shrink-0 self-center">
-                Back to top
-              </button>
+              <h2 className="heading heading--primary color-p300 py-3">
+                {activeCategory}{" "}
+              </h2>
+              <div>
+                <SortByCategory
+                  data={categoriesArray}
+                  handleSelection={handleSelection}
+                  showCategories={showCategories}
+                  setShowCategories={setShowCategories}
+                />
+                <ul className="grid grid-cols-4 gap-5">
+                  {imagesToDisplay?.map((item, index) => (
+                    <li
+                      key={index}
+                      className="select-image__li cursor-pointer bg-p100 flex justify-center items-center"
+                    >
+                      <img
+                        className="select-image__image"
+                        src={item.url}
+                        alt={item.title}
+                        onClick={() => handleImageClick(item._id || "")}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex justify-center gap-4">
+                {/* <button className="btn btn--submit shrink-0 self-center">
+                  More
+                </button> */}
+                <button className="btn btn--clear shrink-0 self-center">
+                  Back to top
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -129,6 +172,7 @@ const PlanPage = () => {
           </button>
         )}
         <div className="today-page__suggestions"></div>
+        {loading && <LoadingSpinner />}
       </div>
     </>
   );
