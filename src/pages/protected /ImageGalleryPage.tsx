@@ -12,11 +12,11 @@ const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [showInfo, setShowInfo] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();
-
-  console.log("images data: ", data);
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
@@ -40,9 +40,24 @@ const ImageGalleryPage = () => {
     }, 1000);
   };
 
+  // Function to handle info message setting
+
+  const handleInfoMessage = (message: string) => {
+    setShowInfo(true);
+    setMessage(message);
+  };
+
   return (
     <>
       <div className="image-gallery bg-p100 p-10">
+        {showInfo && message && message.length > 0 && (
+          <div>
+            <p>{message}</p>
+            <span className="cursor-pointer" onClick={() => setShowInfo(false)}>
+              close
+            </span>
+          </div>
+        )}
         <div className="image-gallery__sorting flex justify-between items-center">
           <h2 className="heading heading--primary color-p300 py-3">
             Category: <span className="color-p200">{activeCategory}</span>
@@ -107,6 +122,9 @@ const ImageGalleryPage = () => {
                   src={item.url}
                   alt={item.title}
                   className="image-gallery__images__image"
+                  onClick={() =>
+                    handleInfoMessage("Cannot click on default images")
+                  }
                 />
               ) : (
                 <Link to={`/edit-image/${item._id}`}>
