@@ -1,0 +1,39 @@
+/* Select Image Modal Styles */
+
+@use "../../variables/colors" as c;
+@use "../../utils/mixins" as m;
+
+$primary-100: map-get(map-get(c.$colors, primary), 100);
+
+.select-image {
+  width: 80%;
+  height: 80%;
+  overflow: scroll;
+  border-radius: 1.875rem;
+
+  // hide default scrollbar but keep functionality
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  @include m.breakpoint-up("sm") {
+    width: 50%;
+  }
+  &__li {
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken(
+        $primary-100,
+        10%
+      ); // Slightly darken the current color
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); // Add a subtle shadow for effect
+    }
+  }
+  &__image {
+    height: 7.5rem;
+    object-fit: contain;
+  }
+}

@@ -1,12 +1,15 @@
 /* Plan Page */
 
-import { useEffect } from "react";
-import PlaceholderImg from "../../assets/images/placeholders/scheduleimg_test.png";
+import { useEffect, useState } from "react";
 import AddImage from "../../components/ui/AddImage";
 import useGetUser from "../../hooks/useGetUser";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import useGetImages from "../../hooks/useGetImages";
+import { Image } from "../../types/Image.types";
 
 const PlanPage = () => {
+  const [schedule, setSchedule] = useState<Image[] | null>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const { data } = useGetUser();
   // Get today's date
   const date = new Date()
@@ -17,13 +20,11 @@ const PlanPage = () => {
     })
     .replace(/,/g, "\n"); // Remove commas
 
-  const testItems = [
-    { id: 1, name: "Eat breakfast", image: PlaceholderImg },
-    { id: 2, name: "Eat more breakfast", image: PlaceholderImg },
-    { id: 3, name: "Eat breakfast again", image: PlaceholderImg },
-    { id: 4, name: "Eat last breakfast", image: PlaceholderImg },
-    { id: 5, name: "Smoothie", image: PlaceholderImg },
-  ];
+  // Get all images
+  const imageData = useGetImages();
+
+  // Extract array
+  const allImages = imageData.data;
 
   useEffect(() => {
     scrollToDiv("date");
@@ -45,22 +46,53 @@ const PlanPage = () => {
         </div>
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
-            {testItems.map((item) => (
-              <div key={item.id} className="flex flex-col items-center">
+            {schedule?.map((item, index) => (
+              <div key={index} className="flex flex-col items-center">
                 <h3 className="body body--secondary color-p200 my-5">
-                  {item.name}
+                  {item.title}
                 </h3>
                 <img
                   className="plan-page__schedule__images__image"
-                  src={item.image}
-                  alt={item.name}
+                  src={item.url}
+                  alt={item.title}
                 />
               </div>
             ))}
 
-            {testItems.length < 6 ? <AddImage /> : ""}
+            {schedule && schedule.length < 6 ? (
+              <AddImage handleClick={() => setShowModal(true)} />
+            ) : (
+              ""
+            )}
           </ul>
         </div>
+        {showModal && (
+          <div className="modal-overlay modal-overlay--lighter">
+            <div className="select-image bg-p50 p-10">
+              <span
+                onClick={() => setShowModal(false)}
+                className="p-5 cursor-pointer"
+              >
+                Close
+              </span>
+              <ul className="grid grid-cols-4 gap-5">
+                {allImages.map((item, index) => (
+                  <li
+                    key={index}
+                    className="select-image__li cursor-pointer bg-p100 flex justify-center items-center"
+                  >
+                    <img
+                      className="select-image__image"
+                      src={item.url}
+                      alt={item.title}
+                      onClick={() => setShowModal(false)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
         <div className="today-page__suggestions"></div>
       </div>
     </>

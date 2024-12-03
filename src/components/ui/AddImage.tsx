@@ -2,9 +2,16 @@
 
 import { plusIcon } from "../../assets/icons";
 
-const AddImage = () => {
+interface AddImageProps {
+  handleClick: () => void;
+}
+
+const AddImage: React.FC<AddImageProps> = ({ handleClick }) => {
   return (
-    <div className="add-image bg-p150 flex justify-center items-center">
+    <div
+      className="add-image bg-p150 flex justify-center items-center"
+      onClick={handleClick}
+    >
       <span className="cursor-pointer">{plusIcon}</span>
     </div>
   );
