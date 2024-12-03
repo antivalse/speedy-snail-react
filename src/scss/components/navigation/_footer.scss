@@ -10,6 +10,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
   color: $primary-100;
   padding: 2rem;
   border-top: 2px solid $primary-300;
+  margin-top: 20rem;
 
   &__inner {
     width: 95%;

@@ -10,6 +10,7 @@ import { closeIcon } from "../../assets/icons";
 import SortByCategory from "../../components/content/SortByCategory";
 import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import Carousel from "../../components/content/Carousel";
 
 const PlanPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -56,6 +57,8 @@ const PlanPage = () => {
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
     activeCategory !== "All Images" ? filteredImages : allImages;
+
+  // Random selection of images for suggestion carousel
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -180,7 +183,9 @@ const PlanPage = () => {
             Clear
           </button>
         )}
-        <div className="today-page__suggestions"></div>
+
+        <Carousel data={allImages} />
+
         {loading && <LoadingSpinner />}
       </div>
     </>
