@@ -12,7 +12,6 @@
   }
   &__images {
     &__li {
-      height: 10.469rem;
       border-radius: 1.875rem;
       transition: transform 0.5s ease, box-shadow 0.3s ease;
       &:hover {
@@ -20,6 +19,7 @@
       }
     }
     &__image {
+      height: 10.469rem;
       object-fit: cover;
     }
   }

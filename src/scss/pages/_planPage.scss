@@ -13,7 +13,13 @@ $secondary-400: map-get(map-get(c.$colors, secondary), 400);
       width: 60%;
       border-radius: 1.25rem;
     }
+
     &__images {
+      &__remove {
+        width: 24.063rem;
+        height: 24.063rem;
+        opacity: 50%;
+      }
       &__image {
         width: 24.063rem;
         height: 24.063rem;

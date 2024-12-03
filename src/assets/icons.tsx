@@ -675,3 +675,24 @@ export const pageNumber = (
     </defs>
   </svg>
 );
+
+export const closeIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="45"
+    height="45"
+    viewBox="0 0 92 92"
+    fill="none"
+  >
+    <path
+      d="M46 91C70.8528 91 91 70.8528 91 46C91 21.1472 70.8528 1 46 1C21.1472 1 1 21.1472 1 46C1 70.8528 21.1472 91 46 91Z"
+      fill="#E0EDED"
+      stroke="#F6F1E3"
+      stroke-width="2"
+    />
+    <path
+      d="M26 71L21 66L41 46L21 26L26 21L46 41L66 21L71 26L51 46L71 66L66 71L46 51L26 71Z"
+      fill="#4F453E"
+    />
+  </svg>
+);
