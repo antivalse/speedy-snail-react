@@ -40,7 +40,7 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
             {scrollLeft}
           </button>
           <ul
-            className="suggestions__carousel__inner flex transition-transform duration-300"
+            className="suggestions__carousel__inner flex transition-transform duration-300 gap-3"
             style={{
               transform: `translateX(-${
                 currentIndex * (100 / imagesPerSlide)
@@ -50,7 +50,7 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
             {data.map((item, index) => (
               <li
                 key={index}
-                className="relative suggestions__carousel__item flex flex-col items-center cursor-pointer"
+                className="relative suggestions__carousel__item flex flex-col items-center justify-center bg-s700 cursor-pointer"
                 onClick={() => handleImageClick(item._id || "")}
                 style={{ width: `${100 / imagesPerSlide}%` }}
               >
@@ -60,7 +60,7 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
                 <img
                   src={item.url}
                   alt={item.title}
-                  className="suggestions__carousel__img bg-s700"
+                  className="suggestions__carousel__img mb-3"
                 />
               </li>
             ))}
