@@ -49,9 +49,12 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
             {data.map((item, index) => (
               <li
                 key={index}
-                className="suggestions__carousel__item flex-shrink-0"
+                className="relative suggestions__carousel__item flex flex-col items-center"
                 style={{ width: `${100 / imagesPerSlide}%` }}
               >
+                <h4 className="absolute bottom-2 body body--secondary color-p300">
+                  {item.title}
+                </h4>
                 <img
                   src={item.url}
                   alt={item.title}
