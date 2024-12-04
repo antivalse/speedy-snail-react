@@ -184,7 +184,7 @@ const PlanPage = () => {
           </button>
         )}
 
-        <Carousel data={shuffledImages} />
+        <Carousel data={shuffledImages} handleImageClick={handleImageClick} />
 
         {loading && <LoadingSpinner />}
       </div>

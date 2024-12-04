@@ -6,9 +6,10 @@ import { Image } from "../../types/Image.types";
 
 interface CarouselProps {
   data: Image[];
+  handleImageClick: (id: string) => void;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ data }) => {
+const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Calculate the maxIndex based on the number of items per slide
@@ -49,7 +50,8 @@ const Carousel: React.FC<CarouselProps> = ({ data }) => {
             {data.map((item, index) => (
               <li
                 key={index}
-                className="relative suggestions__carousel__item flex flex-col items-center"
+                className="relative suggestions__carousel__item flex flex-col items-center cursor-pointer"
+                onClick={() => handleImageClick(item._id || "")}
                 style={{ width: `${100 / imagesPerSlide}%` }}
               >
                 <h4 className="absolute bottom-2 body body--secondary color-p300">
