@@ -35,7 +35,7 @@ $secondary-700: map-get(map-get(c.$colors, secondary), 700);
   &__greeting {
     background-color: $secondary-700;
     border: 2px solid $secondary-300;
-    width: 40%;
+    width: 20%;
     border-radius: 1.2rem;
     box-shadow: 2px 3px 6px rgba(53, 46, 46, 1); // Minimal shadow
   }
@@ -64,17 +64,19 @@ $secondary-700: map-get(map-get(c.$colors, secondary), 700);
     }
 
     &__inner {
-      transition: all 250ms linear;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+      -ms-overflow-style: none; /* IE */
+      scrollbar-width: none; /* Firefox */
 
       &::-webkit-scrollbar {
-        display: none;
+        display: none; /*Chrome*/
       }
     }
 
+    &__side-scroll {
+      margin-bottom: 10rem;
+    }
+
     &__inner > * {
-      width: 22%;
       flex-shrink: 0;
     }
   }

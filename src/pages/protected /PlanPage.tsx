@@ -11,6 +11,7 @@ import SortByCategory from "../../components/content/SortByCategory";
 import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Carousel from "../../components/content/Carousel";
+import shuffleArray from "../../utils/helpers/shuffleArray";
 
 const PlanPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -59,6 +60,7 @@ const PlanPage = () => {
     activeCategory !== "All Images" ? filteredImages : allImages;
 
   // Random selection of images for suggestion carousel
+  const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -87,6 +89,11 @@ const PlanPage = () => {
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
+        <div className="plan-page__greeting mb-8">
+          <p className="p-3 body body--secondary--greeting color-p300 text-center">
+            Hello there, {data?.username}!
+          </p>
+        </div>
         <h2
           id="date"
           className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
@@ -94,13 +101,6 @@ const PlanPage = () => {
           {date}
         </h2>
 
-        {
-          <div className="plan-page__greeting mb-8">
-            <p className="p-3 body body--secondary--greeting color-p300 text-center">
-              Hello there, {data?.username}!
-            </p>
-          </div>
-        }
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {schedule?.map((item, index) => (
@@ -184,7 +184,7 @@ const PlanPage = () => {
           </button>
         )}
 
-        <Carousel data={allImages} />
+        <Carousel data={shuffledImages} />
 
         {loading && <LoadingSpinner />}
       </div>
