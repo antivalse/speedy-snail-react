@@ -38,18 +38,6 @@ const PlanPage = () => {
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
-  // Handle image click - add image to schedule array
-  const handleImageClick = (id: string) => {
-    const selectedImage = allImages.find((img) => img._id === id);
-
-    // Abort if no image was selected
-    if (!selectedImage) {
-      return;
-    }
-    setSchedule((prevSchedule) => [...prevSchedule, selectedImage]);
-    setShowModal(false);
-  };
-
   // Filter images array based on active category
   const filteredImages = allImages?.filter(
     (image) => image.category === activeCategory
@@ -61,6 +49,24 @@ const PlanPage = () => {
 
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
+
+  // Handle image click - add image to schedule array
+  const handleImageClick = (id: string) => {
+    const selectedImage = allImages.find((img) => img._id === id);
+
+    // Abort if no image was selected
+    if (!selectedImage) {
+      return;
+    }
+    setSchedule((prevSchedule) => {
+      const updatedSchedule = [...prevSchedule, selectedImage];
+      // Set schedule to local storage after update
+      localStorage.setItem("schedule", JSON.stringify(updatedSchedule));
+      return updatedSchedule;
+    });
+
+    setShowModal(false);
+  };
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -80,10 +86,18 @@ const PlanPage = () => {
   // Clear the array
   const handleClear = () => {
     setSchedule([]);
+    scrollToDiv("date");
+    localStorage.removeItem("schedule");
   };
 
   useEffect(() => {
     scrollToDiv("date");
+    // Get the stored schedule from local storage only if it's not already set
+    const storedSchedule = localStorage.getItem("schedule");
+    if (storedSchedule) {
+      const renderedSchedule = JSON.parse(storedSchedule);
+      setSchedule(renderedSchedule);
+    }
   }, []);
 
   return (

@@ -26,7 +26,7 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
   };
   return (
     <div className="relative suggestions flex flex-col">
-      <h2 className="heading heading--primary self-center color-p300 mb-10">
+      <h2 className="heading heading--primary self-center color-p300">
         Suggestions
       </h2>
       <div className="relative suggestions__carousel">
