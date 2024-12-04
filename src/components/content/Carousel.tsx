@@ -10,9 +10,9 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ data }) => {
   return (
     <div className="suggestions flex flex-col">
-      <div className="relative suggestions__carousel bg-s700 flex flex-col">
-        <div className="suggestions__carousel__content-wrapper ">
-          <h2 className="heading heading--primary color-p300 m-10">
+      <div className="relative suggestions__carousel  flex flex-col">
+        <div className="suggestions__carousel__content-wrapper flex flex-col">
+          <h2 className="heading heading--primary color-p300 m-10 self-center">
             Suggestions
           </h2>
           <span className="absolute top-1/2 -translate-y-1/2 left-0 mt-10  cursor-pointer">
