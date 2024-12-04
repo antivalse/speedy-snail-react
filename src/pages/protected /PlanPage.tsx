@@ -12,6 +12,7 @@ import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Carousel from "../../components/content/Carousel";
 import shuffleArray from "../../utils/helpers/shuffleArray";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const PlanPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -38,6 +39,9 @@ const PlanPage = () => {
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
+  // Get local storage hook
+  const { setItem, getItem, removeItem } = useLocalStorage();
+
   // Filter images array based on active category
   const filteredImages = allImages?.filter(
     (image) => image.category === activeCategory
@@ -60,8 +64,7 @@ const PlanPage = () => {
     }
     setSchedule((prevSchedule) => {
       const updatedSchedule = [...prevSchedule, selectedImage];
-      // Set schedule to local storage after update
-      localStorage.setItem("schedule", JSON.stringify(updatedSchedule));
+      setItem("schedule", JSON.stringify(updatedSchedule));
       return updatedSchedule;
     });
 
@@ -87,17 +90,17 @@ const PlanPage = () => {
   const handleClear = () => {
     setSchedule([]);
     scrollToDiv("date");
-    localStorage.removeItem("schedule");
+    removeItem("schedule");
   };
 
   useEffect(() => {
     scrollToDiv("date");
-    // Get the stored schedule from local storage only if it's not already set
-    const storedSchedule = localStorage.getItem("schedule");
+    // Get the stored schedule from localStorage and set it to the state
+    const storedSchedule = getItem("schedule");
     if (storedSchedule) {
-      const renderedSchedule = JSON.parse(storedSchedule);
-      setSchedule(renderedSchedule);
+      setSchedule(storedSchedule);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
