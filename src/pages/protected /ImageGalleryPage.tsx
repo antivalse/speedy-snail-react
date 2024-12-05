@@ -1,6 +1,6 @@
 /* Image Gallery Page */
 
-import Pagination from "../../utils/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import useGetImages from "../../hooks/useGetImages";
 import { useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";

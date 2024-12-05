@@ -1,7 +1,7 @@
 /* Pagination Component */
 
-import { arrowLeft, arrowRight } from "../assets/icons";
-import useTheme from "../hooks/useTheme";
+import { arrowLeft, arrowRight } from "../../assets/icons";
+import useTheme from "../../hooks/useTheme";
 
 const Pagination = () => {
   // Access darkmode context
@@ -11,7 +11,13 @@ const Pagination = () => {
 
   return (
     <div className="pagination flex justify-center items-center gap-6 mt-10 p-10">
-      <span className="pagination__arrow-left">{arrowLeft}</span>
+      <span
+        className={`pagination__arrow cursor-pointer ${
+          darkmode ? "pagination__arrow pagination__arrow--lighter" : ""
+        }`}
+      >
+        {arrowLeft}
+      </span>
       <div
         className={`pagination__current-page  flex items-center justify-center ${
           darkmode ? "bg-p100 color-p300" : "bg-p300 color-p100"
@@ -19,7 +25,11 @@ const Pagination = () => {
       >
         <span>{currentPage}</span>
       </div>
-      <span className="pagination__arrow-right cursor-pointer">
+      <span
+        className={`pagination__arrow cursor-pointer ${
+          darkmode ? "pagination__arrow pagination__arrow--lighter" : ""
+        }`}
+      >
         {arrowRight}
       </span>
     </div>

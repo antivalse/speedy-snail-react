@@ -1,5 +1,9 @@
 /* Pagination Styles */
 
+@use "../../variables/colors" as c;
+
+$primary-100: map-get(map-get(c.$colors, primary), 100);
+
 .pagination {
   &__current-page {
     width: 4rem;
@@ -7,6 +11,14 @@
     border-radius: 180%;
     span {
       font-size: 1.5rem;
+    }
+  }
+
+  &__arrow--lighter {
+    svg {
+      path {
+        fill: #ffffff;
+      }
     }
   }
 }
