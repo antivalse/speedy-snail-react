@@ -100,7 +100,7 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
   };
 
   return (
-    <div className="form mx-auto p-12 flex flex-col items-center gap-12">
+    <div className="form mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
       {isUploading && <LoadingSpinner />}
       <h2 className="heading heading--primary color-p300">{heading}</h2>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
