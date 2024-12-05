@@ -27,14 +27,17 @@ const SecondaryNavbar = () => {
       <nav className="secondary-nav flex justify-between items-center p-3 bg-p50">
         <div className="relative">
           {" "}
-          <span
-            className="hamburger-icon"
-            aria-expanded="true"
-            aria-haspopup="true"
-            onClick={() => setShowNavDropdown(!showNavDropdown)}
-          >
-            {hamburgerMenuIcon}
-          </span>
+          <div className="flex gap-3 items-center">
+            <span
+              className="hamburger-icon"
+              aria-expanded="true"
+              aria-haspopup="true"
+              onClick={() => setShowNavDropdown(!showNavDropdown)}
+            >
+              {hamburgerMenuIcon}
+            </span>
+            <Theme />{" "}
+          </div>
           {showNavDropdown && (
             <div
               className="absolute left-0 z-10 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
@@ -80,7 +83,6 @@ const SecondaryNavbar = () => {
           Speedy Snail
         </h2>{" "}
         <div className="relative">
-          <Theme />{" "}
           <span
             className=" secondary-nav__avatar"
             aria-expanded="true"

@@ -8,11 +8,21 @@ const Theme = () => {
 
   console.log("darkmode is: ", darkmode);
   return (
-    <div role="button">
+    <div role="theme-buttons">
       {darkmode ? (
-        <span onClick={changeTheme}>{lightmodeIcon}</span>
+        <span
+          className="theme-buttons__button cursor-pointer"
+          onClick={changeTheme}
+        >
+          {lightmodeIcon}
+        </span>
       ) : (
-        <span onClick={changeTheme}>{darkmodeIcon}</span>
+        <span
+          className="theme-buttons__button cursor-pointer"
+          onClick={changeTheme}
+        >
+          {darkmodeIcon}
+        </span>
       )}
     </div>
   );
