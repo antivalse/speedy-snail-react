@@ -23,7 +23,7 @@ const SignupForm = () => {
     formState: { errors },
   } = useForm<SignupDetails>();
 
-  // Add navigate to send user to today page
+  // Add navigate to send user to schedule page
   const navigate = useNavigate();
 
   // Get the signup function from auth context
@@ -38,7 +38,7 @@ const SignupForm = () => {
 
     try {
       await signup(data.email, data.password, data.username, data.avatarId);
-      navigate("/today");
+      navigate("/schedule");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

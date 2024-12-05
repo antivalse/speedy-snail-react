@@ -7,6 +7,7 @@ import useGetCategories from "../../hooks/useGetCategories";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import SortByCategory from "../../components/content/SortByCategory";
+import useTheme from "../../hooks/useTheme";
 
 const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,6 +18,9 @@ const ImageGalleryPage = () => {
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();
+
+  // Access darkmode context
+  const { darkmode } = useTheme();
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
@@ -49,7 +53,7 @@ const ImageGalleryPage = () => {
 
   return (
     <>
-      <div className="image-gallery bg-p100 p-10">
+      <div className={`image-gallery p-10 ${darkmode ? "bg-p300" : "bg-p100"}`}>
         {showInfo && message && message.length > 0 && (
           <div>
             <p>{message}</p>
@@ -59,8 +63,15 @@ const ImageGalleryPage = () => {
           </div>
         )}
         <div className="image-gallery__sorting flex justify-between items-center">
-          <h2 className="heading heading--primary color-p300 py-3">
-            Category: <span className="color-p200">{activeCategory}</span>
+          <h2
+            className={`heading heading--primary py-3 ${
+              darkmode ? "color-p50" : "color-p300"
+            }`}
+          >
+            Category:{" "}
+            <span className={` ${darkmode ? "color-s500" : "color-p200"}`}>
+              {activeCategory}
+            </span>
           </h2>
           <SortByCategory
             data={categoriesArray}

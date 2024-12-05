@@ -4,8 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import "./scss/main.scss";
 import AboutPage from "./pages/AboutPage";
 import SignUpPage from "./pages/SignUpPage";
+import SchedulePage from "./pages/protected /SchedulePage";
 import NotFoundPage from "./pages/NotFoundPage";
-import PlanPage from "./pages/protected /PlanPage";
 import ImageGalleryPage from "./pages/protected /ImageGalleryPage";
 import AddNewImagePage from "./pages/protected /AddNewImagePage";
 import EditImagePage from "./pages/protected /EditImagePage";
@@ -14,10 +14,28 @@ import PublicLayout from "./layouts/PublicLayout";
 import Footer from "./components/navigation/Footer";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import LoginPage from "./pages/LoginPage";
+import useTheme from "./hooks/useTheme";
+import { useEffect } from "react";
 
 function App() {
+  const { darkmode } = useTheme();
+
+  useEffect(() => {
+    // Add or remove the 'dark-mode' class on the body tag
+    if (darkmode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+
+    // Cleanup on component unmount
+    return () => {
+      document.body.classList.remove("dark-mode");
+    };
+  }, [darkmode]);
+
   return (
-    <div id="app">
+    <div id="root">
       <Routes>
         {/** Public Routes */}
         <Route element={<PublicLayout />}>
@@ -30,7 +48,7 @@ function App() {
 
         {/** Protected Routes */}
         <Route element={<ProtectedLayout />}>
-          <Route path="/today" element={<PlanPage />} />
+          <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/image-gallery" element={<ImageGalleryPage />} />
           <Route path="/add-image" element={<AddNewImagePage />} />
           <Route path="/edit-image/:id" element={<EditImagePage />} />

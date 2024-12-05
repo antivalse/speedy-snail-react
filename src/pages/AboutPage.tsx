@@ -1,8 +1,14 @@
 /* About Page */
 
+import { useEffect } from "react";
+import scrollToDiv from "../utils/helpers/scrollToDiv";
+
 const AboutPage = () => {
+  useEffect(() => {
+    scrollToDiv("about");
+  }, []);
   return (
-    <div className="about bg-s500 mb-20 flex flex-col p-10 m-auto">
+    <div id="about" className="about bg-s500 mb-20 flex flex-col p-10 m-auto">
       <h2 className="color-s400 heading heading--primary">Our story</h2>
       <p className="color-s400 body mt-3">
         SpeedySnail is a thoughtfully designed app inspired by Miriam, an

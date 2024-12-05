@@ -46,7 +46,7 @@ const SettingsForm = () => {
     },
   });
 
-  // Add navigate to send user to today page
+  // Add navigate to send user to schedule page
   const navigate = useNavigate();
 
   // Get reference to password
@@ -134,7 +134,7 @@ const SettingsForm = () => {
   }, [email, reset]);
 
   return (
-    <div className="form container mx-auto p-12 flex flex-col items-center gap-12">
+    <div className="form container mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
       <h2 className="heading heading--primary color-p300">Account Details</h2>
       <form
         onSubmit={handleSubmit(onUpdate)}

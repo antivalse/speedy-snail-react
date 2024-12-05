@@ -1,4 +1,4 @@
-/* Plan Page */
+/* Schedule Page */
 
 import { useEffect, useState } from "react";
 import AddImage from "../../components/ui/AddImage";
@@ -14,7 +14,7 @@ import Carousel from "../../components/content/Carousel";
 import shuffleArray from "../../utils/helpers/shuffleArray";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-const PlanPage = () => {
+const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
@@ -209,4 +209,4 @@ const PlanPage = () => {
   );
 };
 
-export default PlanPage;
+export default SchedulePage;

@@ -19,7 +19,7 @@ const SortByCategory: React.FC<SortByCategoryProps> = ({
   return (
     <div className="relative">
       <button
-        className="btn btn--sort flex justify-center items-center gap-2"
+        className="btn btn--sort flex justify-center items-center gap-2 color-p300"
         aria-expanded="true"
         aria-haspopup="true"
         onClick={() => setShowCategories(!showCategories)}
