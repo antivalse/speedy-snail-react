@@ -36,7 +36,7 @@ const SecondaryNavbar = () => {
             >
               {hamburgerMenuIcon}
             </span>
-            <Theme />{" "}
+            <Theme isDropdown={false} />{" "}
           </div>
           {showNavDropdown && (
             <div
@@ -101,17 +101,21 @@ const SecondaryNavbar = () => {
               onClick={() => setShowNavDropdown(!showUserDropdown)}
             >
               <div role="none">
-                <p
-                  className="block px-4 py-2 text-sm text-gray-700 bg-s500"
-                  role="menuitem"
-                  tabIndex={-1}
-                  id="menu-item-0"
-                >
-                  {data?.username}
-                </p>
+                <div className="flex bg-s500 items-end justify-between px-4 py-2 ">
+                  <p
+                    className="block text-sm font-extrabold text-base color-p300"
+                    role="menuitem"
+                    tabIndex={-1}
+                    id="menu-item-0"
+                  >
+                    {data?.username}
+                  </p>
+                  <Theme isDropdown={true} />
+                </div>
+
                 <a
                   href="/settings"
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block px-4 py-2 text-sm color-p300"
                   role="menuitem"
                   tabIndex={-1}
                   id="menu-item-0"
@@ -122,7 +126,7 @@ const SecondaryNavbar = () => {
                   <Link
                     to="/"
                     type="submit"
-                    className="block w-full px-4 py-2 text-left text-sm text-gray-700"
+                    className="block w-full px-4 py-2 text-left text-sm color-p300"
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-3"

@@ -1,10 +1,28 @@
 /* Theme Button Styles */
 
+@use "../../utils/mixins" as m;
+
 .theme-buttons {
   &__button {
+    display: none;
     svg {
       width: 4.375rem;
       height: 4.239rem;
+    }
+    @include m.breakpoint-up("sm") {
+      display: block;
+    }
+
+    &--small {
+      display: block;
+
+      svg {
+        width: 2.1875rem;
+        height: 2.1195rem;
+      }
+      @include m.breakpoint-up("sm") {
+        display: none;
+      }
     }
   }
 }
