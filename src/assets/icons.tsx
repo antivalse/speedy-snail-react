@@ -101,7 +101,7 @@ export const instagramIcon = (
 export const octopusAvatar = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="129"
+    width="125"
     height="125"
     viewBox="-10 -10 149 145"
     fill="none"
@@ -193,7 +193,7 @@ export const octopusAvatar = (
 export const snailAvatar = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="129"
+    width="125"
     height="125"
     viewBox="-10 -10 149 145"
     fill="none"
@@ -253,7 +253,7 @@ export const snailAvatar = (
 export const ladybugAvatar = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="129"
+    width="125"
     height="125"
     viewBox="-10 -10 149 145"
     fill="none"
@@ -301,7 +301,7 @@ export const ladybugAvatar = (
 export const smileyfaceAvatar = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="129"
+    width="125"
     height="125"
     viewBox="-10 -10 149 145"
     fill="none"
@@ -334,7 +334,7 @@ export const smileyfaceAvatar = (
 export const watermelonAvatar = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="129"
+    width="125"
     height="125"
     viewBox="-10 -10 149 145"
     fill="none"
@@ -366,7 +366,7 @@ export const watermelonAvatar = (
 export const guitarAvatar = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="129"
+    width="125"
     height="125"
     viewBox="-10 -10 149 145"
     fill="none"

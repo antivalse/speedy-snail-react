@@ -6,6 +6,7 @@ import { avatars, hamburgerMenuIcon } from "../../assets/icons";
 import { Link } from "react-router-dom";
 import useGetUser from "../../hooks/useGetUser";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import Theme from "../buttons/Theme";
 
 const SecondaryNavbar = () => {
   const [showNavDropdown, setShowNavDropdown] = useState<boolean>(false);
@@ -79,7 +80,7 @@ const SecondaryNavbar = () => {
           Speedy Snail
         </h2>{" "}
         <div className="relative">
-          {" "}
+          <Theme />{" "}
           <span
             className=" secondary-nav__avatar"
             aria-expanded="true"
