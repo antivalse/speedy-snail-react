@@ -14,6 +14,7 @@ const MainNavbar = () => {
     <nav className={`relative main-navbar ${darkmode ? "bg-p300" : "bg-p50"}`}>
       <div className="absolute top-2 right-2">
         <Theme isDropdown={false} />
+        <Theme isDropdown={true} />
       </div>
       <div className="main-navbar__left flex flex-col items-center gap-8 mt-5">
         <h1>
