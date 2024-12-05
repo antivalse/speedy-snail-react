@@ -69,6 +69,7 @@ const SchedulePage = () => {
     });
 
     setShowModal(false);
+    scrollToDiv("schedule-page-greeting");
   };
 
   // Function to handle selection of new category and fake loading state
@@ -89,12 +90,12 @@ const SchedulePage = () => {
   // Clear the array
   const handleClear = () => {
     setSchedule([]);
-    scrollToDiv("date");
+    scrollToDiv("schedule-page-greeting");
     removeItem("schedule");
   };
 
   useEffect(() => {
-    scrollToDiv("date");
+    scrollToDiv("schedule-page-greeting");
     // Get the stored schedule from localStorage and set it to the state
     const storedSchedule = getItem("schedule");
     if (storedSchedule) {
@@ -106,7 +107,7 @@ const SchedulePage = () => {
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
-        <div className="plan-page__greeting mb-8">
+        <div id="schedule-page-greeting" className="plan-page__greeting mb-8">
           <p className="p-3 body body--secondary--greeting color-p300 text-center">
             Hello there, {data?.username}!
           </p>

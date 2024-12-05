@@ -5,6 +5,7 @@
 
 /* Button Colors */
 $primary-50: map-get(map-get(c.$colors, primary), 50);
+$primary-100: map-get(map-get(c.$colors, primary), 100);
 $primary-200: map-get(map-get(c.$colors, primary), 200);
 $primary-300: map-get(map-get(c.$colors, primary), 300);
 $secondary-200: map-get(map-get(c.$colors, secondary), 200);
@@ -20,13 +21,14 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
 
   &--primary {
     border: 1px solid $primary-300;
+    background-color: $primary-50;
     &:hover {
       background-color: $secondary-200;
     }
   }
   &--secondary {
     background-color: $primary-300;
-    border: 1px solid $primary-300;
+    border: 1px solid $primary-50;
     color: $primary-50;
     &:hover {
       background-color: $secondary-300;

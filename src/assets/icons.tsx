@@ -789,7 +789,7 @@ export const lightmodeIcon = (
       cy="62.5"
       r="62.5"
       fill="#4F453E"
-      stroke="#4F453E"
+      stroke="#E0EDED"
       strokeWidth="3"
     />
     <path

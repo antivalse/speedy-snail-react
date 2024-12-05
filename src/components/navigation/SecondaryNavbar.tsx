@@ -55,7 +55,7 @@ const SecondaryNavbar = () => {
                   tabIndex={-1}
                   id="menu-item-1"
                 >
-                  Daily Plan Page
+                  Today's Schedule
                 </a>
                 <a
                   href="/image-gallery"
