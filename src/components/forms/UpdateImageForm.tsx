@@ -110,7 +110,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
   };
 
   return (
-    <div className="form mx-auto p-12 flex flex-col items-center gap-12">
+    <div className="form mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
       {isUpdating && <LoadingSpinner />}
       <h2 className="heading heading--primary color-p300">
         Edit Image Details
@@ -197,18 +197,21 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
             <p>{error}</p>
           )}
         </div>
-
-        <SubmitButton
-          className="btn btn--submit self-center"
-          btnText={btnText}
-          onClick={() => handleSubmit}
-        />
+        <div className="flex justify-center">
+          {" "}
+          <SubmitButton
+            className="btn btn--submit self-center"
+            btnText={btnText}
+            onClick={() => handleSubmit}
+          />{" "}
+        </div>
       </form>
       <SubmitButton
         className="btn btn--submit btn--submit--danger"
-        btnText="Delete"
+        btnText="Delete Image"
         onClick={() => setShowConfirmationModal(true)}
       />
+
       {showConfirmationModal && (
         <ConfirmationModal
           heading="Are you sure you want to delete image?"

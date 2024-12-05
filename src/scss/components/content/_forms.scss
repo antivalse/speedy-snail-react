@@ -61,6 +61,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
     width: 21.313rem;
     border-radius: 0.938rem;
     object-fit: contain;
+    background-color: $primary-100;
   }
 }
 
