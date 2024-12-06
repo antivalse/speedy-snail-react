@@ -12,6 +12,7 @@ import {
 import { UserInfo } from "../types/User.types";
 import { Image } from "../types/Image.types";
 import { Category } from "../types/Category.types";
+import { Schedule } from "../types/Schedule.types";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -39,5 +40,6 @@ const createCollection = <T = DocumentData>(collectionType: string) => {
 export const usersCollection = createCollection<UserInfo>("users");
 export const imagesCollection = createCollection<Image>("images");
 export const categoriesCollection = createCollection<Category>("categories");
+export const schedulesCollection = createCollection<Schedule>("schedules");
 
 export default app;
