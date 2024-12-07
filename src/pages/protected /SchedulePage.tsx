@@ -74,19 +74,21 @@ const SchedulePage = () => {
     }
 
     // Update the schedule render
-    setSchedule((prevSchedule) => [...prevSchedule, selectedImage]);
+    const updatedSchedule = [...schedule, selectedImage];
+    setSchedule(updatedSchedule);
 
+    // Add to the database
     if (!schedule.length) {
       await createSchedule({
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
-        images: schedule,
+        images: updatedSchedule, // Use the updated schedule directly
         uid: user?.uid,
       });
     } else {
       console.log("you want to update schedule!");
+      // Handle update logic here
     }
-
     setShowModal(false);
     scrollToDiv("schedule-page-greeting");
   };
