@@ -35,7 +35,8 @@ const SchedulePage = () => {
   if (!schedules.data?.length) {
     console.log("There is no schedule, create a new one");
   } else {
-    console.log("Go to the created schedule page");
+    // Navigate to the schedule page with created schedule
+    navigate(`/schedule/${schedules.data[0]._id}`);
   }
 
   console.log("schedules: ", schedules);
