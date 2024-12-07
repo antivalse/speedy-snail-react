@@ -12,6 +12,11 @@ const useGetDocument = <T>(
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!documentId) {
+      setLoading(false);
+      console.log("There was no doc!");
+      return;
+    }
     const docRef = doc(colRef, documentId);
 
     return onSnapshot(docRef, (snapshot) => {

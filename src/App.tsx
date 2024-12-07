@@ -16,6 +16,7 @@ import ProtectedLayout from "./layouts/ProtectedLayout";
 import LoginPage from "./pages/LoginPage";
 import useTheme from "./hooks/useTheme";
 import { useEffect } from "react";
+import CreatedSchedulePage from "./pages/protected /CreatedSchedulePage";
 
 function App() {
   const { darkmode } = useTheme();
@@ -49,6 +50,7 @@ function App() {
         {/** Protected Routes */}
         <Route element={<ProtectedLayout />}>
           <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/schedule/:id" element={<CreatedSchedulePage />} />
           <Route path="/image-gallery" element={<ImageGalleryPage />} />
           <Route path="/add-image" element={<AddNewImagePage />} />
           <Route path="/edit-image/:id" element={<EditImagePage />} />

@@ -1,41 +1,38 @@
-/* Schedule Landing Page */
-
-import { useEffect, useState } from "react";
-import AddImage from "../../components/ui/AddImage";
+import { useParams } from "react-router-dom";
+import Carousel from "../../components/content/Carousel";
+import TodaysDate from "../../components/content/TodaysDate";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useGetUser from "../../hooks/useGetUser";
-import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import useGetSchedule from "../../hooks/useGetSchedule";
 import useGetImages from "../../hooks/useGetImages";
 import { Image } from "../../types/Image.types";
-import { closeIcon } from "../../assets/icons";
-import SortByCategory from "../../components/content/SortByCategory";
+import { useEffect, useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import Carousel from "../../components/content/Carousel";
 import shuffleArray from "../../utils/helpers/shuffleArray";
-import useCreateSchedule from "../../hooks/useCreateSchedule";
-import { serverTimestamp } from "firebase/firestore";
-import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import AddImage from "../../components/ui/AddImage";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import SortByCategory from "../../components/content/SortByCategory";
+import { closeIcon } from "../../assets/icons";
 
-const SchedulePage = () => {
+const CreatedSchedulePage = () => {
+  // State handlers
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const navigate = useNavigate(); // Updated hook for navigation
-
+  // Get authenticated user
   const { data } = useGetUser();
 
-  // Get today's date
-  const date = new Date()
-    .toLocaleDateString("en-us", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    })
-    .replace(/,/g, "\n"); // Remove commas
+  // Get schedule id from params
+
+  const { id } = useParams();
+
+  // Get the schedule if there is one
+  const userSchedule = useGetSchedule(id || "");
+
+  console.log("user schedule: ", userSchedule.data?._id);
 
   // Get all images
   const imageData = useGetImages();
@@ -57,40 +54,6 @@ const SchedulePage = () => {
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
 
-  /* HERE BE CODE FOR DB SCHEDULE */
-
-  const { createSchedule } = useCreateSchedule();
-  const { user } = useAuth();
-
-  /* END OF DB SCHEDULE */
-
-  // Handle image click - add image to schedule array
-  const handleImageClick = async (id: string) => {
-    const selectedImage = allImages.find((img) => img._id === id);
-
-    // Abort if no image was selected
-    if (!selectedImage) {
-      return;
-    }
-
-    // Update the schedule render
-    const updatedSchedule = [...schedule, selectedImage];
-    setSchedule(updatedSchedule);
-
-    // Add to the database
-    if (!schedule.length) {
-      const createdSchedule = await createSchedule({
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-        images: updatedSchedule, // Use the updated schedule directly
-        uid: user?.uid,
-      });
-
-      navigate(`/schedule/${createdSchedule}`); // This will update the URL
-    }
-    setShowModal(false);
-  };
-
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
     setLoading(true);
@@ -98,6 +61,18 @@ const SchedulePage = () => {
       setActiveCategory(category);
       setLoading(false);
     }, 1000);
+  };
+
+  // Handle image click and update the schedule
+  const handleImageClick = (id: string) => {
+    const selectedImage = allImages.find((img) => img._id === id);
+
+    // Abort if no image was selected
+    if (!selectedImage) {
+      return;
+    }
+
+    // Add image to schedule in db and update the rendering of schedule
   };
 
   // Handle closing images modal
@@ -112,6 +87,7 @@ const SchedulePage = () => {
     scrollToDiv("schedule-page-greeting");
   };
 
+  // Scroll to greeting on re-render
   useEffect(() => {
     scrollToDiv("schedule-page-greeting");
   }, []);
@@ -124,12 +100,7 @@ const SchedulePage = () => {
             Hello there, {data?.username}!
           </p>
         </div>
-        <h2
-          id="date"
-          className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
-        >
-          {date}
-        </h2>
+        <TodaysDate />
 
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
@@ -217,9 +188,9 @@ const SchedulePage = () => {
         <Carousel data={shuffledImages} handleImageClick={handleImageClick} />
 
         {loading && <LoadingSpinner />}
-      </div>
+      </div>{" "}
     </>
   );
 };
 
-export default SchedulePage;
+export default CreatedSchedulePage;
