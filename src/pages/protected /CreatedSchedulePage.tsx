@@ -30,15 +30,17 @@ const CreatedSchedulePage = () => {
   const { id } = useParams();
 
   // Get the schedule if there is one
-  const userSchedule = useGetSchedule(id || "");
+  const { userSchedule, isScheduleLoading } = useGetSchedule(id || "");
 
-  console.log("user schedule: ", userSchedule.data?._id);
+  console.log("user schedule images ", userSchedule?.images);
 
   // Show modal if there is no current schedule
-  if (!userSchedule.data?.images.length) {
+  if (!userSchedule) {
     console.log(
       "Could not find a schedule. Create a new one: link to /schedule"
     );
+  } else {
+    console.log("found the schedule!");
   }
 
   // Get all images
@@ -48,6 +50,13 @@ const CreatedSchedulePage = () => {
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
   const categoriesArray = categories.data;
+
+  // Monitor `userSchedule` and update the `schedule` state
+  useEffect(() => {
+    if (userSchedule?.images) {
+      setSchedule(userSchedule.images);
+    }
+  }, [userSchedule]);
 
   // Filter images array based on active category
   const filteredImages = allImages?.filter(

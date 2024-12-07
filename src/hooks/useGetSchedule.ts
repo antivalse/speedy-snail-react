@@ -5,7 +5,12 @@ import { Schedule } from "../types/Schedule.types";
 import useGetDocument from "./useGetDocument";
 
 const useGetSchedule = (id: string) => {
-  return useGetDocument<Schedule>(schedulesCollection, id);
+  // Get the data using the existing useGetDocument hook
+  const { data: userSchedule, loading: isScheduleLoading } =
+    useGetDocument<Schedule>(schedulesCollection, id);
+
+  // Return the renamed data for clarity
+  return { userSchedule, isScheduleLoading };
 };
 
 export default useGetSchedule;

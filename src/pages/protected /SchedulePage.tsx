@@ -29,7 +29,6 @@ const SchedulePage = () => {
   const { data } = useGetUser();
 
   // Check for schedules in schedules collection that match the user id
-
   const schedules = useGetSchedules();
 
   if (!schedules.data?.length) {
@@ -38,8 +37,6 @@ const SchedulePage = () => {
     // Navigate to the schedule page with created schedule
     navigate(`/schedule/${schedules.data[0]._id}`);
   }
-
-  console.log("schedules: ", schedules);
 
   // Access function to create new schedule in Firebase
   const { createSchedule } = useCreateSchedule();

@@ -10,14 +10,14 @@ const useGetSchedules = () => {
   const { user } = useAuth();
 
   // Fetch user-specific schedule(userId == user.uid) only if the user is logged in
-  const { data: userSchedule, loading } = useSyncedCollection(
+  const { data, loading: scheduleLoading } = useSyncedCollection(
     schedulesCollection,
     where("uid", "==", user?.uid)
   );
 
   return {
-    data: userSchedule,
-    loading,
+    data,
+    scheduleLoading,
   };
 };
 
