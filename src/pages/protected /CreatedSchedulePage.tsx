@@ -34,6 +34,13 @@ const CreatedSchedulePage = () => {
 
   console.log("user schedule: ", userSchedule.data?._id);
 
+  // Show modal if there is no current schedule
+  if (!userSchedule.data?.images.length) {
+    console.log(
+      "Could not find a schedule. Create a new one: link to /schedule"
+    );
+  }
+
   // Get all images
   const imageData = useGetImages();
   const allImages = imageData.data;
@@ -71,7 +78,7 @@ const CreatedSchedulePage = () => {
     if (!selectedImage) {
       return;
     }
-
+    console.log("you clicked image!: ", selectedImage);
     // Add image to schedule in db and update the rendering of schedule
   };
 

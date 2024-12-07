@@ -10,12 +10,10 @@ import { closeIcon } from "../../assets/icons";
 import SortByCategory from "../../components/content/SortByCategory";
 import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import Carousel from "../../components/content/Carousel";
-import shuffleArray from "../../utils/helpers/shuffleArray";
 import useCreateSchedule from "../../hooks/useCreateSchedule";
 import { serverTimestamp } from "firebase/firestore";
-import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import useGetSchedules from "../../hooks/useGetSchedules";
 
 const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -24,9 +22,26 @@ const SchedulePage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const navigate = useNavigate(); // Updated hook for navigation
+  // Access useNavigate hook
+  const navigate = useNavigate();
 
+  // Access user data
   const { data } = useGetUser();
+
+  // Check for schedules in schedules collection that match the user id
+
+  const schedules = useGetSchedules();
+
+  if (!schedules.data?.length) {
+    console.log("There is no schedule, create a new one");
+  } else {
+    console.log("Go to the created schedule page");
+  }
+
+  console.log("schedules: ", schedules);
+
+  // Access function to create new schedule in Firebase
+  const { createSchedule } = useCreateSchedule();
 
   // Get today's date
   const date = new Date()
@@ -54,17 +69,22 @@ const SchedulePage = () => {
   const imagesToDisplay =
     activeCategory !== "All Images" ? filteredImages : allImages;
 
-  // Random selection of images for suggestion carousel
-  const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
+  // Function to handle selection of new category and fake loading state
+  const handleSelection = (category: string) => {
+    setLoading(true);
+    setTimeout(() => {
+      setActiveCategory(category);
+      setLoading(false);
+    }, 1000);
+  };
 
-  /* HERE BE CODE FOR DB SCHEDULE */
+  // Handle closing images modal
+  const handleClose = () => {
+    setActiveCategory("All Images");
+    setShowModal(false);
+  };
 
-  const { createSchedule } = useCreateSchedule();
-  const { user } = useAuth();
-
-  /* END OF DB SCHEDULE */
-
-  // Handle image click - add image to schedule array
+  // Handle image click - create a new schedule and add image to it
   const handleImageClick = async (id: string) => {
     const selectedImage = allImages.find((img) => img._id === id);
 
@@ -83,33 +103,12 @@ const SchedulePage = () => {
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
         images: updatedSchedule, // Use the updated schedule directly
-        uid: user?.uid,
+        uid: data?.uid,
       });
 
       navigate(`/schedule/${createdSchedule}`); // This will update the URL
     }
     setShowModal(false);
-  };
-
-  // Function to handle selection of new category and fake loading state
-  const handleSelection = (category: string) => {
-    setLoading(true);
-    setTimeout(() => {
-      setActiveCategory(category);
-      setLoading(false);
-    }, 1000);
-  };
-
-  // Handle closing images modal
-  const handleClose = () => {
-    setActiveCategory("All Images");
-    setShowModal(false);
-  };
-
-  // Clear the array
-  const handleClear = () => {
-    setSchedule([]);
-    scrollToDiv("schedule-page-greeting");
   };
 
   useEffect(() => {
@@ -208,13 +207,6 @@ const SchedulePage = () => {
             </div>
           </div>
         )}
-        {schedule.length > 0 && (
-          <button className="btn btn--clear" onClick={handleClear}>
-            Clear
-          </button>
-        )}
-
-        <Carousel data={shuffledImages} handleImageClick={handleImageClick} />
 
         {loading && <LoadingSpinner />}
       </div>
