@@ -13,6 +13,9 @@ import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import Carousel from "../../components/content/Carousel";
 import shuffleArray from "../../utils/helpers/shuffleArray";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import useCreateSchedule from "../../hooks/useCreateSchedule";
+import { serverTimestamp } from "firebase/firestore";
+import useAuth from "../../hooks/useAuth";
 
 const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -40,7 +43,7 @@ const SchedulePage = () => {
   const categoriesArray = categories.data;
 
   // Get local storage hook
-  const { setItem, getItem, removeItem } = useLocalStorage();
+  const { getItem, removeItem } = useLocalStorage();
 
   // Filter images array based on active category
   const filteredImages = allImages?.filter(
@@ -54,19 +57,35 @@ const SchedulePage = () => {
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
 
+  /* HERE BE CODE FOR DB SCHEDULE */
+
+  const { createSchedule } = useCreateSchedule();
+  const { user } = useAuth();
+
+  /* END OF DB SCHEDULE */
+
   // Handle image click - add image to schedule array
-  const handleImageClick = (id: string) => {
+  const handleImageClick = async (id: string) => {
     const selectedImage = allImages.find((img) => img._id === id);
 
     // Abort if no image was selected
     if (!selectedImage) {
       return;
     }
-    setSchedule((prevSchedule) => {
-      const updatedSchedule = [...prevSchedule, selectedImage];
-      setItem("schedule", JSON.stringify(updatedSchedule));
-      return updatedSchedule;
-    });
+
+    // Update the schedule render
+    setSchedule((prevSchedule) => [...prevSchedule, selectedImage]);
+
+    if (!schedule.length) {
+      await createSchedule({
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+        images: schedule,
+        uid: user?.uid,
+      });
+    } else {
+      console.log("you want to update schedule!");
+    }
 
     setShowModal(false);
     scrollToDiv("schedule-page-greeting");
