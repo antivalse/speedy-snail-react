@@ -41,8 +41,8 @@ const CreatedSchedulePage = () => {
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
-  // Access hook to update schedule
-  const { updateSchedule } = useUpdateSchedule();
+  // Access hook to delete/update schedule
+  const { deleteSchedule, updateSchedule } = useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
   useEffect(() => {
@@ -95,6 +95,7 @@ const CreatedSchedulePage = () => {
 
   // Clear the array
   const handleClear = () => {
+    deleteSchedule(userSchedule?._id || "");
     setSchedule([]);
     scrollToDiv("schedule-page-greeting");
   };
