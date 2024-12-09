@@ -31,6 +31,28 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
       outline: none;
       border: 0.15rem solid $primary-300;
     }
+
+    // Autofill styles
+    &:-webkit-autofill {
+      background-color: $primary-100 !important;
+      color: $primary-300 !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    &:-moz-autofill {
+      background-color: $primary-100 !important;
+      color: $primary-300 !important;
+    }
+
+    &:-ms-autofill {
+      background-color: $primary-100 !important;
+      color: $primary-300 !important;
+    }
+
+    &:autofill {
+      background-color: $primary-100 !important;
+      color: $primary-300 !important;
+    }
   }
 
   &__reset {

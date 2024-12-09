@@ -218,7 +218,7 @@ const CreatedSchedulePage = () => {
         )}
         {schedule.length > 0 && (
           <button className="btn btn--clear" onClick={handleClear}>
-            Clear
+            Clear Schedule
           </button>
         )}
 
