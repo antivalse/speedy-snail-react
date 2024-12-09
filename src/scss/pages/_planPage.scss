@@ -28,6 +28,9 @@ $secondary-700: map-get(map-get(c.$colors, secondary), 700);
         height: 24.063rem;
         border-radius: 1.875rem;
         object-fit: contain;
+        opacity: 1;
+        transition: 0.5s ease;
+        backface-visibility: hidden;
       }
     }
   }

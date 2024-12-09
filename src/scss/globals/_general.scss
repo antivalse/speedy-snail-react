@@ -56,3 +56,23 @@ a {
     background-color: rgba(0, 0, 0, 0.7);
   }
 }
+
+.image-overlay {
+  transition: 0.5s ease;
+  opacity: 0; /* Hide the overlay initially */
+  visibility: hidden; /* Ensures the overlay is not interactive when hidden */
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper:hover .image-overlay {
+  opacity: 1;
+  visibility: visible;
+}

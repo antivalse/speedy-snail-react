@@ -134,14 +134,21 @@ const CreatedSchedulePage = () => {
                 <h3 className="body body--secondary color-p200">
                   {item.title}
                 </h3>
-                <img
-                  className="plan-page__schedule__images__image cursor-pointer"
-                  src={item.url}
-                  alt={item.title}
-                  onClick={() =>
-                    removeImageFromSchedule(userSchedule?._id || "", item)
-                  }
-                />
+                <div className="relative image-wrapper my-5">
+                  <img
+                    className="plan-page__schedule__images__image cursor-pointer"
+                    src={item.url}
+                    alt={item.title}
+                    onClick={() =>
+                      removeImageFromSchedule(userSchedule?._id || "", item)
+                    }
+                  />
+                  <div className="absolute top-0 image-overlay plan-page__schedule__images__image cursor-pointer flex justify-center items-center">
+                    <span className="body body--secondary color-p50 ">
+                      Remove
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
 
