@@ -44,7 +44,8 @@ const CreatedSchedulePage = () => {
   const categoriesArray = categories.data;
 
   // Access hook to delete/update schedule
-  const { deleteSchedule, addImageToSchedule } = useUpdateSchedule();
+  const { deleteSchedule, addImageToSchedule, removeImageFromSchedule } =
+    useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
   useEffect(() => {
@@ -125,9 +126,12 @@ const CreatedSchedulePage = () => {
                   {item.title}
                 </h3>
                 <img
-                  className="plan-page__schedule__images__image"
+                  className="plan-page__schedule__images__image cursor-pointer"
                   src={item.url}
                   alt={item.title}
+                  onClick={() =>
+                    removeImageFromSchedule(userSchedule?._id || "", item)
+                  }
                 />
               </div>
             ))}
