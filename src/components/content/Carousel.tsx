@@ -50,7 +50,7 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
             {data.map((item, index) => (
               <li
                 key={index}
-                className="relative suggestions__carousel__item flex flex-col items-center justify-center bg-s700 cursor-pointer"
+                className="relative suggestions__carousel__item flex flex-col items-center justify-center bg-s900 cursor-pointer"
                 onClick={() => handleImageClick(item._id || "")}
                 style={{ width: `${100 / imagesPerSlide}%` }}
               >
