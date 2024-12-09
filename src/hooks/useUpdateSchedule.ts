@@ -25,7 +25,6 @@ const useUpdateSchedule = () => {
         images: arrayUnion(data),
         updatedAt: serverTimestamp(),
       });
-      console.log("you want to update");
     } catch (err) {
       if (err instanceof Error) {
         setError(

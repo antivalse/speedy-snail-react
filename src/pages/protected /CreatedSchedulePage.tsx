@@ -30,12 +30,8 @@ const CreatedSchedulePage = () => {
 
   const { id } = useParams();
 
-  console.log("schedule id: ", id);
-
   // Get the schedule if there is one
   const { userSchedule } = useGetSchedule(id || "");
-
-  console.log("user schedule images ", userSchedule?.images);
 
   // Get all images
   const imageData = useGetImages();
