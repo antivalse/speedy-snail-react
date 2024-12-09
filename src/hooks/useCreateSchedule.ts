@@ -22,7 +22,6 @@ const useCreateSchedule = () => {
 
       // Use the document ID for future updates
       const scheduleId = scheduleDoc.id;
-      console.log("schedule id is: ", scheduleId);
       return scheduleId;
     } catch (err) {
       if (err instanceof Error) {

@@ -6,11 +6,14 @@ import useGetDocument from "./useGetDocument";
 
 const useGetSchedule = (id: string) => {
   // Get the data using the existing useGetDocument hook
-  const { data: userSchedule, loading: isScheduleLoading } =
-    useGetDocument<Schedule>(schedulesCollection, id);
+  const {
+    data: userSchedule,
+    loading: isScheduleLoading,
+    error: getScheduleError,
+  } = useGetDocument<Schedule>(schedulesCollection, id);
 
   // Return the renamed data for clarity
-  return { userSchedule, isScheduleLoading };
+  return { userSchedule, isScheduleLoading, getScheduleError };
 };
 
 export default useGetSchedule;

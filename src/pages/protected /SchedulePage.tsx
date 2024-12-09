@@ -32,11 +32,9 @@ const SchedulePage = () => {
   const schedules = useGetSchedules();
 
   useEffect(() => {
-    if (schedules.data?.length) {
+    if (schedules.data) {
       // Navigate to the schedule page with created schedule
       navigate(`/schedule/${schedules.data[0]._id}`);
-    } else {
-      console.log("There is no schedule, create a new one");
     }
   }, [schedules.data, navigate]);
 

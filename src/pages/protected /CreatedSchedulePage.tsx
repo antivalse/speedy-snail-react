@@ -33,9 +33,9 @@ const CreatedSchedulePage = () => {
   const { data } = useGetUser();
 
   // Get the schedule if there is one
-  const { userSchedule } = useGetSchedule(id || "");
-
-  console.log("schedule is: ", userSchedule);
+  const { userSchedule, isScheduleLoading, getScheduleError } = useGetSchedule(
+    id || ""
+  );
 
   // Get all images
   const imageData = useGetImages();
@@ -110,8 +110,12 @@ const CreatedSchedulePage = () => {
 
   // Scroll to greeting on re-render
   useEffect(() => {
+    // If there is an error (for instance user tries to acces other users schedule by typing id in url). Navigate to schedule page
+    if (getScheduleError) {
+      navigate("/schedule");
+    }
     scrollToDiv("schedule-page-greeting");
-  }, []);
+  }, [getScheduleError, navigate]);
 
   return (
     <>
@@ -211,7 +215,7 @@ const CreatedSchedulePage = () => {
 
         <Carousel data={shuffledImages} handleImageClick={handleImageClick} />
 
-        {loading && <LoadingSpinner />}
+        {loading || (isScheduleLoading && <LoadingSpinner />)}
       </div>{" "}
     </>
   );
