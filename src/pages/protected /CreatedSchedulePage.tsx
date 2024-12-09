@@ -18,6 +18,7 @@ import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 const CreatedSchedulePage = () => {
   // State handlers
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [showCategories, setShowCategories] = useState<boolean>(false);
@@ -84,8 +85,16 @@ const CreatedSchedulePage = () => {
   const handleImageClick = (id: string) => {
     const selectedImage = allImages.find((img) => img._id === id);
 
-    // Abort if no image was selected
-    if (!selectedImage) {
+    // Abort if no image was selected or if the schedule has 6 images already
+    if (!selectedImage || schedule.length === 6) {
+      setInfoMessage(
+        "Oops, you can't add more than 6 images to schedule. Remove one or clear all to start over"
+      );
+
+      setTimeout(() => {
+        setInfoMessage(null);
+      }, 4000);
+      scrollToDiv("plan-page__info");
       return;
     }
     // Add image to schedule in db and update the rendering of schedule
@@ -125,6 +134,7 @@ const CreatedSchedulePage = () => {
             Hello there, {data?.username}!
           </p>
         </div>
+        <p id="plan-page__info">{infoMessage}</p>
         <TodaysDate />
 
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
