@@ -136,7 +136,7 @@ const CreatedSchedulePage = () => {
                 </h3>
                 <div className="relative image-wrapper my-5">
                   <img
-                    className="plan-page__schedule__images__image cursor-pointer"
+                    className="plan-page__schedule__images__image bg-p50 cursor-pointer"
                     src={item.url}
                     alt={item.title}
                     onClick={() =>
