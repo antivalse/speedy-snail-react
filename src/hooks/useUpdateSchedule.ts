@@ -59,6 +59,26 @@ const useUpdateSchedule = () => {
     }
   };
 
+  const removeAllImagesFromSchedule = async (scheduleId: string) => {
+    if (!scheduleId) {
+      setError("Cannot find schedule. Try again or create a new one");
+      return;
+    }
+
+    try {
+      await updateDoc(doc(schedulesCollection, scheduleId), {
+        images: [],
+        updatedAt: serverTimestamp(),
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(
+          `Something went wrong when updating the schedule: ${err.message}`
+        );
+      }
+    }
+  };
+
   const deleteSchedule = async (id: string) => {
     try {
       await deleteDoc(doc(schedulesCollection, id));
@@ -75,6 +95,7 @@ const useUpdateSchedule = () => {
     addImageToSchedule,
     deleteSchedule,
     removeImageFromSchedule,
+    removeAllImagesFromSchedule,
   };
 };
 

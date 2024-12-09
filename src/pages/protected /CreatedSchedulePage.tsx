@@ -35,6 +35,8 @@ const CreatedSchedulePage = () => {
   // Get the schedule if there is one
   const { userSchedule } = useGetSchedule(id || "");
 
+  console.log("schedule is: ", userSchedule);
+
   // Get all images
   const imageData = useGetImages();
   const allImages = imageData.data;
@@ -44,8 +46,11 @@ const CreatedSchedulePage = () => {
   const categoriesArray = categories.data;
 
   // Access hook to delete/update schedule
-  const { deleteSchedule, addImageToSchedule, removeImageFromSchedule } =
-    useUpdateSchedule();
+  const {
+    addImageToSchedule,
+    removeAllImagesFromSchedule,
+    removeImageFromSchedule,
+  } = useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
   useEffect(() => {
@@ -98,7 +103,7 @@ const CreatedSchedulePage = () => {
 
   // Clear the array
   const handleClear = () => {
-    deleteSchedule(userSchedule?._id || "");
+    removeAllImagesFromSchedule(userSchedule?._id || "");
     setSchedule([]);
     navigate("/schedule");
   };
