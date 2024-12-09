@@ -60,7 +60,9 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
           <ul
             className="suggestions__carousel__inner flex transition-transform duration-300 gap-3"
             style={{
-              transform: `translateX(-${currentIndex * 100}%)`,
+              transform: `translateX(-${
+                (currentIndex * 100) / imagesPerSlide
+              }%)`,
             }}
           >
             {data.map((item, index) => (
