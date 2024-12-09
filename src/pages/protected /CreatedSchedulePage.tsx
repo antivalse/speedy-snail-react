@@ -139,11 +139,13 @@ const CreatedSchedulePage = () => {
                     className="plan-page__schedule__images__image bg-p50 cursor-pointer"
                     src={item.url}
                     alt={item.title}
+                  />
+                  <div
+                    className="absolute top-0 image-overlay cursor-pointer flex justify-center items-center"
                     onClick={() =>
                       removeImageFromSchedule(userSchedule?._id || "", item)
                     }
-                  />
-                  <div className="absolute top-0 image-overlay cursor-pointer flex justify-center items-center">
+                  >
                     <span className="body body--secondary color-p50 ">
                       Remove
                     </span>
