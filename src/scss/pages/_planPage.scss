@@ -18,11 +18,6 @@ $secondary-700: map-get(map-get(c.$colors, secondary), 700);
     }
 
     &__images {
-      &__remove {
-        width: 24.063rem;
-        height: 24.063rem;
-        opacity: 50%;
-      }
       &__image {
         width: 24.063rem;
         height: 24.063rem;
@@ -30,7 +25,6 @@ $secondary-700: map-get(map-get(c.$colors, secondary), 700);
         object-fit: contain;
         opacity: 1;
         transition: 0.5s ease;
-        backface-visibility: hidden;
       }
     }
   }
