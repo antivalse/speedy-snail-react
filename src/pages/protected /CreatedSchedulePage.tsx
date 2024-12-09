@@ -13,6 +13,7 @@ import AddImage from "../../components/ui/AddImage";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import SortByCategory from "../../components/content/SortByCategory";
 import { closeIcon } from "../../assets/icons";
+import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 
 const CreatedSchedulePage = () => {
   // State handlers
@@ -29,19 +30,12 @@ const CreatedSchedulePage = () => {
 
   const { id } = useParams();
 
+  console.log("schedule id: ", id);
+
   // Get the schedule if there is one
-  const { userSchedule, isScheduleLoading } = useGetSchedule(id || "");
+  const { userSchedule } = useGetSchedule(id || "");
 
   console.log("user schedule images ", userSchedule?.images);
-
-  // Show modal if there is no current schedule
-  if (!userSchedule) {
-    console.log(
-      "Could not find a schedule. Create a new one: link to /schedule"
-    );
-  } else {
-    console.log("found the schedule!");
-  }
 
   // Get all images
   const imageData = useGetImages();
@@ -50,6 +44,9 @@ const CreatedSchedulePage = () => {
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
   const categoriesArray = categories.data;
+
+  // Access hook to update schedule
+  const { updateSchedule } = useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
   useEffect(() => {
@@ -87,8 +84,11 @@ const CreatedSchedulePage = () => {
     if (!selectedImage) {
       return;
     }
-    console.log("you clicked image!: ", selectedImage);
     // Add image to schedule in db and update the rendering of schedule
+    updateSchedule(userSchedule?._id || "", selectedImage);
+
+    // Close modal
+    setShowModal(false);
   };
 
   // Handle closing images modal
