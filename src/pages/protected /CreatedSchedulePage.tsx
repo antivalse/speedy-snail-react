@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Carousel from "../../components/content/Carousel";
 import TodaysDate from "../../components/content/TodaysDate";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
@@ -23,12 +23,14 @@ const CreatedSchedulePage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  // Get authenticated user
-  const { data } = useGetUser();
+  // Use navigate to navigate user
+  const navigate = useNavigate();
 
   // Get schedule id from params
-
   const { id } = useParams();
+
+  // Get authenticated user
+  const { data } = useGetUser();
 
   // Get the schedule if there is one
   const { userSchedule } = useGetSchedule(id || "");
@@ -42,7 +44,7 @@ const CreatedSchedulePage = () => {
   const categoriesArray = categories.data;
 
   // Access hook to delete/update schedule
-  const { deleteSchedule, updateSchedule } = useUpdateSchedule();
+  const { deleteSchedule, addImageToSchedule } = useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
   useEffect(() => {
@@ -81,7 +83,7 @@ const CreatedSchedulePage = () => {
       return;
     }
     // Add image to schedule in db and update the rendering of schedule
-    updateSchedule(userSchedule?._id || "", selectedImage);
+    addImageToSchedule(userSchedule?._id || "", selectedImage);
 
     // Close modal
     setShowModal(false);
@@ -97,7 +99,7 @@ const CreatedSchedulePage = () => {
   const handleClear = () => {
     deleteSchedule(userSchedule?._id || "");
     setSchedule([]);
-    scrollToDiv("schedule-page-greeting");
+    navigate("/schedule");
   };
 
   // Scroll to greeting on re-render

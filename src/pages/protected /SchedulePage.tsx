@@ -31,12 +31,14 @@ const SchedulePage = () => {
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
 
-  if (!schedules.data?.length) {
-    console.log("There is no schedule, create a new one");
-  } else {
-    // Navigate to the schedule page with created schedule
-    navigate(`/schedule/${schedules.data[0]._id}`);
-  }
+  useEffect(() => {
+    if (schedules.data?.length) {
+      // Navigate to the schedule page with created schedule
+      navigate(`/schedule/${schedules.data[0]._id}`);
+    } else {
+      console.log("There is no schedule, create a new one");
+    }
+  }, [schedules.data, navigate]);
 
   // Access function to create new schedule in Firebase
   const { createSchedule } = useCreateSchedule();

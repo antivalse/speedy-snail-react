@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import {
+  arrayRemove,
   arrayUnion,
   deleteDoc,
   doc,
@@ -16,13 +17,37 @@ const useUpdateSchedule = () => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateSchedule = async (id: string, data: Image) => {
+  const addImageToSchedule = async (scheduleId: string, data: Image) => {
     setIsUpdating(true);
-    setError(null);
+
+    if (!scheduleId) {
+      setError("Cannot find schedule. Try again or create a new one");
+      return;
+    }
 
     try {
-      await updateDoc(doc(schedulesCollection, id), {
+      await updateDoc(doc(schedulesCollection, scheduleId), {
         images: arrayUnion(data),
+        updatedAt: serverTimestamp(),
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(
+          `Something went wrong when updating the schedule: ${err.message}`
+        );
+      }
+    }
+  };
+
+  const removeImageFromSchedule = async (scheduleId: string, data: Image) => {
+    if (!scheduleId) {
+      setError("Cannot find schedule. Try again or create a new one");
+      return;
+    }
+
+    try {
+      await updateDoc(doc(schedulesCollection, scheduleId), {
+        images: arrayRemove(data),
         updatedAt: serverTimestamp(),
       });
     } catch (err) {
@@ -47,8 +72,9 @@ const useUpdateSchedule = () => {
   return {
     error,
     isUpdating,
-    updateSchedule,
+    addImageToSchedule,
     deleteSchedule,
+    removeImageFromSchedule,
   };
 };
 
