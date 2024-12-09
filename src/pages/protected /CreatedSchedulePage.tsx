@@ -14,29 +14,30 @@ import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import SortByCategory from "../../components/content/SortByCategory";
 import { closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
+import { defaultInfo, funDay } from "../../assets/infoMessages";
 
 const CreatedSchedulePage = () => {
   // State handlers
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
-  const [infoMessage, setInfoMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
+  const [infoMessage, setInfoMessage] = useState<string | null>(defaultInfo);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  // Use navigate to navigate user
-  const navigate = useNavigate();
-
   // Get schedule id from params
   const { id } = useParams();
-
-  // Get authenticated user
-  const { data } = useGetUser();
 
   // Get the schedule if there is one
   const { userSchedule, isScheduleLoading, getScheduleError } = useGetSchedule(
     id || ""
   );
+
+  // Use navigate to navigate user
+  const navigate = useNavigate();
+
+  // Get authenticated user
+  const { data } = useGetUser();
 
   // Get all images
   const imageData = useGetImages();
@@ -123,8 +124,12 @@ const CreatedSchedulePage = () => {
     if (getScheduleError) {
       navigate("/schedule");
     }
+
+    if (userSchedule && userSchedule?.images.length > 0) {
+      setInfoMessage(funDay);
+    }
     scrollToDiv("schedule-page-greeting");
-  }, [getScheduleError, navigate]);
+  }, [getScheduleError, userSchedule, navigate]);
 
   return (
     <>
