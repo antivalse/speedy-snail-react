@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import Carousel from "../../components/content/Carousel";
+// import Carousel from "../../components/content/Carousel";
 import TodaysDate from "../../components/content/TodaysDate";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useGetUser from "../../hooks/useGetUser";
@@ -77,10 +77,8 @@ const CreatedSchedulePage = () => {
   // Splide Style
   const splideStyle: React.CSSProperties = {
     width: "100%",
-    height: "400px",
+    height: "12rem",
     objectFit: "contain",
-    borderRadius: "1.875rem",
-    backgroundColor: "#e8f0fe",
     cursor: "pointer",
   };
 
@@ -248,9 +246,13 @@ const CreatedSchedulePage = () => {
           </button>
         )}
 
-        <Carousel data={shuffledImages} handleImageClick={handleImageClick} />
+        {/* <Carousel data={shuffledImages} handleImageClick={handleImageClick} /> */}
 
-        <SplideCarousel images={shuffledImages} style={splideStyle} />
+        <SplideCarousel
+          images={shuffledImages}
+          style={splideStyle}
+          handleImageClick={handleImageClick}
+        />
 
         {loading || (isScheduleLoading && <LoadingSpinner />)}
       </div>{" "}

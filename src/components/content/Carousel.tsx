@@ -83,7 +83,7 @@ const Carousel: React.FC<CarouselProps> = ({ data, handleImageClick }) => {
             ))}
           </ul>
           <button
-            className="absolute right-0 z-9 cursor-pointer"
+            className="absolute right-0 z-10 cursor-pointer"
             onClick={nextSlide}
           >
             {scrollRight}

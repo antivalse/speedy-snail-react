@@ -1,0 +1,16 @@
+/* Custom Styles for Splide Carousel*/
+
+@use "../../variables/colors" as c;
+
+$primary-300: map-get(map-get(c.$colors, primary), 300);
+$secondary-500: map-get(map-get(c.$colors, secondary), 500);
+
+.splide__arrow {
+  background-color: $secondary-500; /* Change arrow background */
+  color: white; /* Change arrow icon color */
+  width: 50px; /* Customize arrow size */
+  height: 50px;
+  border-radius: 50%; /* Make arrows circular */
+  opacity: 1;
+  border: 1px solid $primary-300;
+}
