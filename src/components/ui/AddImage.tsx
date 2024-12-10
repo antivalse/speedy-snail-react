@@ -9,10 +9,10 @@ interface AddImageProps {
 const AddImage: React.FC<AddImageProps> = ({ handleClick }) => {
   return (
     <div
-      className="add-image bg-p150 flex justify-center items-center"
+      className="add-image bg-p150 flex justify-center items-center cursor-pointer"
       onClick={handleClick}
     >
-      <span className="cursor-pointer">{plusIcon}</span>
+      {plusIcon}
     </div>
   );
 };
