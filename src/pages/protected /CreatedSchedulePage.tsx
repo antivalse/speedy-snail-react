@@ -15,6 +15,7 @@ import SortByCategory from "../../components/content/SortByCategory";
 import { closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { defaultInfo, funDay } from "../../assets/infoMessages";
+import SplideCarousel from "../../components/content/SplideCarousel";
 
 const CreatedSchedulePage = () => {
   // State handlers
@@ -72,6 +73,16 @@ const CreatedSchedulePage = () => {
 
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
+
+  // Splide Style
+  const splideStyle: React.CSSProperties = {
+    width: "100%",
+    height: "400px",
+    objectFit: "contain",
+    borderRadius: "1.875rem",
+    backgroundColor: "#e8f0fe",
+    cursor: "pointer",
+  };
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -238,6 +249,8 @@ const CreatedSchedulePage = () => {
         )}
 
         <Carousel data={shuffledImages} handleImageClick={handleImageClick} />
+
+        <SplideCarousel images={shuffledImages} style={splideStyle} />
 
         {loading || (isScheduleLoading && <LoadingSpinner />)}
       </div>{" "}
