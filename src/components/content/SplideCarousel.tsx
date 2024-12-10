@@ -15,67 +15,72 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
   style,
 }) => {
   return (
-    <div
-      className="splide-carousel mt-20"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "85%",
-      }}
-    >
-      <Splide
-        aria-label="Schedule Images"
+    <div className="mt-20 flex flex-col items-center">
+      <h2 className="heading heading--primary self-center color-p300">
+        Suggestions
+      </h2>
+      <div
+        className="splide-carousel mt-10"
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: "100%",
-        }}
-        options={{
-          perPage: 4,
-          breakpoints: {
-            640: { perPage: 1 },
-            768: { perPage: 2 },
-            1024: { perPage: 3 },
-            1408: { perPage: 4 },
-          },
-
-          gap: "1rem",
-          pagination: false, // Disable pagination dots
-          arrows: true, // Enable arrows
-          speed: 2000, // Set scrolling speed to 1000ms (1 second)
+          width: "85%",
         }}
       >
-        {images.map((image, index) => (
-          <SplideSlide
-            style={{
-              position: "relative",
-              textAlign: "center", // Center text horizontally
-            }}
-            key={index}
-            className="suggestions__carousel__item flex flex-col justify-center bg-s900 cursor-pointer"
-            onClick={() => handleImageClick(image._id || "")}
-          >
-            {" "}
-            <img src={image.url} alt={image.title} style={style} />
-            <div
+        <Splide
+          aria-label="Schedule Images"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+          options={{
+            perPage: 4,
+            breakpoints: {
+              640: { perPage: 1 },
+              768: { perPage: 2 },
+              1024: { perPage: 3 },
+              1408: { perPage: 4 },
+            },
+
+            gap: "1rem",
+            pagination: false, // Disable pagination dots
+            arrows: true, // Enable arrows
+            speed: 2000, // Set scrolling speed to 1000ms (1 second)
+          }}
+        >
+          {images.map((image, index) => (
+            <SplideSlide
               style={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)", // Center text
-                width: "100%",
-                paddingTop: "1rem",
-                bottom: "2%",
+                position: "relative",
+                textAlign: "center", // Center text horizontally
               }}
+              key={index}
+              className="suggestions__carousel__item flex flex-col justify-center bg-s900 cursor-pointer"
+              onClick={() => handleImageClick(image._id || "")}
             >
-              <span className="body body--secondary color-p300">
-                {image.title}
-              </span>
-            </div>
-          </SplideSlide>
-        ))}
-      </Splide>
+              {" "}
+              <img src={image.url} alt={image.title} style={style} />
+              <div
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  transform: "translateX(-50%)", // Center text
+                  width: "100%",
+                  paddingTop: "1rem",
+                  bottom: "2%",
+                }}
+              >
+                <span className="body body--secondary color-p300">
+                  {image.title}
+                </span>
+              </div>
+            </SplideSlide>
+          ))}
+        </Splide>
+      </div>
     </div>
   );
 };
