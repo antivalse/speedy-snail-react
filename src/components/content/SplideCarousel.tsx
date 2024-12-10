@@ -41,9 +41,10 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
             1408: { perPage: 4 },
           },
 
-          gap: "1rem", // Space between images
+          gap: "1rem",
           pagination: false, // Disable pagination dots
           arrows: true, // Enable arrows
+          speed: 2000, // Set scrolling speed to 1000ms (1 second)
         }}
       >
         {images.map((image, index) => (
