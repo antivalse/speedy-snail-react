@@ -1,9 +1,30 @@
 /* Custom Styles for Splide Carousel*/
 
+@use "../../utils/mixins" as m;
 @use "../../variables/colors" as c;
 
 $primary-300: map-get(map-get(c.$colors, primary), 300);
 $secondary-500: map-get(map-get(c.$colors, secondary), 500);
+$secondary-900: map-get(map-get(c.$colors, secondary), 900);
+
+.splide__carousel__item {
+  border-radius: 1.875rem;
+  height: 18rem;
+  flex-shrink: 0;
+  width: 100%;
+  transition: 0.5s ease-in-out;
+  &:hover {
+    background-color: darken($secondary-900, 3%);
+  }
+
+  @include m.breakpoint-up(sm) {
+    width: 50%;
+  }
+
+  @include m.breakpoint-up(md) {
+    width: 25%;
+  }
+}
 
 .splide__arrow {
   background-color: $secondary-500; /* Change arrow background */

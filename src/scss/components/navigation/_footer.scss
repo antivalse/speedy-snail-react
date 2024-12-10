@@ -18,14 +18,9 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
     border-radius: 1.875rem;
   }
 
-  &__bottom {
-    width: 100%;
-  }
-
   &__social-media-links {
-    width: 95%;
-
     a {
+      cursor: pointer;
       .social-media-icon-background {
         transition: fill 0.2s ease-in-out;
 

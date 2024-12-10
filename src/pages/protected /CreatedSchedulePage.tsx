@@ -79,7 +79,6 @@ const CreatedSchedulePage = () => {
     width: "100%",
     height: "12rem",
     objectFit: "contain",
-    cursor: "pointer",
   };
 
   // Function to handle selection of new category and fake loading state

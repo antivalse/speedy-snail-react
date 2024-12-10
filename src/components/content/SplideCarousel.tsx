@@ -48,17 +48,17 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
             gap: "1rem",
             pagination: false, // Disable pagination dots
             arrows: true, // Enable arrows
-            speed: 2000, // Set scrolling speed to 1000ms (1 second)
+            speed: 2000, // Set scrolling speed to 2000ms
           }}
         >
           {images.map((image, index) => (
             <SplideSlide
               style={{
                 position: "relative",
-                textAlign: "center", // Center text horizontally
+                textAlign: "center",
               }}
               key={index}
-              className="suggestions__carousel__item flex flex-col justify-center bg-s900 cursor-pointer"
+              className="splide__carousel__item flex flex-col justify-center bg-s900 cursor-pointer"
               onClick={() => handleImageClick(image._id || "")}
             >
               {" "}
