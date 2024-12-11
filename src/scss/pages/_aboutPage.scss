@@ -18,14 +18,4 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
       width: 65%;
     }
   }
-
-  &__contact {
-    border-radius: 1.875rem;
-    border: 1px solid $primary-300;
-    transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out;
-    &:hover {
-      background-color: $secondary-500;
-      color: $primary-300;
-    }
-  }
 }

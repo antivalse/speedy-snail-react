@@ -1,12 +1,9 @@
 /* About Page */
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import scrollToDiv from "../utils/helpers/scrollToDiv";
-import ContactForm from "../components/forms/ContactForm";
 
 const AboutPage = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-
   useEffect(() => {
     scrollToDiv("about");
   }, []);
@@ -37,14 +34,6 @@ const AboutPage = () => {
           exploration, creativity, and independence.
         </p>{" "}
       </div>
-
-      <p
-        className="about__contact body body--secondary p-7 cursor-pointer inline-block bg-p300 color-p50"
-        onClick={() => setShowModal(true)}
-      >
-        Contact Us
-      </p>
-      {showModal && <ContactForm />}
     </div>
   );
 };
