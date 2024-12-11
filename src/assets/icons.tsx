@@ -106,15 +106,15 @@ export const infoIcon = (
     viewBox="0 0 64 64"
     fill="none"
   >
-    <g clip-path="url(#clip0_341_5)">
+    <g clipPath="url(#clip0_341_5)">
       <path
         d="M32 63C49.1208 63 63 49.1208 63 32C63 14.8792 49.1208 1 32 1C14.8792 1 1 14.8792 1 32C1 49.1208 14.8792 63 32 63Z"
         fill="#94B3B3"
         stroke="#4F453E"
-        stroke-width="2"
+        strokeWidth="2"
         className="social-media-icon-background"
       />
-      <g clip-path="url(#clip1_341_5)">
+      <g clipPath="url(#clip1_341_5)">
         <path
           d="M30.5 24.5H33.5V27.5H30.5V24.5ZM30.5 30.5H33.5V39.5H30.5V30.5ZM32 17C23.72 17 17 23.72 17 32C17 40.28 23.72 47 32 47C40.28 47 47 40.28 47 32C47 23.72 40.28 17 32 17ZM32 44C25.385 44 20 38.615 20 32C20 25.385 25.385 20 32 20C38.615 20 44 25.385 44 32C44 38.615 38.615 44 32 44Z"
           fill="#F6F1E3"

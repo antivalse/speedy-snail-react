@@ -2,6 +2,7 @@
 
 @use "../../variables/colors" as c;
 @use "../../utils/mixins" as m;
+@import "../../globals/fonts";
 
 $primary-100: map-get(map-get(c.$colors, primary), 100);
 $primary-200: map-get(map-get(c.$colors, primary), 200);
@@ -11,8 +12,6 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
   width: 80%;
   border: 3px solid $primary-300;
   border-radius: 1.875rem;
-  margin-top: 10rem;
-  margin-bottom: 20rem;
 
   @include m.breakpoint-up("sm") {
     width: 60%;
@@ -26,7 +25,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
     border-radius: 0.938rem;
     font-size: 1.5rem;
     padding: 1rem;
-    text-align: center;
+    resize: none;
     &:focus {
       outline: none;
       border: 0.15rem solid $primary-300;
@@ -34,6 +33,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
 
     // Autofill styles
     &:-webkit-autofill {
+      font-family: $josefin-sans;
       background-color: $primary-100 !important;
       color: $primary-300 !important;
       transition: background-color 5000s ease-in-out 0s;
