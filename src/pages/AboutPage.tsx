@@ -1,15 +1,18 @@
 /* About Page */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import scrollToDiv from "../utils/helpers/scrollToDiv";
+import ContactForm from "../components/forms/ContactForm";
 
 const AboutPage = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   useEffect(() => {
     scrollToDiv("about");
   }, []);
   return (
-    <>
-      <div id="about" className="about bg-s500 mb-20 flex flex-col p-10 m-auto">
+    <div className="about flex flex-col items-center">
+      <div id="about" className="about__text bg-s500 mb-20 flex flex-col p-10 ">
         <h2 className="color-s400 heading heading--primary">Our story</h2>
         <p className="color-s400 body mt-3">
           SpeedySnail is a thoughtfully designed app inspired by Miriam, an
@@ -34,7 +37,15 @@ const AboutPage = () => {
           exploration, creativity, and independence.
         </p>{" "}
       </div>
-    </>
+
+      <p
+        className="about__contact body body--secondary p-7 cursor-pointer inline-block bg-p300 color-p50"
+        onClick={() => setShowModal(true)}
+      >
+        Contact Us
+      </p>
+      {showModal && <ContactForm />}
+    </div>
   );
 };
 
