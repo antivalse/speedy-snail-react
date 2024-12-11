@@ -11,7 +11,7 @@ interface AssistantProps {
 const Assistant: React.FC<AssistantProps> = ({ message, username }) => {
   const { darkmode } = useTheme();
   return (
-    <div className="assistant flex items-end justify-end gap-2 mr-10">
+    <div className="assistant flex items-end justify-end gap-2 mt-10 mr-10">
       <div
         id="assistant-greeting"
         className="assistant__greeting flex flex-col items-center mb-10 p-2 color-p300"
