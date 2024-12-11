@@ -22,7 +22,7 @@ const Assistant: React.FC<AssistantProps> = ({ message, username }) => {
             !{" "}
           </p>
         )}
-        <p className="p-3 ">{message}</p>
+        <p className="p-3">{message}</p>
       </div>
       <div>{darkmode ? snailAssistantDarkmode : snailAssistant}</div>
     </div>
