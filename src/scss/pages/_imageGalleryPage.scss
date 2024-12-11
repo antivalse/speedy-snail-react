@@ -1,23 +1,26 @@
 /* Image Gallery Page Styles */
 
-.image-gallery {
-  &__sorting {
-    .btn--sort {
-      transition: background-color 0.3s ease, transform 0.3s ease;
+@use "../variables/colors" as c;
 
-      &:hover {
-        background-color: $secondary-200;
-      }
-    }
-  }
+$secondary-900: map-get(map-get(c.$colors, secondary), 800);
+
+.image-gallery {
   &__images {
-    &__li {
+    &__list-item {
       border-radius: 1.875rem;
       transition: transform 0.5s ease, box-shadow 0.3s ease;
+
       &:hover {
         transform: translateY(-0.625rem); // Move the card up on hover
+        background-color: $secondary-900;
+      }
+
+      // Default modifier styles
+      &--default {
+        border-radius: 1.875rem !important; // Modifier class should be --default, not __default
       }
     }
+
     &__image {
       height: 10.469rem;
       object-fit: cover;

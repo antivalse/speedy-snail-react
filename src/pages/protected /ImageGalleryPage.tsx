@@ -9,15 +9,13 @@ import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import SortByCategory from "../../components/content/SortByCategory";
 import useTheme from "../../hooks/useTheme";
 import Assistant from "../../components/content/Assistant";
+import { ImageGalleryDefault } from "../../assets/infoMessages";
 
 const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
-  const [showInfo, setShowInfo] = useState<boolean>(false);
-  const [message, setMessage] = useState<string | null>(
-    "Here are all the you can chose from. Click on an image to get to it's editing page."
-  );
+  const [message, setMessage] = useState<string | null>(ImageGalleryDefault);
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();
@@ -50,7 +48,6 @@ const ImageGalleryPage = () => {
   // Function to handle info message setting
 
   const handleInfoMessage = (message: string) => {
-    setShowInfo(true);
     setMessage(message);
   };
 
@@ -58,14 +55,6 @@ const ImageGalleryPage = () => {
     <>
       <Assistant message={message} />
       <div className={`image-gallery p-10 ${darkmode ? "bg-p300" : "bg-p100"}`}>
-        {showInfo && message && message.length > 0 && (
-          <div>
-            <p>{message}</p>
-            <span className="cursor-pointer" onClick={() => setShowInfo(false)}>
-              close
-            </span>
-          </div>
-        )}
         <div className="image-gallery__sorting flex justify-between items-center">
           <h2
             className={`heading heading--primary py-3 ${
@@ -88,7 +77,11 @@ const ImageGalleryPage = () => {
           {imagesToDisplay?.map((item, index) => (
             <li
               key={index}
-              className="image-gallery__images__li flex flex-col items-center bg-p50 pb-5"
+              className={`${
+                item.isDefault
+                  ? "image-gallery__images__list-item--default"
+                  : "image-gallery__images__list-item"
+              } flex flex-col items-center bg-p50 pb-5`}
             >
               <h3 className="body body--secondary color-p200 my-5">
                 {item.title}
@@ -99,7 +92,9 @@ const ImageGalleryPage = () => {
                   alt={item.title}
                   className="image-gallery__images__image"
                   onClick={() =>
-                    handleInfoMessage("Cannot click on default images")
+                    handleInfoMessage(
+                      "You can only click on your personal images!"
+                    )
                   }
                 />
               ) : (

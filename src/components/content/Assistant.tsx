@@ -14,9 +14,12 @@ const Assistant: React.FC<AssistantProps> = ({ message, username }) => {
         id="assistant-greeting"
         className="assistant__greeting flex flex-col items-center mb-10 p-2"
       >
-        <p id="assistant__info" className="p-3 color-p300">
-          Hello there, <span className="assistant__username">{username}</span>!{" "}
-        </p>
+        {username && (
+          <p id="assistant__info" className="p-3 color-p300">
+            Hello there, <span className="assistant__username">{username}</span>
+            !{" "}
+          </p>
+        )}
         <p>{message}</p>
       </div>
       <div>{snailAssistant}</div>
