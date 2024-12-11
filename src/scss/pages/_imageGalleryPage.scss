@@ -17,7 +17,7 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 
       // Default modifier styles
       &--default {
-        border-radius: 1.875rem !important; // Modifier class should be --default, not __default
+        border-radius: 1.875rem !important;
       }
     }
 
