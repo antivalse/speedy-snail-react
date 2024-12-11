@@ -15,7 +15,7 @@ const Footer = () => {
           <h3 className="heading heading--footer">Speedy Snail</h3>
           <p>Join us and start owning your day</p>
           <p
-            className="body body--secondary pt-5 cursor-pointer inline-block"
+            className="footer__inner__contact body body--secondary pt-5 cursor-pointer inline-block"
             onClick={() => setShowModal(true)}
           >
             Contact Us
