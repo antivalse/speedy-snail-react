@@ -8,13 +8,16 @@ import { Link } from "react-router-dom";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import SortByCategory from "../../components/content/SortByCategory";
 import useTheme from "../../hooks/useTheme";
+import Assistant from "../../components/content/Assistant";
 
 const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [showInfo, setShowInfo] = useState<boolean>(false);
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(
+    "Here are all the you can chose from. Click on an image to get to it's editing page."
+  );
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();
@@ -53,6 +56,7 @@ const ImageGalleryPage = () => {
 
   return (
     <>
+      <Assistant message={message} />
       <div className={`image-gallery p-10 ${darkmode ? "bg-p300" : "bg-p100"}`}>
         {showInfo && message && message.length > 0 && (
           <div>

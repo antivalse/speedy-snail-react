@@ -1,0 +1,26 @@
+/* Snail Assistant Styles */
+
+@use "../../utils/mixins" as m;
+@use "../../variables/colors" as c;
+
+$primary-300: map-get(map-get(c.$colors, primary), 300);
+$secondary-400: map-get(map-get(c.$colors, secondary), 400);
+$secondary-500: map-get(map-get(c.$colors, secondary), 500);
+$secondary-700: map-get(map-get(c.$colors, secondary), 700);
+$secondary-900: map-get(map-get(c.$colors, secondary), 900);
+
+.assistant {
+  &__greeting {
+    background-color: $secondary-700;
+    border: 2px solid $secondary-300;
+    width: 20%;
+    border-radius: 1.2rem;
+    box-shadow: 2px 3px 6px rgba(53, 46, 46, 1); // Minimal shadow
+  }
+
+  &__username {
+    font-weight: 800;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-decoration: underline 1px solid $primary-300;
+  }
+}

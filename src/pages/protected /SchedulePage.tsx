@@ -11,12 +11,15 @@ import SortByCategory from "../../components/content/SortByCategory";
 import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useCreateSchedule from "../../hooks/useCreateSchedule";
+import { defaultInfo } from "../../assets/infoMessages";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useGetSchedules from "../../hooks/useGetSchedules";
+import Assistant from "../../components/content/Assistant";
 
 const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [infoMessage, setInfoMessage] = useState<string | null>(defaultInfo);
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [showCategories, setShowCategories] = useState<boolean>(false);
@@ -71,6 +74,7 @@ const SchedulePage = () => {
   const handleSelection = (category: string) => {
     setLoading(true);
     setTimeout(() => {
+      setInfoMessage("Great choice!");
       setActiveCategory(category);
       setLoading(false);
     }, 1000);
@@ -110,17 +114,14 @@ const SchedulePage = () => {
   };
 
   useEffect(() => {
-    scrollToDiv("schedule-page-greeting");
+    scrollToDiv("assistant-greeting");
   }, []);
 
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
-        <div id="schedule-page-greeting" className="plan-page__greeting mb-8">
-          <p className="p-3 body body--secondary--greeting color-p300 text-center">
-            Hello there, {data?.username}!
-          </p>
-        </div>
+        <Assistant username={data?.username} message={infoMessage} />
+
         <h2
           id="date"
           className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"

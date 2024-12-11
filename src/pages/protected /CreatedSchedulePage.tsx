@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-// import Carousel from "../../components/content/Carousel";
 import TodaysDate from "../../components/content/TodaysDate";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useGetUser from "../../hooks/useGetUser";
@@ -16,6 +15,7 @@ import { closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { defaultInfo, funDay } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
+import Assistant from "../../components/content/Assistant";
 
 const CreatedSchedulePage = () => {
   // State handlers
@@ -136,18 +136,13 @@ const CreatedSchedulePage = () => {
     if (userSchedule && userSchedule?.images.length > 0) {
       setInfoMessage(funDay);
     }
-    scrollToDiv("schedule-page-greeting");
+    scrollToDiv("assistant-greeting");
   }, [getScheduleError, userSchedule, navigate]);
 
   return (
     <>
+      <Assistant username={data?.username} message={infoMessage} />
       <div className="plan-page flex flex-col items-center my-10 ">
-        <div id="schedule-page-greeting" className="plan-page__greeting mb-8">
-          <p className="p-3 body body--secondary--greeting color-p300 text-center">
-            Hello there, {data?.username}!
-          </p>
-        </div>
-        <p id="plan-page__info">{infoMessage}</p>
         <TodaysDate />
 
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
