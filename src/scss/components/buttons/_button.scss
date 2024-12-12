@@ -83,6 +83,7 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
     border-radius: 0.9375rem;
     margin: 1.25rem 0 0 0;
     padding: 0;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
     &:hover,
     :focus :active {
       color: $primary-300;

@@ -14,7 +14,9 @@ const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(
+    "Click on an image to get to the editing page. You can't click on default images"
+  );
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();

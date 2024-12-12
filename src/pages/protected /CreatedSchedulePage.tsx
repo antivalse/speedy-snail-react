@@ -56,6 +56,7 @@ const CreatedSchedulePage = () => {
   useEffect(() => {
     if (userSchedule?.images) {
       setSchedule(userSchedule.images);
+      setInfoMessage(funDay);
     }
   }, [userSchedule]);
 
