@@ -9,13 +9,12 @@ import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import SortByCategory from "../../components/content/SortByCategory";
 import useTheme from "../../hooks/useTheme";
 import Assistant from "../../components/content/Assistant";
-import { ImageGalleryDefault } from "../../assets/infoMessages";
 
 const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
-  const [message, setMessage] = useState<string | null>(ImageGalleryDefault);
+  const [message, setMessage] = useState<string | null>(null);
 
   // Get image data from Firebase and store in variable
   const { data } = useGetImages();

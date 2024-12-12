@@ -11,7 +11,7 @@ import SortByCategory from "../../components/content/SortByCategory";
 import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useCreateSchedule from "../../hooks/useCreateSchedule";
-import { defaultInfo } from "../../assets/infoMessages";
+import { scheduleDefaultMsg } from "../../assets/infoMessages";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useGetSchedules from "../../hooks/useGetSchedules";
@@ -19,7 +19,9 @@ import Assistant from "../../components/content/Assistant";
 
 const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
-  const [infoMessage, setInfoMessage] = useState<string | null>(defaultInfo);
+  const [infoMessage, setInfoMessage] = useState<string | null>(
+    scheduleDefaultMsg
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [showCategories, setShowCategories] = useState<boolean>(false);
@@ -120,7 +122,7 @@ const SchedulePage = () => {
   return (
     <>
       <div className="plan-page flex flex-col items-center my-10 ">
-        <Assistant username={data?.username} message={infoMessage} />
+        <Assistant message={infoMessage} />
 
         <h2
           id="date"

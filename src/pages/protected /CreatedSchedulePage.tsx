@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import TodaysDate from "../../components/content/TodaysDate";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import useGetUser from "../../hooks/useGetUser";
 import useGetSchedule from "../../hooks/useGetSchedule";
 import useGetImages from "../../hooks/useGetImages";
 import { Image } from "../../types/Image.types";
@@ -13,16 +12,17 @@ import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import SortByCategory from "../../components/content/SortByCategory";
 import { closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
-import { defaultInfo, funDay } from "../../assets/infoMessages";
+import { scheduleDefaultMsg, funDay } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
 
 const CreatedSchedulePage = () => {
-  // State handlers
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
-  const [infoMessage, setInfoMessage] = useState<string | null>(defaultInfo);
+  const [infoMessage, setInfoMessage] = useState<string | null>(
+    scheduleDefaultMsg
+  );
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -36,9 +36,6 @@ const CreatedSchedulePage = () => {
 
   // Use navigate to navigate user
   const navigate = useNavigate();
-
-  // Get authenticated user
-  const { data } = useGetUser();
 
   // Get all images
   const imageData = useGetImages();
@@ -94,8 +91,12 @@ const CreatedSchedulePage = () => {
   const handleImageClick = (id: string) => {
     const selectedImage = allImages.find((img) => img._id === id);
 
-    // Abort if no image was selected or if the schedule has 6 images already
-    if (!selectedImage || schedule.length === 6) {
+    // Abort if no image was selected or if the maximum amount of activities are set
+    if (!selectedImage) {
+      return;
+    }
+
+    if (schedule.length === 6) {
       setInfoMessage(
         "Oops, you can't add more than 6 images to schedule. Remove one or clear all to start over"
       );
@@ -141,7 +142,7 @@ const CreatedSchedulePage = () => {
 
   return (
     <>
-      <Assistant username={data?.username} message={infoMessage} />
+      <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center my-10 ">
         <TodaysDate />
 
