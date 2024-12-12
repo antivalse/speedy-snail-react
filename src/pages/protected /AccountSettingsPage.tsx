@@ -7,8 +7,10 @@ import SettingsForm from "../../components/forms/SettingsForm";
 const AccountSettingsPage = () => {
   return (
     <>
-      <Assistant message={accountSettingsDefault} />
-      <SettingsForm />
+      <div className="relative">
+        <Assistant message={accountSettingsDefault} />
+        <SettingsForm />
+      </div>
     </>
   );
 };

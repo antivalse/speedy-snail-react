@@ -45,7 +45,7 @@ const AboutPage = () => {
           Let us know!
         </button>{" "}
       </div>
-      {showModal && <ContactForm />}
+      {showModal && <ContactForm closeModal={() => setShowModal(false)} />}
     </div>
   );
 };
