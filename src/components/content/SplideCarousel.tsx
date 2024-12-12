@@ -69,8 +69,8 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
                   left: "50%",
                   transform: "translateX(-50%)", // Center text
                   width: "100%",
-                  paddingTop: "1rem",
-                  bottom: "2%",
+                  paddingTop: "0.9rem",
+                  top: "2%",
                 }}
               >
                 <span className="body body--secondary color-p300">

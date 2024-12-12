@@ -12,21 +12,19 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
 .plan-page {
   &__schedule {
     width: 100%;
-    z-index: 11;
 
     @include m.breakpoint-up("sm") {
-      z-index: 0;
       width: 70%;
       border-radius: 1.25rem;
     }
 
     @include m.breakpoint-up("md") {
-      z-index: 0;
       width: 98%;
       border-radius: 1.25rem;
     }
 
     &__images {
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -34,13 +32,13 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
       gap: 1rem;
       @include m.breakpoint-up("md") {
         flex-direction: row;
-        flex-wrap: wrap;
       }
-      &__image {
+
+      &__list-item {
+        position: relative; /* Ensure positioning context for the overlay */
         width: 20.063rem;
         height: 20.063rem;
         border-radius: 1.875rem;
-        object-fit: contain;
         opacity: 1;
         transition: 0.5s ease;
 
@@ -50,9 +48,30 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
         }
 
         @include m.breakpoint-up("md") {
-          width: 12.063rem;
-          height: 12.063rem;
+          width: 13rem;
+          height: 13rem;
         }
+
+        &:hover .image-overlay {
+          opacity: 1; /* Show overlay only on hovered item */
+          pointer-events: auto;
+        }
+      }
+
+      .image-overlay {
+        opacity: 0; /* Start hidden */
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.875rem;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
       }
     }
   }

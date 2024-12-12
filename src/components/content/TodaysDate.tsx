@@ -11,10 +11,7 @@ const TodaysDate = () => {
     .replace(/,/g, "\n"); // Remove commas
 
   return (
-    <h2
-      id="date"
-      className="heading heading--primary mb-5 color-p300 text-center"
-    >
+    <h2 id="date" className="heading heading--primary color-p300 text-center">
       {date}
     </h2>
   );

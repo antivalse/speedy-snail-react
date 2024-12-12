@@ -8,7 +8,7 @@ export const funDayMessage = "Wow what a fun day you have planned!";
 export const imageGalleryMessage =
   "Click on an image to get to the editing page. You can't click on default images. Default images are marked with a *";
 export const accountSettingsMessage =
-  "Update your email adress or why not try a new avatar? Go wild!";
+  "Update your email adress, password or why not try a new avatar? Go wild!";
 
 export const updateMessage =
   "Change the image, title or category. Use your imagination!";

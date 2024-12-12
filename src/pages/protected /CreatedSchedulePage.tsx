@@ -20,7 +20,6 @@ const CreatedSchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
-
   const [infoMessage, setInfoMessage] = useState<string | null>(
     scheduleMessage
   );
@@ -143,32 +142,35 @@ const CreatedSchedulePage = () => {
     <>
       <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center">
-        <TodaysDate />
-        <div className="plan-page__schedule bg-p100 py-10 mb-12">
-          <ul className="plan-page__schedule__images">
+        <div className="plan-page__schedule flex flex-col items-center bg-p100 py-10 mb-12">
+          <TodaysDate />
+          <ul className="plan-page__schedule__images px-3">
             {schedule?.map((item, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <h3 className="body body--secondary color-p200">
-                  {item.title}
-                </h3>
-                <div className="relative image-wrapper my-5">
+              <li
+                key={index}
+                className=" relative plan-page__schedule__images__list-item my-5 bg-p50"
+              >
+                <div className="flex flex-col items-center">
+                  <h3 className="body body--secondary color-p200 py-2">
+                    {item.title}
+                  </h3>
                   <img
-                    className="plan-page__schedule__images__image bg-p50 cursor-pointer "
+                    className="plan-page__schedule__images__list-item__image cursor-pointer"
                     src={item.url}
                     alt={item.title}
                   />
-                  <div
-                    className="absolute top-0 image-overlay cursor-pointer flex justify-center items-center"
-                    onClick={() =>
-                      removeImageFromSchedule(userSchedule?._id || "", item)
-                    }
-                  >
-                    <span className="body body--secondary color-p50 ">
-                      Remove
-                    </span>
-                  </div>
                 </div>
-              </div>
+                <div
+                  className="absolute top-0 image-overlay cursor-pointer flex justify-center items-center"
+                  onClick={() =>
+                    removeImageFromSchedule(userSchedule?._id || "", item)
+                  }
+                >
+                  <span className="body body--secondary color-p50 ">
+                    Remove
+                  </span>
+                </div>
+              </li>
             ))}
 
             {schedule && schedule.length < 6 ? (
@@ -177,6 +179,11 @@ const CreatedSchedulePage = () => {
               ""
             )}
           </ul>
+          {schedule.length > 0 && (
+            <button className="btn btn--clear" onClick={handleClear}>
+              Clear Schedule
+            </button>
+          )}
         </div>
         {showModal && (
           <div className="modal-overlay modal-overlay--lighter">
@@ -218,9 +225,6 @@ const CreatedSchedulePage = () => {
                 </ul>
               </div>
               <div className="flex justify-center gap-4">
-                {/* <button className="btn btn--submit shrink-0 self-center">
-                  More
-                </button> */}
                 {imagesToDisplay.length > 8 && (
                   <button
                     className="btn btn--clear shrink-0 self-center"
@@ -233,20 +237,12 @@ const CreatedSchedulePage = () => {
             </div>
           </div>
         )}
-        {schedule.length > 0 && (
-          <button className="btn btn--clear" onClick={handleClear}>
-            Clear Schedule
-          </button>
-        )}
-
-        {/* <Carousel data={shuffledImages} handleImageClick={handleImageClick} /> */}
 
         <SplideCarousel
           images={shuffledImages}
           style={splideStyle}
           handleImageClick={handleImageClick}
         />
-
         {loading || (isScheduleLoading && <LoadingSpinner />)}
       </div>{" "}
     </>
