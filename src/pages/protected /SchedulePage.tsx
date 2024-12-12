@@ -11,7 +11,7 @@ import SortByCategory from "../../components/content/SortByCategory";
 import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useCreateSchedule from "../../hooks/useCreateSchedule";
-import { scheduleDefaultMsg } from "../../assets/infoMessages";
+import { scheduleMessage } from "../../assets/infoMessages";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useGetSchedules from "../../hooks/useGetSchedules";
@@ -20,7 +20,7 @@ import Assistant from "../../components/content/Assistant";
 const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [infoMessage, setInfoMessage] = useState<string | null>(
-    scheduleDefaultMsg
+    scheduleMessage
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);

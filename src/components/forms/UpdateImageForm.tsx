@@ -1,6 +1,6 @@
 /* Update Image Form */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { arrowDown, editImageIcon } from "../../assets/icons";
 import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
@@ -12,6 +12,7 @@ import ConfirmationModal from "../modals/ConfirmationModal";
 import { ref } from "firebase/storage";
 import { storage } from "../../firebase/config";
 import useAuth from "../../hooks/useAuth";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
 
 interface ImageFormProps {
   btnText: string;
@@ -109,10 +110,14 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
     }
   };
 
+  useEffect(() => {
+    scrollToDiv("edit-heading");
+  }, []);
+
   return (
     <div className="form mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
       {isUpdating && <LoadingSpinner />}
-      <h2 className="heading heading--primary color-p300">
+      <h2 id="edit-heading" className="heading heading--primary color-p300">
         Edit Image Details
       </h2>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

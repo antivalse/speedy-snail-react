@@ -11,15 +11,21 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
 
 .assistant {
   height: 100px;
-  position: sticky;
-  z-index: 10;
-  top: 8rem;
+  // position: sticky;
+  // z-index: 10;
+  margin-top: 10rem;
   &__greeting {
     background-color: $secondary-700;
     border: 2px solid $secondary-300;
-    width: 20%;
+    width: 50%;
     border-radius: 1.2rem;
     box-shadow: 2px 3px 6px rgba(53, 46, 46, 1); // Minimal shadow
+    @include m.breakpoint-up("sm") {
+      width: 30%;
+    }
+    @include m.breakpoint-up("md") {
+      width: 25%;
+    }
   }
 
   &__username {

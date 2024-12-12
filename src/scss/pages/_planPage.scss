@@ -12,20 +12,47 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
 .plan-page {
   &__schedule {
     width: 100%;
+    z-index: 11;
 
     @include m.breakpoint-up("sm") {
-      width: 60%;
+      z-index: 0;
+      width: 70%;
+      border-radius: 1.25rem;
+    }
+
+    @include m.breakpoint-up("md") {
+      z-index: 0;
+      width: 98%;
       border-radius: 1.25rem;
     }
 
     &__images {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      @include m.breakpoint-up("md") {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
       &__image {
-        width: 24.063rem;
-        height: 24.063rem;
+        width: 20.063rem;
+        height: 20.063rem;
         border-radius: 1.875rem;
         object-fit: contain;
         opacity: 1;
         transition: 0.5s ease;
+
+        @include m.breakpoint-up("sm") {
+          width: 22.063rem;
+          height: 22.063rem;
+        }
+
+        @include m.breakpoint-up("md") {
+          width: 12.063rem;
+          height: 12.063rem;
+        }
       }
     }
   }

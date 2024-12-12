@@ -12,7 +12,7 @@ import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import SortByCategory from "../../components/content/SortByCategory";
 import { closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
-import { scheduleDefaultMsg, funDay } from "../../assets/infoMessages";
+import { scheduleMessage } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
 
@@ -20,8 +20,9 @@ const CreatedSchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
+
   const [infoMessage, setInfoMessage] = useState<string | null>(
-    scheduleDefaultMsg
+    scheduleMessage
   );
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -56,7 +57,6 @@ const CreatedSchedulePage = () => {
   useEffect(() => {
     if (userSchedule?.images) {
       setSchedule(userSchedule.images);
-      setInfoMessage(funDay);
     }
   }, [userSchedule]);
 
@@ -125,29 +125,26 @@ const CreatedSchedulePage = () => {
   const handleClear = () => {
     removeAllImagesFromSchedule(userSchedule?._id || "");
     setSchedule([]);
-    navigate("/schedule");
   };
 
-  // Scroll to greeting on re-render
   useEffect(() => {
     // If there is an error (for instance user tries to acces other users schedule by typing id in url). Navigate to schedule page
     if (getScheduleError) {
       navigate("/schedule");
     }
-
-    if (userSchedule && userSchedule?.images.length > 0) {
-      setInfoMessage(funDay);
-    }
-    scrollToDiv("assistant-greeting");
   }, [getScheduleError, userSchedule, navigate]);
+
+  // Scroll to greeting on first render
+  useEffect(() => {
+    scrollToDiv("assistant-greeting");
+  }, []);
 
   return (
     <>
       <Assistant message={infoMessage} />
-      <div className="plan-page flex flex-col items-center my-10 ">
+      <div className="plan-page flex flex-col items-center">
         <TodaysDate />
-
-        <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
+        <div className="plan-page__schedule bg-p100 py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {schedule?.map((item, index) => (
               <div key={index} className="flex flex-col items-center">
@@ -156,7 +153,7 @@ const CreatedSchedulePage = () => {
                 </h3>
                 <div className="relative image-wrapper my-5">
                   <img
-                    className="plan-page__schedule__images__image bg-p50 cursor-pointer"
+                    className="plan-page__schedule__images__image bg-p50 cursor-pointer "
                     src={item.url}
                     alt={item.title}
                   />

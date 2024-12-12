@@ -1,15 +1,21 @@
 /* Add-Image-Container Styles */
 
 @use "../../variables/colors" as c;
+@use "../../utils/mixins" as m;
 
 $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 
 .add-image {
-  width: 24.063rem;
-  height: 24.063rem;
+  width: 18.063rem;
+  height: 18.063rem;
   border-radius: 1.875rem;
   margin: 3.75rem 0rem 3.75rem 0rem;
   transition: 0.3s background-color ease-in-out;
+
+  @include m.breakpoint-up("sm") {
+    width: 12.063rem;
+    height: 12.063rem;
+  }
 
   &:hover {
     background-color: $secondary-900;

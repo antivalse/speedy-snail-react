@@ -15,12 +15,12 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
   style,
 }) => {
   return (
-    <div className="mt-20 flex flex-col items-center">
+    <div className="carousel mt-20 flex flex-col items-center">
       <h2 className="heading heading--primary self-center color-p300">
         Suggestions
       </h2>
       <div
-        className="splide-carousel mt-10"
+        className="carousel__splide-carousel mt-10"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -58,7 +58,7 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
                 textAlign: "center",
               }}
               key={index}
-              className="splide__carousel__item flex flex-col justify-center bg-s900 cursor-pointer"
+              className="carousel__splide-carousel__item splide__carousel__item flex flex-col justify-center bg-s900 cursor-pointer"
               onClick={() => handleImageClick(image._id || "")}
             >
               {" "}

@@ -13,7 +13,7 @@ const TodaysDate = () => {
   return (
     <h2
       id="date"
-      className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
+      className="heading heading--primary mb-5 color-p300 text-center"
     >
       {date}
     </h2>
