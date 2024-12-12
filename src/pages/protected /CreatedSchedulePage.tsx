@@ -144,7 +144,7 @@ const CreatedSchedulePage = () => {
       <div className="plan-page flex flex-col items-center">
         <div className="plan-page__schedule flex flex-col items-center bg-p100 py-10 mb-12">
           <TodaysDate />
-          <ul className="plan-page__schedule__images px-3">
+          <ul className="plan-page__schedule__images px-3 mt-5">
             {schedule?.map((item, index) => (
               <li
                 key={index}
