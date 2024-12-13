@@ -12,7 +12,7 @@ import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import SortByCategory from "../../components/content/SortByCategory";
 import { closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
-import { scheduleMessage } from "../../assets/infoMessages";
+import { createdScheduleMessage } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
 
@@ -21,18 +21,20 @@ const CreatedSchedulePage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [infoMessage, setInfoMessage] = useState<string | null>(
-    scheduleMessage
+    createdScheduleMessage
   );
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  // Get schedule id from params
+  // Get schedule id from paramsw
   const { id } = useParams();
 
   // Get the schedule if there is one
   const { userSchedule, isScheduleLoading, getScheduleError } = useGetSchedule(
     id || ""
   );
+
+  console.log("user schedule is: ", userSchedule);
 
   // Use navigate to navigate user
   const navigate = useNavigate();
@@ -137,6 +139,28 @@ const CreatedSchedulePage = () => {
   useEffect(() => {
     scrollToDiv("assistant-greeting");
   }, []);
+
+  // Check if schedule date is same as created date
+
+  // if (!userSchedule?.createdAt) {
+  //   return;
+  // }
+
+  // const scheduleCreatedAt = userSchedule?.createdAt.toDate();
+
+  // console.log("schedule created at: ", scheduleCreatedAt);
+
+  // const date = new Date().toLocaleDateString("en-us", {
+  //   weekday: "long",
+  //   month: "long",
+  //   day: "numeric",
+  // });
+
+  // if (scheduleCreatedAt === date) {
+  //   console.log("Same date");
+  // } else {
+  //   console.log("not same date");
+  // }
 
   return (
     <>

@@ -36,10 +36,15 @@ const SchedulePage = () => {
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
 
+  console.log("schedules: ", schedules.data);
+
   useEffect(() => {
-    if (schedules.data) {
-      // Navigate to the schedule page with created schedule
+    if (schedules.data?.length) {
+      // Navigate to the schedule page with created schedule if there is any data
       navigate(`/schedule/${schedules.data[0]._id}`);
+      // Otherwise stay on schedule page
+    } else {
+      return;
     }
   }, [schedules.data, navigate]);
 
@@ -121,16 +126,15 @@ const SchedulePage = () => {
 
   return (
     <>
+      <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center my-10 ">
-        <Assistant message={infoMessage} />
-
+        ie
         <h2
           id="date"
           className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
         >
           {date}
         </h2>
-
         <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
           <ul className="plan-page__schedule__images">
             {schedule?.map((item, index) => (
@@ -208,7 +212,6 @@ const SchedulePage = () => {
             </div>
           </div>
         )}
-
         {loading && <LoadingSpinner />}
       </div>
     </>
