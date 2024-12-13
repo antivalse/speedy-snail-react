@@ -48,13 +48,23 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
         }
 
         @include m.breakpoint-up("md") {
-          width: 13rem;
-          height: 13rem;
+          width: 13.5rem;
+          height: 13.5rem;
         }
 
         &:hover .image-overlay {
           opacity: 1; /* Show overlay only on hovered item */
           pointer-events: auto;
+        }
+
+        &__image {
+          width: 22.061;
+          height: 14.704rem;
+          object-fit: cover;
+          @include m.breakpoint-up("md") {
+            height: 10rem;
+            width: 100%;
+          }
         }
       }
 

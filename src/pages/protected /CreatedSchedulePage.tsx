@@ -153,10 +153,10 @@ const CreatedSchedulePage = () => {
             {schedule?.map((item, index) => (
               <li
                 key={index}
-                className=" relative plan-page__schedule__images__list-item my-5 bg-p50"
+                className="relative plan-page__schedule__images__list-item my-5 bg-p50 flex flex-col justify-center"
               >
                 <div className="flex flex-col items-center">
-                  <h3 className="body body--secondary color-p200 py-2">
+                  <h3 className="body body--secondary color-p200">
                     {item.title}
                   </h3>
                   <img
