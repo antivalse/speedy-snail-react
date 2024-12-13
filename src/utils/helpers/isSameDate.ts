@@ -16,7 +16,6 @@ const isSameDate = async (
   // Check if scheduleCreatedAt is a Timestamp and convert it to JavaScript Date
   if (scheduleCreatedAt instanceof Timestamp) {
     scheduleCreatedAtJsDate = scheduleCreatedAt.toDate();
-    console.log("Schedule created at:", scheduleCreatedAtJsDate);
   }
 
   if (scheduleCreatedAtJsDate) {
@@ -30,8 +29,6 @@ const isSameDate = async (
     if (!isSameDay) {
       const isCurrentDayLater = currentDate > scheduleCreatedAtJsDate;
       if (isCurrentDayLater && scheduleId) {
-        console.log("delete schedule");
-        // Delete logic goes here, e.g., calling Firebase delete function
         await deleteSchedule(scheduleId);
       }
     } else {

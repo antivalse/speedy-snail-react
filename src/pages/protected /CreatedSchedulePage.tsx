@@ -126,6 +126,7 @@ const CreatedSchedulePage = () => {
   const handleClear = () => {
     removeAllImagesFromSchedule(userSchedule?._id || "");
     setSchedule([]);
+    setInfoMessage("Nice, room for more adventures!");
   };
 
   useEffect(() => {
@@ -136,11 +137,12 @@ const CreatedSchedulePage = () => {
 
     // Check if the schedule is created today or not
     isSameDate(userSchedule?.createdAt, userSchedule?._id, deleteSchedule);
-  }, [getScheduleError, userSchedule, navigate, deleteSchedule]);
+  }, [getScheduleError, userSchedule, navigate, deleteSchedule, infoMessage]);
 
   // Scroll to greeting on first render
   useEffect(() => {
     scrollToDiv("assistant-greeting");
+    setInfoMessage(createdScheduleMessage);
   }, []);
 
   return (
@@ -186,7 +188,7 @@ const CreatedSchedulePage = () => {
           </ul>
           {schedule.length > 0 && (
             <button className="btn btn--clear" onClick={handleClear}>
-              Clear Schedule
+              Clear
             </button>
           )}
         </div>
