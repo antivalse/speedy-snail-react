@@ -15,6 +15,7 @@ import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { createdScheduleMessage } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
+import isSameDate from "../../utils/helpers/isSameDate";
 
 const CreatedSchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -34,8 +35,6 @@ const CreatedSchedulePage = () => {
     id || ""
   );
 
-  console.log("user schedule is: ", userSchedule);
-
   // Use navigate to navigate user
   const navigate = useNavigate();
 
@@ -52,6 +51,7 @@ const CreatedSchedulePage = () => {
     addImageToSchedule,
     removeAllImagesFromSchedule,
     removeImageFromSchedule,
+    deleteSchedule,
   } = useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
@@ -133,34 +133,15 @@ const CreatedSchedulePage = () => {
     if (getScheduleError) {
       navigate("/schedule");
     }
-  }, [getScheduleError, userSchedule, navigate]);
+
+    // Check if the schedule is created today or not
+    isSameDate(userSchedule?.createdAt, userSchedule?._id, deleteSchedule);
+  }, [getScheduleError, userSchedule, navigate, deleteSchedule]);
 
   // Scroll to greeting on first render
   useEffect(() => {
     scrollToDiv("assistant-greeting");
   }, []);
-
-  // Check if schedule date is same as created date
-
-  // if (!userSchedule?.createdAt) {
-  //   return;
-  // }
-
-  // const scheduleCreatedAt = userSchedule?.createdAt.toDate();
-
-  // console.log("schedule created at: ", scheduleCreatedAt);
-
-  // const date = new Date().toLocaleDateString("en-us", {
-  //   weekday: "long",
-  //   month: "long",
-  //   day: "numeric",
-  // });
-
-  // if (scheduleCreatedAt === date) {
-  //   console.log("Same date");
-  // } else {
-  //   console.log("not same date");
-  // }
 
   return (
     <>

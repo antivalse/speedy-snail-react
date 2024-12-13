@@ -128,7 +128,6 @@ const SchedulePage = () => {
     <>
       <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center my-10 ">
-        ie
         <h2
           id="date"
           className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
