@@ -48,8 +48,8 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
         }
 
         @include m.breakpoint-up("md") {
-          width: 13.5rem;
-          height: 13.5rem;
+          width: 14rem;
+          height: 16rem;
         }
 
         &:hover .image-overlay {

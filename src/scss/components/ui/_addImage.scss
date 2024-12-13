@@ -17,8 +17,8 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
   }
 
   @include m.breakpoint-up("md") {
-    width: 13rem;
-    height: 13rem;
+    width: 14rem;
+    height: 16rem;
   }
 
   &:hover {
