@@ -102,6 +102,7 @@ const CreatedSchedulePage = () => {
       setInfoMessage(
         "Oops, you can't add more than 6 images to schedule. Remove one or clear all to start over"
       );
+      scrollToDiv("assistant-greeting");
 
       setTimeout(() => {
         setInfoMessage(null);
@@ -127,8 +128,8 @@ const CreatedSchedulePage = () => {
     removeAllImagesFromSchedule(userSchedule?._id || "");
     setSchedule([]);
     setInfoMessage("Nice, room for more adventures!");
+    scrollToDiv("assistant-greetingi");
   };
-
   useEffect(() => {
     // If there is an error (for instance user tries to acces other users schedule by typing id in url). Navigate to schedule page
     if (getScheduleError) {

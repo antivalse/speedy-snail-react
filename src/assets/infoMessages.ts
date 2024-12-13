@@ -4,7 +4,7 @@ export const scheduleMessage =
   "Hi there! I'm Speedy. It's time to start planning your day. Click on the plus sign to add images to your schedule!";
 
 export const createdScheduleMessage =
-  "Add more images if there is a plus sign. Maximum amount of activities is 6. You can remove activities or clear schedule if you want!";
+  "Add more images by clicking on the plus-sign. Add up to 6 activities per day. You can remove activities or clear schedule if you want!";
 
 export const funDayMessage = "Wow what a fun day you have planned!";
 
