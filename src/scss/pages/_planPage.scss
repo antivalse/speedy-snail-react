@@ -60,7 +60,7 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
         &__image {
           width: 22.061;
           height: 14.704rem;
-          object-fit: cover;
+          object-fit: contain;
           @include m.breakpoint-up("md") {
             height: 10rem;
             width: 100%;

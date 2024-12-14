@@ -18,7 +18,7 @@ const NotFoundPage = () => {
           Sorry, we couldn't fint the page you were looking for!{" "}
         </p>
         <p className="body body--primary">
-          Click on any Speedy Snail to go back to homepage 🚀
+          Click on any Speedy Snail to go back to homepage
         </p>
       </div>
     </div>
