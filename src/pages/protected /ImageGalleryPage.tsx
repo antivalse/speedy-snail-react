@@ -17,13 +17,14 @@ const ImageGalleryPage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [message, setMessage] = useState<string | null>(imageGalleryMessage);
+  const [selectedDataType, setSelectedDataType] =
+    useState<string>("Personal Images"); // New state to track selected data type
 
   // Get user personal image data from Firebase and store in variable
   const { userImages } = useGetImages();
 
   // Get default images
   const { defaultImages } = useGetDefaultImages();
-  console.log("default images are: ", defaultImages);
 
   // Access darkmode context
   const { darkmode } = useTheme();
@@ -32,14 +33,18 @@ const ImageGalleryPage = () => {
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
+  // Determine images to display based on selected data type (Personal or Default)
+  const imagesToDisplay =
+    selectedDataType === "Personal Images" ? userImages : defaultImages;
+
   // Filter images array based on active category
-  const filteredImages = userImages?.filter(
+  const filteredImages = imagesToDisplay?.filter(
     (image) => image.category === activeCategory
   );
 
-  // Determine images to display based on active category unless active category is default "All"
-  const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : userImages;
+  // Use filtered images unless active category is default "All Images"
+  const finalImagesToDisplay =
+    activeCategory !== "All Images" ? filteredImages : imagesToDisplay;
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -50,15 +55,43 @@ const ImageGalleryPage = () => {
     }, 1000);
   };
 
+  // Function to handle radio button change and set selected data type
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDataType(event.target.value);
+  };
+
   return (
     <>
       <Assistant message={message} />
+
       <div
-        className={`image-gallery p-10 mt-8 ${
+        className={`image-gallery p-10 mt-8 flex flex-col ${
           darkmode ? "bg-p300" : "bg-p100"
         }`}
       >
-        <div className="image-gallery__sorting flex justify-between items-center">
+        <div className="self-center flex gap-3">
+          {/* Radio buttons to toggle between Personal and Default Images */}
+          <input
+            type="radio"
+            id="personal"
+            name="data_type"
+            value="Personal Images"
+            checked={selectedDataType === "Personal Images"}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="personal">Personal Images</label>
+          <input
+            type="radio"
+            id="default"
+            name="data_type"
+            value="Default Images"
+            checked={selectedDataType === "Default Images"}
+            onChange={handleRadioChange}
+          />
+          <label htmlFor="default">Default Images</label>
+        </div>
+
+        <div className="image-gallery__sorting flex justify-between items-center pt-10">
           <h2
             className={`heading heading--primary py-3 ${
               darkmode ? "color-p50" : "color-p300"
@@ -76,41 +109,49 @@ const ImageGalleryPage = () => {
             setShowCategories={setShowCategories}
           />
         </div>
-        <ul className="image-gallery__images grid grid-cols-1 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 my-10">
-          {imagesToDisplay?.map((item, index) => (
-            <li
-              key={index}
-              className={`${
-                item.isDefault
-                  ? "image-gallery__images__list-item--default"
-                  : "image-gallery__images__list-item cursor-pointer"
-              } flex flex-col items-center bg-p50 pb-5`}
-            >
-              <h3 className="body body--secondary color-p200 my-5">
-                {`${item.isDefault ? item.title + "*" : item.title}`}
-              </h3>
-              {item.isDefault ? (
-                <img
-                  src={item.url}
-                  alt={item.title}
-                  className="image-gallery__images__image"
-                  onClick={() =>
-                    setMessage("You can only click on your personal images!")
-                  }
-                />
-              ) : (
-                <Link to={`/edit-image/${item._id}`}>
+
+        {finalImagesToDisplay && finalImagesToDisplay?.length > 0 ? (
+          <ul className="image-gallery__images grid grid-cols-1 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 my-10">
+            {finalImagesToDisplay?.map((item, index) => (
+              <li
+                key={index}
+                className={`${
+                  item.isDefault
+                    ? "image-gallery__images__list-item--default"
+                    : "image-gallery__images__list-item cursor-pointer"
+                } flex flex-col items-center bg-p50 pb-5`}
+              >
+                <h3 className="body body--secondary color-p200 my-5">
+                  {item.title}
+                </h3>
+                {item.isDefault ? (
                   <img
                     src={item.url}
                     alt={item.title}
                     className="image-gallery__images__image"
+                    onClick={() =>
+                      setMessage("You can only click on your personal images!")
+                    }
                   />
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
+                ) : (
+                  <Link to={`/edit-image/${item._id}`}>
+                    <img
+                      src={item.url}
+                      alt={item.title}
+                      className="image-gallery__images__image"
+                    />
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="color-p300 italic">No images found in this category</p>
+        )}
+
+        {/* Pagination */}
         <Pagination />
+
         {loading && <LoadingSpinner />}
       </div>
     </>

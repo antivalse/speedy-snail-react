@@ -40,7 +40,7 @@ const CreatedSchedulePage = () => {
 
   // Get all images
   const imageData = useGetImages();
-  const allImages = imageData.data;
+  const allImages: Image[] | null = imageData.userImages;
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
@@ -62,7 +62,7 @@ const CreatedSchedulePage = () => {
   }, [userSchedule]);
 
   // Filter images array based on active category
-  const filteredImages = allImages?.filter(
+  const filteredImages = (allImages ?? []).filter(
     (image) => image.category === activeCategory
   );
 
@@ -71,7 +71,7 @@ const CreatedSchedulePage = () => {
     activeCategory !== "All Images" ? filteredImages : allImages;
 
   // Random selection of images for suggestion carousel
-  const shuffledImages = shuffleArray<Image>(allImages).slice(0, 8);
+  const shuffledImages = shuffleArray<Image>(allImages ?? []).slice(0, 8);
 
   // Splide Style
   const splideStyle: React.CSSProperties = {
@@ -91,7 +91,7 @@ const CreatedSchedulePage = () => {
 
   // Handle image click and update the schedule
   const handleImageClick = (id: string) => {
-    const selectedImage = allImages.find((img) => img._id === id);
+    const selectedImage = allImages?.find((img) => img._id === id);
 
     // Abort if no image was selected or if the maximum amount of activities are set
     if (!selectedImage) {
@@ -233,7 +233,7 @@ const CreatedSchedulePage = () => {
                 </ul>
               </div>
               <div className="flex justify-center gap-4">
-                {imagesToDisplay.length > 8 && (
+                {imagesToDisplay && imagesToDisplay.length > 8 && (
                   <button
                     className="btn btn--clear shrink-0 self-center"
                     onClick={() => scrollToDiv("close-icon")}
@@ -251,7 +251,10 @@ const CreatedSchedulePage = () => {
           style={splideStyle}
           handleImageClick={handleImageClick}
         />
-        {loading || (isScheduleLoading && <LoadingSpinner />)}
+        {loading ||
+          isScheduleLoading ||
+          !userSchedule ||
+          (!allImages && <LoadingSpinner />)}
       </div>{" "}
     </>
   );

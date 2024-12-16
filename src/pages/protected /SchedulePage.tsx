@@ -62,7 +62,7 @@ const SchedulePage = () => {
 
   // Get all images
   const imageData = useGetImages();
-  const allImages = imageData.data;
+  const allImages = imageData.userImages;
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
@@ -95,7 +95,7 @@ const SchedulePage = () => {
 
   // Handle image click - create a new schedule and add image to it
   const handleImageClick = async (id: string) => {
-    const selectedImage = allImages.find((img) => img._id === id);
+    const selectedImage = allImages?.find((img) => img._id === id);
 
     // Abort if no image was selected
     if (!selectedImage) {
@@ -199,7 +199,7 @@ const SchedulePage = () => {
                 {/* <button className="btn btn--submit shrink-0 self-center">
                   More
                 </button> */}
-                {imagesToDisplay.length > 8 && (
+                {imagesToDisplay && imagesToDisplay?.length > 8 && (
                   <button
                     className="btn btn--clear shrink-0 self-center"
                     onClick={() => scrollToDiv("close-icon")}

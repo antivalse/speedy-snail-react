@@ -4,7 +4,7 @@ import { Image } from "../../types/Image.types";
 import "../../scss/components/content/_splideCarousel.scss";
 
 interface SplideCarouselProps {
-  images: Image[];
+  images: Image[] | [];
   style: React.CSSProperties;
   handleImageClick: (id: string) => void;
 }
@@ -51,7 +51,7 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
             speed: 2000, // Set scrolling speed to 2000ms
           }}
         >
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <SplideSlide
               style={{
                 position: "relative",
