@@ -10,6 +10,7 @@ import SortByCategory from "../../components/content/SortByCategory";
 import useTheme from "../../hooks/useTheme";
 import Assistant from "../../components/content/Assistant";
 import { imageGalleryMessage } from "../../assets/infoMessages";
+import useGetDefaultImages from "../../hooks/useGetDefaultImages";
 
 const ImageGalleryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,8 +18,12 @@ const ImageGalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
   const [message, setMessage] = useState<string | null>(imageGalleryMessage);
 
-  // Get image data from Firebase and store in variable
-  const { data } = useGetImages();
+  // Get user personal image data from Firebase and store in variable
+  const { userImages } = useGetImages();
+
+  // Get default images
+  const { defaultImages } = useGetDefaultImages();
+  console.log("default images are: ", defaultImages);
 
   // Access darkmode context
   const { darkmode } = useTheme();
@@ -28,13 +33,13 @@ const ImageGalleryPage = () => {
   const categoriesArray = categories.data;
 
   // Filter images array based on active category
-  const filteredImages = data?.filter(
+  const filteredImages = userImages?.filter(
     (image) => image.category === activeCategory
   );
 
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : data;
+    activeCategory !== "All Images" ? filteredImages : userImages;
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {

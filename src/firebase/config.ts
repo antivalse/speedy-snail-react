@@ -37,9 +37,10 @@ const createCollection = <T = DocumentData>(collectionType: string) => {
   return collection(db, collectionType) as CollectionReference<T>;
 };
 
-export const usersCollection = createCollection<UserInfo>("users");
-export const imagesCollection = createCollection<Image>("images");
 export const categoriesCollection = createCollection<Category>("categories");
+export const defaultImagesCollection = createCollection<Image>("defaultImages");
+export const imagesCollection = createCollection<Image>("images");
 export const schedulesCollection = createCollection<Schedule>("schedules");
+export const usersCollection = createCollection<UserInfo>("users");
 
 export default app;
