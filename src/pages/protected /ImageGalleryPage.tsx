@@ -96,7 +96,9 @@ const ImageGalleryPage = () => {
       >
         <div className="self-center flex gap-3">
           {/* Radio buttons to toggle between Personal and Default Images */}
+
           <input
+            className="image-gallery__radio cursor-pointer flex"
             type="radio"
             id="personal"
             name="data_type"
@@ -104,8 +106,11 @@ const ImageGalleryPage = () => {
             checked={selectedDataType === "Personal Images"}
             onChange={handleRadioChange}
           />
-          <label htmlFor="personal">Personal Images</label>
+          <label className="body body--secondary" htmlFor="personal">
+            My Images
+          </label>
           <input
+            className="image-gallery__radio cursor-pointer ml-5"
             type="radio"
             id="default"
             name="data_type"
@@ -113,7 +118,9 @@ const ImageGalleryPage = () => {
             checked={selectedDataType === "Default Images"}
             onChange={handleRadioChange}
           />
-          <label htmlFor="default">Default Images</label>
+          <label className="body body--secondary " htmlFor="default">
+            Default Images
+          </label>
         </div>
 
         <div className="image-gallery__sorting flex justify-between items-center pt-10">

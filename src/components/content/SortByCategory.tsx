@@ -42,7 +42,7 @@ const SortByCategory: React.FC<SortByCategoryProps> = ({
               role="menuitem"
               tabIndex={-1}
               id="menu-item-1"
-              onClick={() => handleSelection("All Images")}
+              onClick={() => handleSelection("All")}
             >
               All
             </li>

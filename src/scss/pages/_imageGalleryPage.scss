@@ -2,6 +2,7 @@
 
 @use "../variables/colors" as c;
 
+$primary-300: map-get(map-get(c.$colors, primary), 300);
 $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 
 .image-gallery {
@@ -25,5 +26,12 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
       height: 10.469rem;
       object-fit: cover;
     }
+  }
+
+  &__radio {
+    transform: scale(
+      1.5
+    ); /* Adjust the scale value to make it bigger or smaller */
+    accent-color: $primary-300;
   }
 }
