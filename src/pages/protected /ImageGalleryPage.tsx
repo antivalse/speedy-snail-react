@@ -1,7 +1,6 @@
 /* Image Gallery Page */
 
 import Pagination from "../../components/ui/Pagination";
-// import useGetImages from "../../hooks/useGetImages";
 import { useEffect, useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";
 import { Link } from "react-router-dom";
@@ -23,9 +22,7 @@ const ImageGalleryPage = () => {
     useState<string>("Personal Images");
   const [showCategories, setShowCategories] = useState<boolean>(false);
 
-  /* TESTING TESTING */
-
-  // get paginated images
+  // Get paginated images
 
   const {
     paginatedImages,
@@ -39,11 +36,6 @@ const ImageGalleryPage = () => {
   useEffect(() => {
     getFirstPage();
   }, []); // Empty dependency array ensures this runs only once on mount
-
-  /* END OF TEST */
-
-  // Get user personal image data from Firebase and store in variable
-  // const { userImages } = useGetImages();
 
   // Get default images
   const { defaultImages } = useGetDefaultImages();
@@ -90,6 +82,7 @@ const ImageGalleryPage = () => {
   };
 
   const handleNextPage = () => {
+    getNextPage();
     setCurrentPage(currentPage + 1);
   };
 
@@ -103,9 +96,6 @@ const ImageGalleryPage = () => {
               <li key={image._id}>{image.title}</li>
             ))}
         </ul>
-
-        {/* Show loading spinner */}
-        {paginatedImagesLoading && <p>Loading...</p>}
 
         {/* Load More button */}
         {!loading && hasMore && (
@@ -214,7 +204,7 @@ const ImageGalleryPage = () => {
           />
         )}
 
-        {loading && <LoadingSpinner />}
+        {loading && paginatedImagesLoading && <LoadingSpinner />}
       </div>
     </>
   );

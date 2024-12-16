@@ -40,8 +40,9 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         className={`pagination__arrow cursor-pointer ${
           darkmode ? "pagination__arrow--lighter" : ""
-        }  ${currentPage === 1 && !hasMore ? "opacity-15" : ""}`}
+        }  ${!hasMore ? "opacity-15" : ""}`}
         onClick={handleNextPage}
+        disabled={!hasMore}
       >
         {arrowRight}
       </button>
