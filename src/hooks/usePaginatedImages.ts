@@ -90,6 +90,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
   // Query the next page of docs
   const getNextPage = async () => {
     if (!lastVisible || !hasMore) return; // Prevent unnecessary calls
+    setPaginatedImages([]);
     setPaginatedImagesLoading(true);
     try {
       const next = query(
@@ -99,6 +100,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
         startAfter(lastVisible),
         limit(pageLimit)
       );
+
       const documentSnapshots = await getDocs(next);
 
       // Map documents to Image[] while validating the structure

@@ -85,6 +85,8 @@ const ImageGalleryPage = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  console.log("paginated images: ", paginatedImages);
+
   return (
     <>
       <Assistant message={message} />
