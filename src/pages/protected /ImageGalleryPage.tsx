@@ -2,7 +2,7 @@
 
 import Pagination from "../../components/ui/Pagination";
 import useGetImages from "../../hooks/useGetImages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
@@ -11,6 +11,8 @@ import useTheme from "../../hooks/useTheme";
 import Assistant from "../../components/content/Assistant";
 import { imageGalleryMessage } from "../../assets/infoMessages";
 import useGetDefaultImages from "../../hooks/useGetDefaultImages";
+import usePaginatedImages from "../../hooks/usePaginatedImages";
+import { Image } from "../../types/Image.types";
 
 const ImageGalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -20,6 +22,25 @@ const ImageGalleryPage = () => {
   const [selectedDataType, setSelectedDataType] =
     useState<string>("Personal Images");
   const [showCategories, setShowCategories] = useState<boolean>(false);
+
+  /* TESTING TESTING */
+
+  // get paginated images
+
+  const {
+    paginatedImages,
+    paginatedImagesLoading,
+    hasMore,
+    getFirstPage,
+    getNextPage,
+  } = usePaginatedImages();
+
+  // Fetch the first page on component mount
+  useEffect(() => {
+    getFirstPage();
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  /* END OF TEST */
 
   // Get user personal image data from Firebase and store in variable
   const { userImages } = useGetImages();
@@ -63,6 +84,27 @@ const ImageGalleryPage = () => {
 
   return (
     <>
+      <div>
+        <h1>Paginated Images</h1>
+        <ul>
+          {paginatedImages &&
+            paginatedImages.map((image: Image) => (
+              <li key={image._id}>{image.title}</li>
+            ))}
+        </ul>
+
+        {/* Show loading spinner */}
+        {paginatedImagesLoading && <p>Loading...</p>}
+
+        {/* Load More button */}
+        {!loading && hasMore && (
+          <button onClick={getNextPage}>Load More</button>
+        )}
+
+        {/* No more data */}
+        {!hasMore && !loading && <p>No more images to load.</p>}
+      </div>
+
       <Assistant message={message} />
 
       <div
