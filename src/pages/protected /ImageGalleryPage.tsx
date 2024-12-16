@@ -1,7 +1,7 @@
 /* Image Gallery Page */
 
 import Pagination from "../../components/ui/Pagination";
-import useGetImages from "../../hooks/useGetImages";
+// import useGetImages from "../../hooks/useGetImages";
 import { useEffect, useState } from "react";
 import useGetCategories from "../../hooks/useGetCategories";
 import { Link } from "react-router-dom";
@@ -43,7 +43,7 @@ const ImageGalleryPage = () => {
   /* END OF TEST */
 
   // Get user personal image data from Firebase and store in variable
-  const { userImages } = useGetImages();
+  // const { userImages } = useGetImages();
 
   // Get default images
   const { defaultImages } = useGetDefaultImages();
@@ -57,7 +57,7 @@ const ImageGalleryPage = () => {
 
   // Determine images to display based on selected data type (Personal or Default)
   const imagesToDisplay =
-    selectedDataType === "Personal Images" ? userImages : defaultImages;
+    selectedDataType === "Personal Images" ? paginatedImages : defaultImages;
 
   // Filter images array based on active category
   const filteredImages = imagesToDisplay?.filter(
@@ -80,6 +80,17 @@ const ImageGalleryPage = () => {
   // Function to handle radio button change and set selected data type
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDataType(event.target.value);
+  };
+
+  // Functions to handle click on pagination arrows
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -197,7 +208,9 @@ const ImageGalleryPage = () => {
         {selectedDataType === "Personal Images" && (
           <Pagination
             currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            handleNextPage={handleNextPage}
+            handlePreviousPage={handlePreviousPage}
+            hasMore={hasMore}
           />
         )}
 

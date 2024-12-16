@@ -5,25 +5,19 @@ import useTheme from "../../hooks/useTheme";
 
 interface PaginationProps {
   currentPage: number;
-  setCurrentPage: (value: number) => void;
+  hasMore: boolean;
+  handlePreviousPage: () => void;
+  handleNextPage: () => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
-  setCurrentPage,
+  hasMore,
+  handleNextPage,
+  handlePreviousPage,
 }) => {
   // Access darkmode context
   const { darkmode } = useTheme();
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
 
   return (
     <div className="pagination flex justify-center items-center gap-6 mt-10 p-10">
@@ -46,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         className={`pagination__arrow cursor-pointer ${
           darkmode ? "pagination__arrow--lighter" : ""
-        }`}
+        }  ${currentPage === 1 && !hasMore ? "opacity-15" : ""}`}
         onClick={handleNextPage}
       >
         {arrowRight}
