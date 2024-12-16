@@ -6,6 +6,7 @@ import useTheme from "../../hooks/useTheme";
 interface PaginationProps {
   currentPage: number;
   hasMore: boolean;
+  loading: boolean;
   handlePreviousPage: () => void;
   handleNextPage: () => void;
 }
@@ -13,6 +14,7 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   hasMore,
+  loading,
   handleNextPage,
   handlePreviousPage,
 }) => {
@@ -25,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = ({
         className={`pagination__arrow cursor-pointer ${
           darkmode ? "pagination__arrow--lighter" : ""
         } ${currentPage === 1 ? "opacity-15" : ""}`}
-        disabled={currentPage === 1}
+        disabled={loading || currentPage === 1}
         onClick={handlePreviousPage}
       >
         {arrowLeft}
@@ -42,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({
           darkmode ? "pagination__arrow--lighter" : ""
         }  ${!hasMore ? "opacity-15" : ""}`}
         onClick={handleNextPage}
-        disabled={!hasMore}
+        disabled={loading || !hasMore}
       >
         {arrowRight}
       </button>

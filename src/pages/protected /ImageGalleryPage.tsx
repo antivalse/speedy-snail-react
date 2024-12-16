@@ -11,10 +11,9 @@ import Assistant from "../../components/content/Assistant";
 import { imageGalleryMessage } from "../../assets/infoMessages";
 import useGetDefaultImages from "../../hooks/useGetDefaultImages";
 import usePaginatedImages from "../../hooks/usePaginatedImages";
-import { Image } from "../../types/Image.types";
 
 const ImageGalleryPage = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1); // State to manage current page
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(imageGalleryMessage);
@@ -58,7 +57,7 @@ const ImageGalleryPage = () => {
 
   // Use filtered images unless active category is default "All Images"
   const finalImagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : imagesToDisplay;
+    activeCategory !== "All" ? filteredImages : imagesToDisplay;
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -88,24 +87,6 @@ const ImageGalleryPage = () => {
 
   return (
     <>
-      <div>
-        <h1>Paginated Images</h1>
-        <ul>
-          {paginatedImages &&
-            paginatedImages.map((image: Image) => (
-              <li key={image._id}>{image.title}</li>
-            ))}
-        </ul>
-
-        {/* Load More button */}
-        {!loading && hasMore && (
-          <button onClick={getNextPage}>Load More</button>
-        )}
-
-        {/* No more data */}
-        {!hasMore && !loading && <p>No more images to load.</p>}
-      </div>
-
       <Assistant message={message} />
 
       <div
@@ -201,6 +182,7 @@ const ImageGalleryPage = () => {
             handleNextPage={handleNextPage}
             handlePreviousPage={handlePreviousPage}
             hasMore={hasMore}
+            loading={paginatedImagesLoading}
           />
         )}
 
