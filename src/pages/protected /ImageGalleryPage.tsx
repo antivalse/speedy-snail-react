@@ -13,12 +13,13 @@ import { imageGalleryMessage } from "../../assets/infoMessages";
 import useGetDefaultImages from "../../hooks/useGetDefaultImages";
 
 const ImageGalleryPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [showCategories, setShowCategories] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [currentPage, setCurrentPage] = useState<number>(1); // State to manage current page
+  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(imageGalleryMessage);
   const [selectedDataType, setSelectedDataType] =
-    useState<string>("Personal Images"); // New state to track selected data type
+    useState<string>("Personal Images");
+  const [showCategories, setShowCategories] = useState<boolean>(false);
 
   // Get user personal image data from Firebase and store in variable
   const { userImages } = useGetImages();
@@ -149,8 +150,14 @@ const ImageGalleryPage = () => {
           <p className="color-p300 italic">No images found in this category</p>
         )}
 
-        {/* Pagination */}
-        <Pagination />
+        {/* Pagination: only paginate personal images bc default are limited in amount*/}
+
+        {selectedDataType === "Personal Images" && (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
 
         {loading && <LoadingSpinner />}
       </div>

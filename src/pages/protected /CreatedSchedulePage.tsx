@@ -38,7 +38,7 @@ const CreatedSchedulePage = () => {
   // Use navigate to navigate user
   const navigate = useNavigate();
 
-  // Get all images
+  // Get user images
   const imageData = useGetImages();
   const allImages: Image[] | null = imageData.userImages;
 
