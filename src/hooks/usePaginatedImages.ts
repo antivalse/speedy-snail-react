@@ -3,8 +3,11 @@ import { Image } from "../types/Image.types"; // Assuming Image has properties l
 import {
   collection,
   DocumentData,
+  DocumentSnapshot,
+  endBefore,
   getDocs,
   limit,
+  limitToLast,
   orderBy,
   query,
   startAfter,
@@ -20,11 +23,15 @@ type UsePaginatedImagesResult = {
   hasMore: boolean;
   getFirstPage: () => Promise<void>;
   getNextPage: () => Promise<void>;
+  getPreviousPage: () => Promise<void>;
 };
 
 const usePaginatedImages = (): UsePaginatedImagesResult => {
   const [paginatedImages, setPaginatedImages] = useState<Image[]>([]); // Store the fetched images
   const [lastVisible, setLastVisible] = useState<DocumentData | null>(null); // Track the last visible document
+  const [firstVisible, setFirstVisible] = useState<DocumentSnapshot | null>(
+    null
+  ); // Track the first doc on the current page
   const [paginatedImagesLoading, setPaginatedImagesLoading] = useState(false); // Track loading state
   const [hasMore, setHasMore] = useState(true); // Check if there are more pages
 
@@ -89,37 +96,68 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
 
   // Query the next page of docs
   const getNextPage = async () => {
-    if (!lastVisible || !hasMore) return; // Prevent unnecessary calls
-    setPaginatedImages([]);
+    if (!lastVisible || !hasMore) return;
+
     setPaginatedImagesLoading(true);
+
     try {
-      const next = query(
+      const nextQuery = query(
         collection(db, "images"),
         where("userId", "==", user?.uid),
-        orderBy("title"),
+        orderBy("title"), // Ascending order
         startAfter(lastVisible),
         limit(pageLimit)
       );
 
-      const documentSnapshots = await getDocs(next);
+      const documentSnapshots = await getDocs(nextQuery);
 
-      // Map documents to Image[] while validating the structure
       const fetchedImages = documentSnapshots.docs
         .map(mapFirestoreDataToImage)
         .filter((image): image is Image => image !== null);
 
-      // Update the state with new data
-      setPaginatedImages((prev) => [...prev, ...fetchedImages]);
+      setPaginatedImages(fetchedImages);
 
-      // Update the last visible document
-      const lastVisibleDoc =
-        documentSnapshots.docs[documentSnapshots.docs.length - 1];
-      setLastVisible(lastVisibleDoc);
+      // Update pagination state
+      setFirstVisible(documentSnapshots.docs[0]); // First document on this page
+      setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
 
       // Check if more documents exist
       setHasMore(documentSnapshots.docs.length === pageLimit);
     } catch (error) {
       console.error("Error fetching the next page:", error);
+    } finally {
+      setPaginatedImagesLoading(false);
+    }
+  };
+
+  // Query the previous page of docs
+  const getPreviousPage = async () => {
+    if (!firstVisible) return;
+    setPaginatedImagesLoading(true);
+    setHasMore(true);
+
+    try {
+      const prevQuery = query(
+        collection(db, "images"),
+        where("userId", "==", user?.uid),
+        orderBy("title"), // Ascending order
+        endBefore(firstVisible), // Move backward from the first doc
+        limitToLast(pageLimit) // Fetch previous documents in reverse
+      );
+
+      const documentSnapshots = await getDocs(prevQuery);
+
+      const fetchedImages = documentSnapshots.docs
+        .map(mapFirestoreDataToImage)
+        .filter((image): image is Image => image !== null);
+
+      setPaginatedImages(fetchedImages);
+
+      // Update pagination state
+      setFirstVisible(documentSnapshots.docs[0]); // Update first doc
+      setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]); // Update last doc
+    } catch (error) {
+      console.error("Error fetching the previous page:", error);
     } finally {
       setPaginatedImagesLoading(false);
     }
@@ -131,6 +169,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
     hasMore,
     getFirstPage,
     getNextPage,
+    getPreviousPage,
   };
 };
 

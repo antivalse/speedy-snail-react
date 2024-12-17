@@ -29,6 +29,7 @@ const ImageGalleryPage = () => {
     hasMore,
     getFirstPage,
     getNextPage,
+    getPreviousPage,
   } = usePaginatedImages();
 
   // Fetch the first page on component mount
@@ -77,6 +78,7 @@ const ImageGalleryPage = () => {
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      getPreviousPage();
     }
   };
 
