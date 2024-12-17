@@ -1,6 +1,6 @@
 /* Div and Button for Sorting Images by Category */
 
-import { arrowDown } from "../../assets/icons";
+import { arrowDown, arrowUp } from "../../assets/icons";
 import { Category } from "../../types/Category.types";
 
 interface SortByCategoryProps {
@@ -24,7 +24,7 @@ const SortByCategory: React.FC<SortByCategoryProps> = ({
         aria-haspopup="true"
         onClick={() => setShowCategories(!showCategories)}
       >
-        SORT<span>{arrowDown}</span>
+        SORT<span>{!showCategories ? arrowDown : arrowUp}</span>
       </button>
       {showCategories && (
         <div

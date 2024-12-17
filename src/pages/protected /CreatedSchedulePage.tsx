@@ -30,8 +30,6 @@ const CreatedSchedulePage = () => {
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  console.log("searchinput is: ", searchInput);
-
   // Get schedule id from paramsw
   const { id } = useParams();
 
@@ -91,6 +89,8 @@ const CreatedSchedulePage = () => {
 
   // Final images to display
   const imagesToDisplay = categoryFilteredImages;
+
+  console.log("images to display: ", imagesToDisplay);
 
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(combinedImages ?? []).slice(0, 8);
@@ -244,22 +244,31 @@ const CreatedSchedulePage = () => {
                   />
                 </div>
 
-                <ul className="grid grid-cols-4 gap-5 mt-5">
-                  {imagesToDisplay?.map((item, index) => (
-                    <li
-                      key={index}
-                      className="select-image__li cursor-pointer bg-p100 flex flex-col justify-center items-center"
-                    >
-                      <p className="body body--secondary">{item.title}</p>
-                      <img
-                        className="select-image__image"
-                        src={item.url}
-                        alt={item.title}
-                        onClick={() => handleImageClick(item._id || "")}
-                      />
-                    </li>
-                  ))}
-                </ul>
+                {imagesToDisplay.length > 0 ? (
+                  <ul className="grid grid-cols-4 gap-5 mt-5">
+                    {imagesToDisplay?.map((item, index) => (
+                      <li
+                        key={index}
+                        className="select-image__li cursor-pointer bg-p100 flex flex-col justify-center items-center"
+                      >
+                        <p className="heading heading--small mt-3">
+                          {item.title}
+                        </p>
+                        <img
+                          className="select-image__image"
+                          src={item.url}
+                          alt={item.title}
+                          onClick={() => handleImageClick(item._id || "")}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-center mt-20">
+                    Uh-oh! No pictures here. Let’s try looking for something
+                    else!
+                  </p>
+                )}
               </div>
               <div className="flex justify-center gap-4">
                 {imagesToDisplay && imagesToDisplay.length > 8 && (

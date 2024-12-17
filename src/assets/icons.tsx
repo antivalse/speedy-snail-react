@@ -709,7 +709,7 @@ export const plusIcon = (
   </svg>
 );
 
-/* Downward Arrow */
+/* Arrows */
 
 export const arrowDown = (
   <svg
@@ -722,6 +722,23 @@ export const arrowDown = (
   >
     <path
       d="M18.03 -7.82013e-05L19.8 1.76992L9.90005 11.6699L4.95911e-05 1.76992L1.77005 -7.82013e-05L9.90005 8.12992L18.03 -7.82013e-05Z"
+      fill="#4F453E"
+    />
+  </svg>
+);
+
+export const arrowUp = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="12"
+    viewBox="0 0 20 12"
+    fill="none"
+    className="arrow-up"
+    style={{ transform: "translateY(-2px)" }} // Move up by 2px
+  >
+    <path
+      d="M18.03 11.67L19.8 9.90005L9.90005 -7.82013e-05L0 9.90005L1.77005 11.67L9.90005 3.54005L18.03 11.67Z"
       fill="#4F453E"
     />
   </svg>

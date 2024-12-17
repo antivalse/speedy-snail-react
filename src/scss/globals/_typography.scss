@@ -9,8 +9,8 @@ $secondary-100: map-get(map-get(c.$colors, secondary), 100);
 $secondary-400: map-get(map-get(c.$colors, secondary), 400);
 
 .heading {
+  font-weight: 400;
   &--primary {
-    font-weight: 400;
     font-family: $josefin-sans;
     font-size: 1.15rem;
     text-transform: uppercase;
@@ -20,15 +20,18 @@ $secondary-400: map-get(map-get(c.$colors, secondary), 400);
   }
 
   &--logo {
-    font-weight: 400;
     font-family: $genty;
     font-size: 3rem;
     text-shadow: 2px 2px $secondary-400;
     text-transform: none;
   }
 
+  &--small {
+    font-size: 0.785rem;
+    text-transform: uppercase;
+  }
+
   &--logo-dark {
-    font-weight: 400;
     font-family: $genty;
     font-size: 2rem;
     text-shadow: 2px 2px $secondary-100;
