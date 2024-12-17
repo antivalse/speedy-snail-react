@@ -16,6 +16,7 @@ import { createdScheduleMessage } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
 import isSameDate from "../../utils/helpers/isSameDate";
+import useGetDefaultImages from "../../hooks/useGetDefaultImages";
 
 const CreatedSchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -40,7 +41,15 @@ const CreatedSchedulePage = () => {
 
   // Get user images
   const imageData = useGetImages();
-  const allImages: Image[] | null = imageData.userImages;
+  const userImages: Image[] | null = imageData.userImages;
+
+  // Get all default images
+  const { defaultImages } = useGetDefaultImages();
+
+  // Combine and sort images
+  const combinedImages = [...(userImages || []), ...(defaultImages || [])].sort(
+    (a, b) => a.title.localeCompare(b.title) // Sort alphabetically by title
+  );
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
@@ -62,16 +71,16 @@ const CreatedSchedulePage = () => {
   }, [userSchedule]);
 
   // Filter images array based on active category
-  const filteredImages = (allImages ?? []).filter(
+  const filteredImages = (combinedImages ?? []).filter(
     (image) => image.category === activeCategory
   );
 
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : allImages;
+    activeCategory !== "All Images" ? filteredImages : combinedImages;
 
   // Random selection of images for suggestion carousel
-  const shuffledImages = shuffleArray<Image>(allImages ?? []).slice(0, 8);
+  const shuffledImages = shuffleArray<Image>(combinedImages ?? []).slice(0, 8);
 
   // Splide Style
   const splideStyle: React.CSSProperties = {
@@ -91,7 +100,7 @@ const CreatedSchedulePage = () => {
 
   // Handle image click and update the schedule
   const handleImageClick = (id: string) => {
-    const selectedImage = allImages?.find((img) => img._id === id);
+    const selectedImage = combinedImages?.find((img) => img._id === id);
 
     // Abort if no image was selected or if the maximum amount of activities are set
     if (!selectedImage) {
@@ -254,7 +263,7 @@ const CreatedSchedulePage = () => {
         {loading ||
           isScheduleLoading ||
           !userSchedule ||
-          (!allImages && <LoadingSpinner />)}
+          (!combinedImages && <LoadingSpinner />)}
       </div>{" "}
     </>
   );

@@ -26,6 +26,7 @@ const ImageGalleryPage = () => {
   const {
     paginatedImages,
     paginatedImagesLoading,
+    paginatedImagesError,
     hasMore,
     getFirstPage,
     getNextPage,
@@ -35,7 +36,8 @@ const ImageGalleryPage = () => {
   // Fetch the first page on component mount
   useEffect(() => {
     getFirstPage();
-  }, []); // Empty dependency array ensures this runs only once on mount
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Get default images
   const { defaultImages } = useGetDefaultImages();
@@ -198,6 +200,8 @@ const ImageGalleryPage = () => {
         )}
 
         {loading && paginatedImagesLoading && <LoadingSpinner />}
+
+        {paginatedImagesError && <p>{paginatedImagesError}</p>}
       </div>
     </>
   );

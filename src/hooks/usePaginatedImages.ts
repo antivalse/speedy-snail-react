@@ -20,6 +20,7 @@ import useAuth from "./useAuth";
 type UsePaginatedImagesResult = {
   paginatedImages: Image[];
   paginatedImagesLoading: boolean;
+  paginatedImagesError: string | null;
   hasMore: boolean;
   getFirstPage: () => Promise<void>;
   getNextPage: () => Promise<void>;
@@ -32,12 +33,15 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
   const [firstVisible, setFirstVisible] = useState<DocumentSnapshot | null>(
     null
   ); // Track the first doc on the current page
-  const [paginatedImagesLoading, setPaginatedImagesLoading] = useState(false); // Track loading state
+  const [paginatedImagesLoading, setPaginatedImagesLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true); // Check if there are more pages
+  const [paginatedImagesError, setPaginatedImagesError] = useState<
+    string | null
+  >(null);
 
   const { user } = useAuth();
 
-  const pageLimit = 3; // Number of items per page
+  const pageLimit = 12; // Number of items per page
 
   // Validate and map Firestore data to the Image type
   const mapFirestoreDataToImage = (doc: DocumentData): Image | null => {
@@ -56,7 +60,9 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
         isDefault: data.isDefault,
       };
     }
-    console.error("Document missing required fields:", doc.id);
+    setPaginatedImagesError(
+      `Oops, something went wrong! Document missing required fields: ${doc.id}`
+    );
     return null;
   };
 
@@ -88,7 +94,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
       // Check if more documents exist
       setHasMore(documentSnapshots.docs.length === pageLimit);
     } catch (error) {
-      console.error("Error fetching the first page:", error);
+      setPaginatedImagesError(`Error fetching the first page: ${error} `);
     } finally {
       setPaginatedImagesLoading(false);
     }
@@ -124,7 +130,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
       // Check if more documents exist
       setHasMore(documentSnapshots.docs.length === pageLimit);
     } catch (error) {
-      console.error("Error fetching the next page:", error);
+      setPaginatedImagesError(`Error fetching the next page: ${error}`);
     } finally {
       setPaginatedImagesLoading(false);
     }
@@ -157,7 +163,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
       setFirstVisible(documentSnapshots.docs[0]); // Update first doc
       setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]); // Update last doc
     } catch (error) {
-      console.error("Error fetching the previous page:", error);
+      setPaginatedImagesError(`Error fetching the previous page: ${error}`);
     } finally {
       setPaginatedImagesLoading(false);
     }
@@ -166,6 +172,7 @@ const usePaginatedImages = (): UsePaginatedImagesResult => {
   return {
     paginatedImages,
     paginatedImagesLoading,
+    paginatedImagesError,
     hasMore,
     getFirstPage,
     getNextPage,

@@ -16,6 +16,7 @@ import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useGetSchedules from "../../hooks/useGetSchedules";
 import Assistant from "../../components/content/Assistant";
+import useGetDefaultImages from "../../hooks/useGetDefaultImages";
 
 const SchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -35,8 +36,6 @@ const SchedulePage = () => {
 
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
-
-  console.log("schedules: ", schedules.data);
 
   useEffect(() => {
     if (schedules.data?.length) {
@@ -60,22 +59,30 @@ const SchedulePage = () => {
     })
     .replace(/,/g, "\n"); // Remove commas
 
-  // Get all images
+  // Get all user images and store
   const imageData = useGetImages();
-  const allImages = imageData.userImages;
+  const userImages = imageData.userImages;
+
+  // Get all default images
+  const { defaultImages } = useGetDefaultImages();
+
+  // Combine and sort images
+  const combinedImages = [...(userImages || []), ...(defaultImages || [])].sort(
+    (a, b) => a.title.localeCompare(b.title) // Sort alphabetically by title
+  );
 
   // Get categories data from Firebase and store in variable
   const categories = useGetCategories();
   const categoriesArray = categories.data;
 
   // Filter images array based on active category
-  const filteredImages = allImages?.filter(
+  const filteredImages = combinedImages?.filter(
     (image) => image.category === activeCategory
   );
 
   // Determine images to display based on active category unless active category is default "All"
   const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : allImages;
+    activeCategory !== "All Images" ? filteredImages : combinedImages;
 
   // Function to handle selection of new category and fake loading state
   const handleSelection = (category: string) => {
@@ -95,7 +102,7 @@ const SchedulePage = () => {
 
   // Handle image click - create a new schedule and add image to it
   const handleImageClick = async (id: string) => {
-    const selectedImage = allImages?.find((img) => img._id === id);
+    const selectedImage = combinedImages?.find((img) => img._id === id);
 
     // Abort if no image was selected
     if (!selectedImage) {
