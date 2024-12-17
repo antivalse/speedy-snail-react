@@ -20,7 +20,7 @@ import useGetDefaultImages from "../../hooks/useGetDefaultImages";
 import SearchForm from "../../components/forms/SearchForm";
 
 const CreatedSchedulePage = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("All Images");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
   const [loading, setLoading] = useState<boolean>(false);
   const [schedule, setSchedule] = useState<Image[] | []>([]);
   const [infoMessage, setInfoMessage] = useState<string | null>(
@@ -74,11 +74,6 @@ const CreatedSchedulePage = () => {
     }
   }, [userSchedule]);
 
-  // // Filter images array based on active category
-  // const filteredImages = (combinedImages ?? []).filter(
-  //   (image) => image.category === activeCategory
-  // );
-
   // Filtered images based on search input and active category
   const searchFilteredImages = combinedImages.filter((image) =>
     searchInput
@@ -88,7 +83,7 @@ const CreatedSchedulePage = () => {
 
   // Filter images by category
   const categoryFilteredImages =
-    activeCategory !== "All Images"
+    activeCategory !== "All"
       ? searchFilteredImages.filter(
           (image) => image.category === activeCategory
         )
@@ -96,10 +91,6 @@ const CreatedSchedulePage = () => {
 
   // Final images to display
   const imagesToDisplay = categoryFilteredImages;
-
-  // // Determine images to display based on active category unless active category is default "All"
-  // const imagesToDisplay =
-  //   activeCategory !== "All Images" ? filteredImages : combinedImages;
 
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(combinedImages ?? []).slice(0, 8);
@@ -150,7 +141,7 @@ const CreatedSchedulePage = () => {
 
   // Handle closing images modal
   const handleClose = () => {
-    setActiveCategory("All Images");
+    setActiveCategory("All");
     setShowModal(false);
   };
 
@@ -253,12 +244,13 @@ const CreatedSchedulePage = () => {
                   />
                 </div>
 
-                <ul className="grid grid-cols-4 gap-5">
+                <ul className="grid grid-cols-4 gap-5 mt-5">
                   {imagesToDisplay?.map((item, index) => (
                     <li
                       key={index}
                       className="select-image__li cursor-pointer bg-p100 flex flex-col justify-center items-center"
                     >
+                      <p className="body body--secondary">{item.title}</p>
                       <img
                         className="select-image__image"
                         src={item.url}

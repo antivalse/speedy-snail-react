@@ -9,7 +9,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ setSearchInput }) => {
   return (
     <div className="search">
       <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="search" className="heading heading--primary">
+        <label htmlFor="search" className="heading heading--primary mb-4">
           Search
         </label>
         <input
