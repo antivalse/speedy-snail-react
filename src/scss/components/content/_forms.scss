@@ -27,7 +27,6 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
     font-size: 1.5rem;
     padding: 1rem;
     resize: none;
-    text-align: center;
     &:focus {
       outline: none;
       border: 0.15rem solid $primary-300;

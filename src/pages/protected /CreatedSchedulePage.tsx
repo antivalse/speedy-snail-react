@@ -17,6 +17,7 @@ import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
 import isSameDate from "../../utils/helpers/isSameDate";
 import useGetDefaultImages from "../../hooks/useGetDefaultImages";
+import SearchForm from "../../components/forms/SearchForm";
 
 const CreatedSchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All Images");
@@ -25,8 +26,11 @@ const CreatedSchedulePage = () => {
   const [infoMessage, setInfoMessage] = useState<string | null>(
     createdScheduleMessage
   );
+  const [searchInput, setSearchInput] = useState<string | null>(null);
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  console.log("searchinput is: ", searchInput);
 
   // Get schedule id from paramsw
   const { id } = useParams();
@@ -70,14 +74,32 @@ const CreatedSchedulePage = () => {
     }
   }, [userSchedule]);
 
-  // Filter images array based on active category
-  const filteredImages = (combinedImages ?? []).filter(
-    (image) => image.category === activeCategory
+  // // Filter images array based on active category
+  // const filteredImages = (combinedImages ?? []).filter(
+  //   (image) => image.category === activeCategory
+  // );
+
+  // Filtered images based on search input and active category
+  const searchFilteredImages = combinedImages.filter((image) =>
+    searchInput
+      ? image.title.toLowerCase().includes(searchInput.toLowerCase())
+      : true
   );
 
-  // Determine images to display based on active category unless active category is default "All"
-  const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : combinedImages;
+  // Filter images by category
+  const categoryFilteredImages =
+    activeCategory !== "All Images"
+      ? searchFilteredImages.filter(
+          (image) => image.category === activeCategory
+        )
+      : searchFilteredImages;
+
+  // Final images to display
+  const imagesToDisplay = categoryFilteredImages;
+
+  // // Determine images to display based on active category unless active category is default "All"
+  // const imagesToDisplay =
+  //   activeCategory !== "All Images" ? filteredImages : combinedImages;
 
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(combinedImages ?? []).slice(0, 8);
@@ -139,6 +161,7 @@ const CreatedSchedulePage = () => {
     setInfoMessage("Nice, room for more adventures!");
     scrollToDiv("assistant-greetingi");
   };
+
   useEffect(() => {
     // If there is an error (for instance user tries to acces other users schedule by typing id in url). Navigate to schedule page
     if (getScheduleError) {
@@ -213,8 +236,12 @@ const CreatedSchedulePage = () => {
                 {closeIcon}
               </span>
               <div>
-                <div className="flex justify-between mt-5">
-                  <h2 className="heading heading--primary color-p300 py-3">
+                <SearchForm
+                  searchInput={searchInput}
+                  setSearchInput={setSearchInput}
+                />
+                <div className="flex justify-between mt-5 items-end">
+                  <h2 className="body body--secondary color-p300">
                     {activeCategory}{" "}
                   </h2>
 
@@ -225,11 +252,12 @@ const CreatedSchedulePage = () => {
                     setShowCategories={setShowCategories}
                   />
                 </div>
+
                 <ul className="grid grid-cols-4 gap-5">
                   {imagesToDisplay?.map((item, index) => (
                     <li
                       key={index}
-                      className="select-image__li cursor-pointer bg-p100 flex justify-center items-center"
+                      className="select-image__li cursor-pointer bg-p100 flex flex-col justify-center items-center"
                     >
                       <img
                         className="select-image__image"
