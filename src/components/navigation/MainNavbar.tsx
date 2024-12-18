@@ -24,7 +24,7 @@ const MainNavbar = () => {
         </h1>
         <p
           className={`body body--secondary ${
-            darkmode ? "color-s700" : "color-p200"
+            darkmode ? "color-s900" : "color-p200"
           }`}
         >
           Getting Stuff Done

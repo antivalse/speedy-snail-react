@@ -115,7 +115,7 @@ const SecondaryNavbar = () => {
               <div role="none">
                 <div className="flex bg-s500 items-end justify-between px-4 py-2 ">
                   <p
-                    className="block text-sm font-extrabold text-base color-p300"
+                    className="block text-sm font-extrabold color-p300"
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-0"
@@ -124,9 +124,9 @@ const SecondaryNavbar = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between px-4">
+                <div className="secondary-nav__change-mode flex items-center justify-between mt-1 px-4">
                   <p
-                    className="block text-sm color-p300"
+                    className="block text-sm color-p300 "
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-0"

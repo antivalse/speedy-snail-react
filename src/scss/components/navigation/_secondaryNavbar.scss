@@ -1,6 +1,7 @@
 /* Secondary Navbar Styles */
 
 @use "../../variables/colors" as c;
+@use "../../utils/mixins" as m;
 
 $primary-100: map-get(map-get(c.$colors, primary), 100);
 
@@ -13,6 +14,12 @@ $primary-100: map-get(map-get(c.$colors, primary), 100);
     svg {
       width: 4.375rem;
       height: 4.239rem;
+    }
+  }
+
+  &__change-mode {
+    @include m.breakpoint-up("sm") {
+      display: none;
     }
   }
 }
