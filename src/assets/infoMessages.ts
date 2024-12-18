@@ -1,4 +1,4 @@
-/* Different info messages for Speedy Snail Helper */
+/* Default info messages for Speedy Snail Helper */
 
 export const landingPageMessage =
   "Hi there, I'm Speedy! Looks like you don't have a schedule yet! Click the 'Create Schedule' button to get started!";

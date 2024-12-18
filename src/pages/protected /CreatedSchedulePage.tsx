@@ -10,7 +10,7 @@ import shuffleArray from "../../utils/helpers/shuffleArray";
 import AddImage from "../../components/ui/AddImage";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import SortByCategory from "../../components/content/SortByCategory";
-import { closeIcon } from "../../assets/icons";
+import { clearIcon, closeIcon } from "../../assets/icons";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { createdScheduleMessage } from "../../assets/infoMessages";
 import SplideCarousel from "../../components/content/SplideCarousel";
@@ -171,7 +171,7 @@ const CreatedSchedulePage = () => {
     <>
       <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center">
-        <div className="plan-page__schedule flex flex-col items-center bg-p100 py-10 mb-12">
+        <div className="relative plan-page__schedule flex flex-col items-center bg-p100 py-10 mb-12">
           <TodaysDate />
           <ul className="plan-page__schedule__images px-3 mt-5">
             {schedule?.map((item, index) => (
@@ -209,9 +209,12 @@ const CreatedSchedulePage = () => {
             )}
           </ul>
           {schedule.length > 0 && (
-            <button className="btn btn--clear" onClick={handleClear}>
-              Clear
-            </button>
+            <span
+              className="plan-page__schedule__clear cursor-pointer"
+              onClick={handleClear}
+            >
+              {clearIcon}
+            </span>
           )}
         </div>
         {showModal && (

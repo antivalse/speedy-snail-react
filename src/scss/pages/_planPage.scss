@@ -13,6 +13,12 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
   &__schedule {
     width: 100%;
 
+    &__clear {
+      position: absolute;
+      top: 1%;
+      right: 1%;
+    }
+
     &__images {
       width: 100%;
       display: flex;
@@ -57,22 +63,21 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
           }
         }
       }
-
-      .image-overlay {
-        opacity: 0; /* Start hidden */
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 1.875rem;
-        transition: opacity 0.5s ease;
-        pointer-events: none;
-      }
     }
+  }
+  .image-overlay {
+    opacity: 0; /* Start hidden */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.875rem;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
   }
 }
