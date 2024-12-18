@@ -90,8 +90,6 @@ const CreatedSchedulePage = () => {
   // Final images to display
   const imagesToDisplay = categoryFilteredImages;
 
-  console.log("images to display: ", imagesToDisplay);
-
   // Random selection of images for suggestion carousel
   const shuffledImages = shuffleArray<Image>(combinedImages ?? []).slice(0, 8);
 

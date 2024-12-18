@@ -1,32 +1,19 @@
-/* Schedule Landing Page */
+/* Landing Page */
 
 import { useEffect, useState } from "react";
-import AddImage from "../../components/ui/AddImage";
 import useGetUser from "../../hooks/useGetUser";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
-import useGetImages from "../../hooks/useGetImages";
-import { Image } from "../../types/Image.types";
-import { closeIcon } from "../../assets/icons";
-import SortByCategory from "../../components/content/SortByCategory";
-import useGetCategories from "../../hooks/useGetCategories";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import useCreateSchedule from "../../hooks/useCreateSchedule";
-import { scheduleMessage } from "../../assets/infoMessages";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useGetSchedules from "../../hooks/useGetSchedules";
 import Assistant from "../../components/content/Assistant";
-import useGetDefaultImages from "../../hooks/useGetDefaultImages";
+import { landingPageMessage } from "../../assets/infoMessages";
 
 const SchedulePage = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("All Images");
-  const [infoMessage, setInfoMessage] = useState<string | null>(
-    scheduleMessage
-  );
   const [loading, setLoading] = useState<boolean>(false);
-  const [schedule, setSchedule] = useState<Image[] | []>([]);
-  const [showCategories, setShowCategories] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Access useNavigate hook
   const navigate = useNavigate();
@@ -37,94 +24,38 @@ const SchedulePage = () => {
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
 
-  useEffect(() => {
-    if (schedules.data?.length) {
-      // Navigate to the schedule page with created schedule if there is any data
-      navigate(`/schedule/${schedules.data[0]._id}`);
-      // Otherwise stay on schedule page
-    } else {
-      return;
-    }
-  }, [schedules.data, navigate]);
-
   // Access function to create new schedule in Firebase
   const { createSchedule } = useCreateSchedule();
 
-  // Get today's date
-  const date = new Date()
-    .toLocaleDateString("en-us", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    })
-    .replace(/,/g, "\n"); // Remove commas
-
-  // Get all user images and store
-  const imageData = useGetImages();
-  const userImages = imageData.userImages;
-
-  // Get all default images
-  const { defaultImages } = useGetDefaultImages();
-
-  // Combine and sort images
-  const combinedImages = [...(userImages || []), ...(defaultImages || [])].sort(
-    (a, b) => a.title.localeCompare(b.title) // Sort alphabetically by title
-  );
-
-  // Get categories data from Firebase and store in variable
-  const categories = useGetCategories();
-  const categoriesArray = categories.data;
-
-  // Filter images array based on active category
-  const filteredImages = combinedImages?.filter(
-    (image) => image.category === activeCategory
-  );
-
-  // Determine images to display based on active category unless active category is default "All"
-  const imagesToDisplay =
-    activeCategory !== "All Images" ? filteredImages : combinedImages;
-
-  // Function to handle selection of new category and fake loading state
-  const handleSelection = (category: string) => {
+  // Create a new schedule in db
+  const handleBtnClick = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setInfoMessage("Great choice!");
-      setActiveCategory(category);
-      setLoading(false);
-    }, 1000);
-  };
 
-  // Handle closing images modal
-  const handleClose = () => {
-    setActiveCategory("All Images");
-    setShowModal(false);
-  };
+    try {
+      if (schedules.data !== null && schedules.data.length > 0) {
+        // Navigate to the schedule page with created schedule if there is any data
+        setTimeout(() => {
+          navigate(`/schedule/${schedules.data![0]._id}`);
+        }, 1500);
 
-  // Handle image click - create a new schedule and add image to it
-  const handleImageClick = async (id: string) => {
-    const selectedImage = combinedImages?.find((img) => img._id === id);
+        // Otherwise stay on schedule page
+      } else {
+        const createdScheduleId = await createSchedule({
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+          images: [],
+          uid: data?.uid,
+        });
 
-    // Abort if no image was selected
-    if (!selectedImage) {
-      return;
+        // Navigate to the schedule page with created schedule id
+        navigate(`/schedule/${createdScheduleId}`);
+        setLoading(false);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError("Schedule error - try again later?");
+      }
     }
-
-    // Update the schedule render
-    const updatedSchedule = [...schedule, selectedImage];
-    setSchedule(updatedSchedule);
-
-    // Add to the database
-    if (!schedule.length) {
-      const createdSchedule = await createSchedule({
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-        images: updatedSchedule, // Use the updated schedule directly
-        uid: data?.uid,
-      });
-
-      navigate(`/schedule/${createdSchedule}`); // This will update the URL
-    }
-    setShowModal(false);
   };
 
   useEffect(() => {
@@ -133,92 +64,25 @@ const SchedulePage = () => {
 
   return (
     <>
-      <Assistant message={infoMessage} />
-      <div className="plan-page flex flex-col items-center my-10 ">
-        <h2
-          id="date"
-          className="heading heading--primary mb-10 color-p300 whitespace-pre-wrap text-center"
-        >
-          {date}
-        </h2>
-        <div className="plan-page__schedule bg-p100 flex flex-col items-center py-10 mb-12">
-          <ul className="plan-page__schedule__images">
-            {schedule?.map((item, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <h3 className="body body--secondary color-p200">
-                  {item.title}
-                </h3>
-                <img
-                  className="plan-page__schedule__images__image"
-                  src={item.url}
-                  alt={item.title}
-                />
-              </div>
-            ))}
-
-            {schedule && schedule.length < 6 ? (
-              <AddImage handleClick={() => setShowModal(true)} />
-            ) : (
-              ""
-            )}
-          </ul>
+      <Assistant message={landingPageMessage} />
+      <div className="landing-page flex flex-col items-center my-10 color-p300">
+        <div className="landing-page__main flex flex-col items-center">
+          <h2 className="heading heading--primary ">
+            What do you want to do today?
+          </h2>
+          <button className="btn btn--clear" onClick={handleBtnClick}>
+            {schedules.data?.length ? "Go to Schedule" : "Create Schedule"}
+          </button>
         </div>
-        {showModal && (
-          <div className="modal-overlay modal-overlay--lighter">
-            <div className="select-image bg-p50 p-10 flex flex-col">
-              <span
-                onClick={handleClose}
-                id="close-icon"
-                className="pr-2 mb-6 cursor-pointer self-end"
-              >
-                {closeIcon}
-              </span>
-              <div>
-                <div className="flex justify-between mt-5">
-                  <h2 className="heading heading--primary color-p300 py-3">
-                    {activeCategory}{" "}
-                  </h2>
-
-                  <SortByCategory
-                    data={categoriesArray}
-                    handleSelection={handleSelection}
-                    showCategories={showCategories}
-                    setShowCategories={setShowCategories}
-                  />
-                </div>
-                <ul className="grid grid-cols-4 gap-5">
-                  {imagesToDisplay?.map((item, index) => (
-                    <li
-                      key={index}
-                      className="select-image__li cursor-pointer bg-p100 flex justify-center items-center"
-                    >
-                      <img
-                        className="select-image__image"
-                        src={item.url}
-                        alt={item.title}
-                        onClick={() => handleImageClick(item._id || "")}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="flex justify-center gap-4">
-                {/* <button className="btn btn--submit shrink-0 self-center">
-                  More
-                </button> */}
-                {imagesToDisplay && imagesToDisplay?.length > 8 && (
-                  <button
-                    className="btn btn--clear shrink-0 self-center"
-                    onClick={() => scrollToDiv("close-icon")}
-                  >
-                    Back to top
-                  </button>
-                )}
-              </div>
-            </div>
+        {loading && <LoadingSpinner />}
+        {error && (
+          <div
+            className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            <p>{error}</p>
           </div>
         )}
-        {loading && <LoadingSpinner />}
       </div>
     </>
   );

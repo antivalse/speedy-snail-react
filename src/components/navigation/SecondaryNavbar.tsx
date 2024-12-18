@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import useGetUser from "../../hooks/useGetUser";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import Theme from "../buttons/Theme";
+import useGetSchedules from "../../hooks/useGetSchedules";
 
 const SecondaryNavbar = () => {
   const [showNavDropdown, setShowNavDropdown] = useState<boolean>(false);
@@ -20,6 +21,9 @@ const SecondaryNavbar = () => {
 
   // Find user avatar and render in navbar
   const userAvatar = avatars.find((item) => item.id == avatarId);
+
+  // Check for schedules in schedules collection that match the user id
+  const schedules = useGetSchedules();
 
   return (
     <>
@@ -49,13 +53,17 @@ const SecondaryNavbar = () => {
             >
               <div className="py-1" role="none">
                 <a
-                  href="/schedule"
+                  href={
+                    schedules.data && schedules.data.length > 0
+                      ? `/schedule/${schedules.data[0]._id}`
+                      : "/schedule"
+                  }
                   className="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabIndex={-1}
                   id="menu-item-1"
                 >
-                  Today's Schedule
+                  Schedule
                 </a>
                 <a
                   href="/image-gallery"

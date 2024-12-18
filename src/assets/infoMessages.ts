@@ -1,7 +1,7 @@
 /* Different info messages for Speedy Snail Helper */
 
-export const scheduleMessage =
-  "Hi there! I'm Speedy. It's time to start planning your day. Click on the plus sign to add images to your schedule!";
+export const landingPageMessage =
+  "Hi there! I'm Speedy. It's time to start planning your day. Click on the button to create your schedule!";
 
 export const createdScheduleMessage =
   "Add more images by clicking on the plus-sign. Add up to 6 activities per day. You can remove activities or clear schedule if you want!";
