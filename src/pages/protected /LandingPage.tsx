@@ -11,7 +11,7 @@ import useGetSchedules from "../../hooks/useGetSchedules";
 import Assistant from "../../components/content/Assistant";
 import { landingPageMessage } from "../../assets/infoMessages";
 
-const SchedulePage = () => {
+const LandingPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -88,4 +88,4 @@ const SchedulePage = () => {
   );
 };
 
-export default SchedulePage;
+export default LandingPage;

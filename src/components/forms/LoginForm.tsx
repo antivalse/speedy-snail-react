@@ -36,7 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     setSubmittingForm(true);
     try {
       await login(data.email, data.password);
-      navigate("/schedule");
+      navigate("/launchpad");
     } catch (err) {
       if (err instanceof FirebaseError) {
         setError(err.message);

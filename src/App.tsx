@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import "./scss/main.scss";
 import AboutPage from "./pages/AboutPage";
 import SignUpPage from "./pages/SignUpPage";
-import SchedulePage from "./pages/protected /SchedulePage";
+import LandingPage from "./pages/protected /LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ImageGalleryPage from "./pages/protected /ImageGalleryPage";
 import AddNewImagePage from "./pages/protected /AddNewImagePage";
@@ -49,7 +49,7 @@ function App() {
 
         {/** Protected Routes */}
         <Route element={<ProtectedLayout />}>
-          <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/launchpad" element={<LandingPage />} />
           <Route path="/schedule/:id" element={<CreatedSchedulePage />} />
           <Route path="/image-gallery" element={<ImageGalleryPage />} />
           <Route path="/add-image" element={<AddNewImagePage />} />

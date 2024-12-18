@@ -154,7 +154,7 @@ const CreatedSchedulePage = () => {
   useEffect(() => {
     // If there is an error (for instance user tries to acces other users schedule by typing id in url). Navigate to schedule page
     if (getScheduleError) {
-      navigate("/schedule");
+      navigate("/launchpad");
     }
 
     // Check if the schedule is created today or not
