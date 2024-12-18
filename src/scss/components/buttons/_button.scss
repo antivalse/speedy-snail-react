@@ -30,6 +30,7 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
     background-color: $primary-300;
     border: 1px solid $primary-50;
     color: $primary-50;
+
     &:hover {
       background-color: $secondary-300;
     }
@@ -86,7 +87,14 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
     &:hover,
     :focus :active {
-      background-color: lighten(#94b3b3, 5%);
+      background-color: darken(#94b3b3, 20%);
+    }
+    &--darker {
+      background-color: $primary-300;
+      &:hover,
+      :focus :active {
+        background-color: lighten($primary-300, 20%);
+      }
     }
   }
 }

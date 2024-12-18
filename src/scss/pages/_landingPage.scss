@@ -1,0 +1,15 @@
+/* Landing Page Styles */
+
+@use "../utils/mixins" as m;
+
+.landing-page {
+  &__main {
+    width: 90%;
+    border-radius: 1.875rem;
+    padding: 5rem;
+
+    @include m.breakpoint-up(sm) {
+      width: 85%;
+    }
+  }
+}

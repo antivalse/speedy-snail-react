@@ -8,6 +8,7 @@ import useGetUser from "../../hooks/useGetUser";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import Theme from "../buttons/Theme";
 import useGetSchedules from "../../hooks/useGetSchedules";
+import useTheme from "../../hooks/useTheme";
 
 const SecondaryNavbar = () => {
   const [showNavDropdown, setShowNavDropdown] = useState<boolean>(false);
@@ -15,6 +16,9 @@ const SecondaryNavbar = () => {
 
   // Get the logout function from auth context
   const { logout } = useAuth();
+
+  // Get darkmode
+  const { darkmode } = useTheme();
 
   // Get the avatar id from useGetUser hook
   const { data, avatarId, loading } = useGetUser();
@@ -117,6 +121,19 @@ const SecondaryNavbar = () => {
                     id="menu-item-0"
                   >
                     {data?.username}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between px-4">
+                  <p
+                    className="block text-sm color-p300"
+                    role="menuitem"
+                    tabIndex={-1}
+                    id="menu-item-0"
+                  >
+                    {`${
+                      darkmode ? "Change to Lightmode" : "Change to Darkmode"
+                    }`}
                   </p>
                   <Theme isDropdown={true} />
                 </div>

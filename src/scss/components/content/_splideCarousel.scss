@@ -9,7 +9,12 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
 $secondary-900: map-get(map-get(c.$colors, secondary), 900);
 
 .carousel {
-  background-color: $primary-50;
+  border-radius: 1.875rem;
+
+  @include m.breakpoint-up(sm) {
+    width: 95%;
+  }
+
   &__splide-carousel {
     &__item {
       border-radius: 1.875rem;

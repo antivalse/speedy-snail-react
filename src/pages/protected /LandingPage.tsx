@@ -9,7 +9,10 @@ import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import useGetSchedules from "../../hooks/useGetSchedules";
 import Assistant from "../../components/content/Assistant";
-import { landingPageMessage } from "../../assets/infoMessages";
+import {
+  landingPageMessage,
+  landingPageMessageCreated,
+} from "../../assets/infoMessages";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,7 +30,6 @@ const LandingPage = () => {
   // Access function to create new schedule in Firebase
   const { createSchedule } = useCreateSchedule();
 
-  // Create a new schedule in db
   const handleBtnClick = async () => {
     setLoading(true);
 
@@ -58,31 +60,56 @@ const LandingPage = () => {
     }
   };
 
+  const handleSettingsBtnClick = () => {
+    setLoading(true);
+    setTimeout(() => {
+      navigate(`/settings`);
+      setLoading(false);
+    }, 1500);
+  };
+
   useEffect(() => {
     scrollToDiv("assistant-greeting");
   }, []);
 
   return (
     <>
-      <Assistant message={landingPageMessage} />
+      <Assistant
+        message={
+          schedules.data?.length
+            ? landingPageMessageCreated
+            : landingPageMessage
+        }
+      />
       <div className="landing-page flex flex-col items-center my-10 color-p300">
-        <div className="landing-page__main flex flex-col items-center">
-          <h2 className="heading heading--primary ">
-            What do you want to do today?
+        <div className="landing-page__main flex flex-col items-center bg-p100">
+          <h2 className="heading heading--primary">
+            Welcome, {data?.username}!{" "}
           </h2>
-          <button className="btn btn--clear" onClick={handleBtnClick}>
-            {schedules.data?.length ? "Go to Schedule" : "Create Schedule"}
-          </button>
-        </div>
-        {loading && <LoadingSpinner />}
-        {error && (
-          <div
-            className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-            role="alert"
-          >
-            <p>{error}</p>
+
+          <div className="flex gap-5">
+            <button
+              className="btn btn--clear btn--clear--darker"
+              onClick={handleBtnClick}
+            >
+              {schedules.data?.length ? "Go to Schedule" : "Create Schedule"}
+            </button>
+            <button className="btn btn--clear" onClick={handleSettingsBtnClick}>
+              Go to Settings
+            </button>
           </div>
-        )}
+
+          {error && (
+            <div
+              className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              role="alert"
+            >
+              <p>{error}</p>
+            </div>
+          )}
+        </div>
+
+        {loading && <LoadingSpinner />}
       </div>
     </>
   );

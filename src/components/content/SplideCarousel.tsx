@@ -2,6 +2,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { Image } from "../../types/Image.types";
 import "../../scss/components/content/_splideCarousel.scss";
+import useTheme from "../../hooks/useTheme";
 
 interface SplideCarouselProps {
   images: Image[] | [];
@@ -14,9 +15,14 @@ const SplideCarousel: React.FC<SplideCarouselProps> = ({
   handleImageClick,
   style,
 }) => {
+  const { darkmode } = useTheme();
   return (
     <div className="carousel mt-20 flex flex-col items-center">
-      <h2 className="heading heading--primary self-center color-p300">
+      <h2
+        className={`heading heading--primary self-center ${
+          darkmode ? "color-p50" : "color-p300"
+        }`}
+      >
         Suggestions
       </h2>
       <div
