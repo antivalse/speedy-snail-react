@@ -13,16 +13,6 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
   &__schedule {
     width: 100%;
 
-    @include m.breakpoint-up("sm") {
-      width: 70%;
-      border-radius: 1.25rem;
-    }
-
-    @include m.breakpoint-up("md") {
-      width: 98%;
-      border-radius: 1.25rem;
-    }
-
     &__images {
       width: 100%;
       display: flex;
