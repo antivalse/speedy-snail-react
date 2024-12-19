@@ -6,6 +6,7 @@ interface SubmitButtonProps {
   btnText: string;
   className: string;
   submittingForm?: boolean;
+  success?: boolean;
   onClick?: () => void;
 }
 
@@ -13,6 +14,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   btnText,
   className,
   submittingForm,
+  success,
   onClick,
 }) => {
   return (
@@ -20,7 +22,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       className={className}
       type="submit"
       onClick={onClick}
-      disabled={submittingForm}
+      disabled={submittingForm || success}
     >
       {btnText}
     </button>

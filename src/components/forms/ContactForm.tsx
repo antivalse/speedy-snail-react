@@ -9,12 +9,10 @@ interface ContactFormProps {
   closeModal: () => void;
 }
 
-// const SERVICE_ID = "service_s6t2il9";
-// const TEMPLATE_ID = "template_wk0hx9k";
-// const PUBLIC_KEY = "IFv6kTnEmbcVeXB3a";
-
 const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
   const [submittingForm, setSubmittingForm] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -23,9 +21,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
     formState: { errors },
   } = useForm<ContactInfo>();
 
-  const onSubmit: SubmitHandler<ContactInfo> = async (data, e) => {
-    e?.preventDefault(); // Prevent the default form submission behavior
-    console.log("data is: ", data);
+  const onSubmit: SubmitHandler<ContactInfo> = async () => {
+    // e?.preventDefault(); // Prevent the default form submission behavior
 
     try {
       setSubmittingForm(true);
@@ -44,10 +41,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
       }
 
       reset();
-      console.log("Email sent successfully!");
-      closeModal(); // Close the modal after sending the email
+      setSuccess(true);
+      setTimeout(() => {
+        closeModal(); // Close the modal after sending the email
+      }, 1500);
     } catch (err) {
-      console.log("Error sending email:", err); // Log the full error
+      setError(`Error sending email: ${err}`);
       setSubmittingForm(false);
     }
   };
@@ -93,11 +92,26 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
           {errors.message && <span>Message is required</span>}
 
           <SubmitButton
-            btnText={submittingForm ? "Sending..." : "Send"}
+            btnText={success ? "Sent!" : submittingForm ? "Sending..." : "Send"}
             submittingForm={submittingForm}
+            success={success}
             className="btn btn--submit self-center cursor-pointer"
           />
         </form>
+        {success && (
+          <p className="p-4 my-4 text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400">
+            Message sent! We will get back to you as speedily as possilbe
+          </p>
+        )}
+
+        {error && error.length > 0 && (
+          <p
+            className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );
