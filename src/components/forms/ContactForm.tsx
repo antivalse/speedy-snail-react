@@ -41,8 +41,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
       reset();
       setSuccess(true);
       setTimeout(() => {
-        closeModal(); // Close the modal after sending the email
-      }, 1500);
+        closeModal(); // Close the modal but show success message for 2 seconds
+      }, 2000);
     } catch (err) {
       setError(`Error sending email: ${err}`);
       setSubmittingForm(false);
@@ -93,7 +93,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
             btnText={success ? "Sent!" : submittingForm ? "Sending..." : "Send"}
             submittingForm={submittingForm}
             success={success}
-            className="btn btn--submit self-center cursor-pointer"
+            className={`btn btn--submit self-center cursor-pointer ${
+              success || submittingForm ? "opacity-75 cursor-none" : ""
+            }`}
           />
         </form>
         {success && (
