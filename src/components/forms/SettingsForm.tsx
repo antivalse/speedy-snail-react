@@ -26,12 +26,15 @@ const SettingsForm = () => {
     updateUserEmail,
     updateUserPassword,
     updateUserAvatar,
+    updateUsername,
     deleteUserAccount,
     reAuthenticateUser,
   } = useAuth();
 
   // Get avatar id from useGetUser hook
-  const { avatarId } = useGetUser();
+  const { avatarId, data } = useGetUser();
+
+  const username = data?.username;
 
   // Access useForm hook from React hook form
   const {
@@ -43,6 +46,7 @@ const SettingsForm = () => {
   } = useForm<UpdateUserDetails>({
     defaultValues: {
       email: email ?? "",
+      username: data?.username,
     },
   });
 
@@ -100,6 +104,11 @@ const SettingsForm = () => {
         await updateUserPassword(data.password);
       }
 
+      // Update username if new one is entered
+      if (data.username && data.username !== username) {
+        await updateUsername(data.username);
+      }
+
       // Update avatar if new one is chosen
       if (data.avatarId && data.avatarId !== avatarId) {
         await updateUserAvatar(data.avatarId);
@@ -130,8 +139,9 @@ const SettingsForm = () => {
   useEffect(() => {
     reset({
       email: email ?? "",
+      username: username ?? "",
     });
-  }, [email, reset]);
+  }, [email, reset, username]);
 
   return (
     <div className="form container mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
@@ -141,6 +151,24 @@ const SettingsForm = () => {
         className="flex flex-col gap-6 w-full max-w-md"
       >
         {" "}
+        <div className="flex flex-col gap-2 w-full">
+          <label className="color-p300 text-left" htmlFor="username">
+            Update Username
+          </label>
+          <input
+            type="text"
+            className="form__input-field"
+            {...register("username", {
+              minLength: {
+                message: "You have to enter at least 3 characters",
+                value: 3,
+              },
+            })}
+          />
+          {errors.username && (
+            <p>{errors.username.message || "Invalid value"}</p>
+          )}
+        </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="color-p300 text-left" htmlFor="email">
             Update Email

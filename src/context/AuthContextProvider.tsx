@@ -34,8 +34,6 @@ export const AuthContextProvider = ({
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState<string | null>(null);
 
-  console.log("user is: ", user);
-
   // Sign up the user
   const signup = async (
     email: string,
@@ -121,8 +119,26 @@ export const AuthContextProvider = ({
     }
   };
 
-  // Update avatar
+  // Update username
 
+  const updateUsername = async (newUsername: string) => {
+    if (!auth.currentUser) {
+      throw new Error("You are not authenticated to perform this action");
+    }
+
+    try {
+      // Update Firestore
+      const userRef = doc(usersCollection, auth.currentUser.uid);
+      await updateDoc(userRef, {
+        username: newUsername,
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
+    }
+  };
+  // Update avatar
   const updateUserAvatar = async (newAvatarId: number) => {
     if (!auth.currentUser) {
       throw new Error("You are not authenticated to perform this action");
@@ -203,6 +219,7 @@ export const AuthContextProvider = ({
         resetPassword,
         updateUserPassword,
         updateUserEmail,
+        updateUsername,
         updateUserAvatar,
         deleteUserAccount,
         reAuthenticateUser,
