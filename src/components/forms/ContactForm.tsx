@@ -22,8 +22,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
   } = useForm<ContactInfo>();
 
   const onSubmit: SubmitHandler<ContactInfo> = async () => {
-    // e?.preventDefault(); // Prevent the default form submission behavior
-
     try {
       setSubmittingForm(true);
 
