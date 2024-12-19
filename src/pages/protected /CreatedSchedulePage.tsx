@@ -134,12 +134,14 @@ const CreatedSchedulePage = () => {
 
     // Close modal
     setShowModal(false);
+    setSearchInput(null);
   };
 
   // Handle closing images modal
   const handleClose = () => {
     setActiveCategory("All");
     setShowModal(false);
+    setSearchInput(null);
   };
 
   // Clear the array
