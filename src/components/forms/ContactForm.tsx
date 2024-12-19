@@ -21,9 +21,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
   } = useForm<ContactInfo>();
   const onSubmit: SubmitHandler<ContactInfo> = () => {
     try {
-      // Collect form data
-      // Set up with EmailJs later!
-
       setSubmittingForm(true);
       reset();
     } catch (err) {
@@ -33,7 +30,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ closeModal }) => {
     }
   };
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay modal-overlay--lighter">
       <div className="form mx-auto p-12 flex flex-col items-center bg-p50">
         <span
           className="self-end mb-10 cursor-pointer"

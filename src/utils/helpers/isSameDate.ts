@@ -5,7 +5,7 @@ import { FieldValue, Timestamp } from "firebase/firestore";
 const isSameDate = async (
   createdAt: Timestamp | FieldValue | undefined,
   scheduleId: string | undefined,
-  deleteSchedule: (id: string) => Promise<void>
+  emptyImages: (id: string) => Promise<void>
 ) => {
   // Create a variable for storing createdAt as javascript date
   let scheduleCreatedAtJsDate: Date | null = null;
@@ -29,7 +29,7 @@ const isSameDate = async (
     if (!isSameDay) {
       const isCurrentDayLater = currentDate > scheduleCreatedAtJsDate;
       if (isCurrentDayLater && scheduleId) {
-        await deleteSchedule(scheduleId);
+        await emptyImages(scheduleId);
       }
     } else {
       return;

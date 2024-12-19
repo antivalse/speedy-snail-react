@@ -62,7 +62,6 @@ const CreatedSchedulePage = () => {
     addImageToSchedule,
     removeAllImagesFromSchedule,
     removeImageFromSchedule,
-    deleteSchedule,
   } = useUpdateSchedule();
 
   // Monitor `userSchedule` and update the `schedule` state
@@ -158,8 +157,18 @@ const CreatedSchedulePage = () => {
     }
 
     // Check if the schedule is created today or not
-    isSameDate(userSchedule?.createdAt, userSchedule?._id, deleteSchedule);
-  }, [getScheduleError, userSchedule, navigate, deleteSchedule, infoMessage]);
+    isSameDate(
+      userSchedule?.createdAt,
+      userSchedule?._id,
+      removeAllImagesFromSchedule
+    );
+  }, [
+    getScheduleError,
+    userSchedule,
+    navigate,
+    removeAllImagesFromSchedule,
+    infoMessage,
+  ]);
 
   // Scroll to greeting on first render
   useEffect(() => {
