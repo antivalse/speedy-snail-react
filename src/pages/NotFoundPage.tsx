@@ -1,15 +1,20 @@
 /* Not-found Page */
 
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const url = user ? "/launchpad" : "/";
 
   return (
     <div
       className="not-found py-5 flex flex-col justify-center items-center cursor-pointer"
       onClick={() => {
-        navigate("/");
+        navigate(url);
       }}
     >
       <div className="not-found__content bg-s500 p-10 flex flex-col gap-5 cursor-default color-s400">

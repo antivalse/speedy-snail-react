@@ -7,9 +7,12 @@ import Button from "../buttons/Button";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import useTheme from "../../hooks/useTheme";
 import Theme from "../buttons/Theme";
+import useAuth from "../../hooks/useAuth";
 
 const MainNavbar = () => {
   const { darkmode } = useTheme();
+
+  const { user } = useAuth();
   return (
     <nav className={`relative main-navbar ${darkmode ? "bg-p300" : "bg-p50"}`}>
       <div className="absolute top-2 right-2">
@@ -18,7 +21,7 @@ const MainNavbar = () => {
       </div>
       <div className="main-navbar__left flex flex-col items-center gap-8 mt-5">
         <h1>
-          <Link to="/">
+          <Link to={user ? "/launchpad" : "/"}>
             <img src={darkmode ? LogoLighter : Logo} alt="speedy_snail_logo" />
           </Link>
         </h1>
