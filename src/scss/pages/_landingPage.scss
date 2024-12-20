@@ -1,6 +1,7 @@
 /* Landing Page Styles */
 
 @use "../utils/mixins" as m;
+@use "../variables/colors" as c;
 
 .landing-page {
   &__main {
@@ -10,6 +11,13 @@
 
     @include m.breakpoint-up(sm) {
       width: 85%;
+    }
+
+    &__text {
+      background-color: lighten($primary-100, 30%);
+      padding: 3rem;
+      border-radius: 1.875rem;
+      margin-top: 1.5rem;
     }
   }
 }

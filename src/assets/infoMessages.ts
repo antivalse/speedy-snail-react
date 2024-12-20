@@ -3,7 +3,7 @@
 export const landingPageMessage =
   "Hi there, I'm Speedy! Looks like you don't have a schedule yet! Click the 'Create Schedule' button to get started!";
 export const landingPageMessageCreated =
-  "Yay, you're back! What exciting adventures does today hold for you?";
+  "Yay, you're back! Time to get stuff done!";
 
 export const createdScheduleMessage =
   "Add more images by clicking on the plus-sign. You can remove activities or clear schedule if you need to!";

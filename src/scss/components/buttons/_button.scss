@@ -11,6 +11,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
 $secondary-200: map-get(map-get(c.$colors, secondary), 200);
 $secondary-300: map-get(map-get(c.$colors, secondary), 300);
 $secondary-500: map-get(map-get(c.$colors, secondary), 500);
+$secondary-600: map-get(map-get(c.$colors, secondary), 600);
 
 .btn {
   width: 8rem;
@@ -94,6 +95,14 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
       &:hover,
       :focus :active {
         background-color: lighten($primary-300, 20%);
+      }
+    }
+    &--pink {
+      background-color: $secondary-600;
+      color: $primary-300;
+      &:hover,
+      :focus :active {
+        background-color: darken($secondary-600, 5%);
       }
     }
   }

@@ -13,10 +13,12 @@ import {
   landingPageMessage,
   landingPageMessageCreated,
 } from "../../assets/infoMessages";
+import { snailJokes } from "../../assets/snailJokes";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [joke, setJoke] = useState<string | null>(null);
 
   // Access useNavigate hook
   const navigate = useNavigate();
@@ -68,6 +70,14 @@ const LandingPage = () => {
     }, 1500);
   };
 
+  const getRandomSnailJoke = () => {
+    const randomIndex = Math.floor(Math.random() * snailJokes.length);
+    setJoke(snailJokes[randomIndex]);
+    setTimeout(() => {
+      setJoke(null);
+    }, 5000);
+  };
+
   useEffect(() => {
     scrollToDiv("assistant-greeting");
   }, []);
@@ -87,6 +97,12 @@ const LandingPage = () => {
             Welcome, {data?.username}!{" "}
           </h2>
 
+          <p className="landing-page__main__text">
+            {joke
+              ? joke
+              : "In the Speedy Snail universe, the possibilities are endless! What do you want to do today?"}
+          </p>
+
           <div className="flex gap-5">
             <button
               className="btn btn--clear btn--clear--darker"
@@ -96,6 +112,12 @@ const LandingPage = () => {
             </button>
             <button className="btn btn--clear" onClick={handleSettingsBtnClick}>
               Go to Settings
+            </button>
+            <button
+              className="btn btn--clear btn--clear--pink"
+              onClick={getRandomSnailJoke}
+            >
+              Laugh
             </button>
           </div>
 
