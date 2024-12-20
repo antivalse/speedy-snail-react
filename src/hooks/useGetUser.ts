@@ -8,10 +8,11 @@ const useGetUser = () => {
   // Get the user function from auth context
   const { user } = useAuth();
   // Get user data
-  const { data, loading, error } = useGetDocument(
-    usersCollection,
-    user?.uid || ""
-  );
+  const {
+    data,
+    loading,
+    error: getUserError,
+  } = useGetDocument(usersCollection, user?.uid || "");
   // Store avatar data in variable and convert to number for comparison to id's avatars array
   const avatarId = Number(data?.avatar);
 
@@ -19,7 +20,7 @@ const useGetUser = () => {
     data,
     avatarId,
     loading,
-    error,
+    getUserError,
   };
 };
 

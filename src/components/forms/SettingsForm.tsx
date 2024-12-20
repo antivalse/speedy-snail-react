@@ -32,7 +32,7 @@ const SettingsForm = () => {
   } = useAuth();
 
   // Get avatar id from useGetUser hook
-  const { avatarId, data } = useGetUser();
+  const { avatarId, data, getUserError } = useGetUser();
 
   const username = data?.username;
 
@@ -298,6 +298,16 @@ const SettingsForm = () => {
           role="alert"
         >
           <p>{error}</p>
+        </div>
+      )}
+      {getUserError && (
+        <div
+          className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          <p>
+            There was an error getting the user information. Try again later?
+          </p>
         </div>
       )}
       {success && (

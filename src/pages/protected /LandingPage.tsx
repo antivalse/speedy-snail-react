@@ -24,7 +24,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   // Access user data
-  const { data } = useGetUser();
+  const { data, getUserError } = useGetUser();
 
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
@@ -143,6 +143,17 @@ const LandingPage = () => {
           >
             {createScheduleError}
           </p>
+        )}
+
+        {getUserError && (
+          <div
+            className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            <p>
+              There was an error getting the user information. Try again later?
+            </p>
+          </div>
         )}
       </div>
     </>
