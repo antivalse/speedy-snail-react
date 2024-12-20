@@ -97,7 +97,11 @@ const LandingPage = () => {
             Welcome, {data?.username}!{" "}
           </h2>
 
-          <p className="landing-page__main__text">
+          <p
+            className={`landing-page__main__text ${
+              joke ? "bg-s800" : "bg-p150"
+            } `}
+          >
             {joke
               ? joke
               : "In the Speedy Snail universe, the possibilities are endless! What do you want to do today?"}
