@@ -51,7 +51,6 @@ export const useUploadImage = () => {
       console.log("Image metadata saved to Firestore");
     } catch (err) {
       if (err instanceof Error) {
-        console.error("Error uploading file: ", err);
         setError("Error uploading image, please try again.");
       }
     } finally {

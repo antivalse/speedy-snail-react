@@ -14,7 +14,7 @@ const useGetDocument = <T>(
   useEffect(() => {
     if (!documentId) {
       setLoading(false);
-      console.log("There was no doc!");
+      setError(true);
       return;
     }
     const docRef = doc(colRef, documentId);
@@ -38,16 +38,18 @@ const useGetDocument = <T>(
           setData(data);
           setLoading(false);
         } catch (err) {
-          setError(true);
-          console.error("Error processing snapshot data:", err);
-          setLoading(false);
+          if (err instanceof Error) {
+            setError(true);
+            setLoading(false);
+          }
         }
       },
       (err) => {
         // Error handler for any issues with the Firestore listener
-        setError(true);
-        console.error("Error with Firestore listener:", err);
-        setLoading(false);
+        if (err instanceof Error) {
+          setError(true);
+          setLoading(false);
+        }
       }
     );
 
