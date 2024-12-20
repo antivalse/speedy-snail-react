@@ -118,8 +118,8 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
       <h2 id="edit-heading" className="heading heading--primary color-p300">
         Edit Image Details
       </h2>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="relative">
+      <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
+        <div className="relative self-center">
           <label htmlFor="file">
             <span className="absolute top-2 right-2 cursor-pointer">
               {editImageIcon}
@@ -133,12 +133,16 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
             />
           </label>
           {file.preview ? (
-            <img src={file.preview} alt="Preview" className="form__add-image" />
+            <img
+              src={file.preview}
+              alt="Preview"
+              className="form__add-image "
+            />
           ) : (
             <img
               src={imageData?.url}
               alt="Preview"
-              className="form__add-image"
+              className="form__add-image "
             />
           )}
         </div>
@@ -200,20 +204,20 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
             <p>{error}</p>
           )}
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-5">
           {" "}
           <SubmitButton
             className="btn btn--submit self-center"
             btnText={btnText}
             onClick={() => handleSubmit}
           />{" "}
+          <SubmitButton
+            className="btn btn--submit btn--submit--danger"
+            btnText="Delete Image"
+            onClick={() => setShowConfirmationModal(true)}
+          />
         </div>
       </form>
-      <SubmitButton
-        className="btn btn--submit btn--submit--danger"
-        btnText="Delete Image"
-        onClick={() => setShowConfirmationModal(true)}
-      />
 
       {showConfirmationModal && (
         <ConfirmationModal
