@@ -117,6 +117,9 @@ const SettingsForm = () => {
       reset();
       setSuccess(true);
       setSubmittingForm(false);
+      setTimeout(() => {
+        setSuccess(false); // Close the modal but show success message for 2 seconds
+      }, 2000);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -298,12 +301,9 @@ const SettingsForm = () => {
         </div>
       )}
       {success && (
-        <div
-          className="p-4 mb-4 text-green-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-          role="alert"
-        >
-          <p>Updated account ✅</p>
-        </div>
+        <p className="p-4 my-4 text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400">
+          Updated account ✅
+        </p>
       )}
       {showConfirmationModal && (
         <ConfirmationModal
