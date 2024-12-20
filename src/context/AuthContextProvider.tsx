@@ -30,9 +30,10 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   // Sign up the user
   const signup = async (
@@ -64,7 +65,6 @@ export const AuthContextProvider = ({
 
   // Login User
   const login = (email: string, password: string) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -76,7 +76,7 @@ export const AuthContextProvider = ({
       window.scrollTo(0, 0);
     } catch (error) {
       if (error) {
-        console.error("Failed to log out");
+        setError(true);
       }
     }
   };
@@ -115,7 +115,7 @@ export const AuthContextProvider = ({
       setEmail(newEmail);
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(true);
       }
     }
   };
@@ -135,7 +135,7 @@ export const AuthContextProvider = ({
       });
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(true);
       }
     }
   };
@@ -152,7 +152,7 @@ export const AuthContextProvider = ({
       });
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(true);
       }
     }
   };
@@ -172,7 +172,7 @@ export const AuthContextProvider = ({
       await deleteUser(auth.currentUser);
     } catch (err) {
       if (err instanceof Error) {
-        console.error(err.message);
+        setError(true);
       }
     }
   };
@@ -213,6 +213,7 @@ export const AuthContextProvider = ({
         email,
         user,
         loading,
+        error,
         setLoading,
         signup,
         login,

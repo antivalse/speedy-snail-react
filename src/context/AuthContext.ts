@@ -7,6 +7,7 @@ interface AuthContextType {
   email: string | null;
   user: User | null;
   loading: boolean;
+  error: boolean;
   setLoading: (value: boolean) => void;
   signup: (
     email: string,
