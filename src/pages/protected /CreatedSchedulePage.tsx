@@ -157,25 +157,21 @@ const CreatedSchedulePage = () => {
     if (getScheduleError) {
       navigate("/launchpad");
     }
+  }, [getScheduleError, navigate, infoMessage]);
 
+  // Scroll to greeting on first render
+  useEffect(() => {
+    scrollToDiv("assistant-greeting");
+    setInfoMessage(createdScheduleMessage);
+  }, []);
+
+  useEffect(() => {
     // Check if the schedule is created today or not
     isSameDate(
       userSchedule?.createdAt,
       userSchedule?._id,
       removeAllImagesFromSchedule
     );
-  }, [
-    getScheduleError,
-    userSchedule,
-    navigate,
-    removeAllImagesFromSchedule,
-    infoMessage,
-  ]);
-
-  // Scroll to greeting on first render
-  useEffect(() => {
-    scrollToDiv("assistant-greeting");
-    setInfoMessage(createdScheduleMessage);
   }, []);
 
   return (
