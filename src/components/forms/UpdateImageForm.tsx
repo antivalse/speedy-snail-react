@@ -118,7 +118,10 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
       <h2 id="edit-heading" className="heading heading--primary color-p300">
         Edit Image Details
       </h2>
-      <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-4 w-full max-w-md"
+        onSubmit={handleSubmit}
+      >
         <div className="relative self-center">
           <label htmlFor="file">
             <span className="absolute top-2 right-2 cursor-pointer">
