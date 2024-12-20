@@ -64,6 +64,7 @@ export const AuthContextProvider = ({
 
   // Login User
   const login = (email: string, password: string) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
