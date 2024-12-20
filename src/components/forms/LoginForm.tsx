@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import SubmitButton from "../buttons/SubmitButton";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import ForgotPassword from "../modals/ForgotPassword";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 type LoginDetails = {
   email: string;
@@ -22,8 +23,10 @@ const LoginForm: React.FC<LoginFormProps> = () => {
   const [submittingForm, setSubmittingForm] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { login } = useAuth();
+
   const navigate = useNavigate();
 
   const {
@@ -34,17 +37,24 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
   const onLogin: SubmitHandler<LoginDetails> = async (data) => {
     setSubmittingForm(true);
+    setLoading(true);
     try {
       await login(data.email, data.password);
       navigate("/launchpad");
     } catch (err) {
       if (err instanceof FirebaseError) {
+        setLoading(false);
+
         setError(err.message);
       }
       if (err instanceof Error) {
+        setLoading(false);
+
         setError(err.message);
       }
     }
+    setLoading(false);
+
     setSubmittingForm(false);
   };
 
@@ -118,6 +128,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         )}
       </div>
       {showModal && <ForgotPassword setShowModal={setShowModal} />}
+      {loading && <LoadingSpinner />}
     </>
   );
 };
