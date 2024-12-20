@@ -135,6 +135,7 @@ export const AuthContextProvider = ({
 
   // Delete User
   const deleteUserAccount = async () => {
+    setLoading(true);
     if (!auth.currentUser) {
       throw new Error("You are not authenticated to perform this action");
     }
