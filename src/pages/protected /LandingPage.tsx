@@ -151,7 +151,8 @@ const LandingPage = () => {
             role="alert"
           >
             <p>
-              There was an error getting the user information. Try again later?
+              There was an error getting the user information. Try reloading the
+              page
             </p>
           </div>
         )}
