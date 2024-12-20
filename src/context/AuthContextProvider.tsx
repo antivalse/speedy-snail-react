@@ -34,6 +34,8 @@ export const AuthContextProvider = ({
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState<string | null>(null);
 
+  console.log("user is: ", user);
+
   // Sign up the user
   const signup = async (
     email: string,
@@ -69,15 +71,7 @@ export const AuthContextProvider = ({
 
   // Logout User
   const logout = async () => {
-    try {
-      await signOut(auth);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      window.scrollTo(0, 0);
-    } catch (error) {
-      if (error) {
-        console.error("Failed to log out");
-      }
-    }
+    return signOut(auth);
   };
 
   // Reset Password
@@ -99,24 +93,18 @@ export const AuthContextProvider = ({
       throw new Error("You are not authenticated to perform this action");
     }
 
-    try {
-      // Update email in Firebase Authentication
-      await updateEmail(auth.currentUser, newEmail);
+    // Update Firestore after updating Firebase Authentication
+    const userRef = doc(usersCollection, auth.currentUser.uid);
+    await updateDoc(userRef, {
+      email: newEmail,
+      updatedAt: serverTimestamp(),
+    });
 
-      // Update Firestore after updating Firebase Authentication
-      const userRef = doc(usersCollection, auth.currentUser.uid);
-      await updateDoc(userRef, {
-        email: newEmail,
-        updatedAt: serverTimestamp(),
-      });
+    // Update context
+    setEmail(newEmail);
 
-      // Update context
-      setEmail(newEmail);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      }
-    }
+    // Update email in Firebase Authentication
+    return updateEmail(auth.currentUser, newEmail);
   };
 
   // Update username
@@ -126,34 +114,23 @@ export const AuthContextProvider = ({
       throw new Error("You are not authenticated to perform this action");
     }
 
-    try {
-      // Update Firestore
-      const userRef = doc(usersCollection, auth.currentUser.uid);
-      await updateDoc(userRef, {
-        username: newUsername,
-      });
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      }
-    }
+    // Update Firestore
+    const userRef = doc(usersCollection, auth.currentUser.uid);
+    await updateDoc(userRef, {
+      username: newUsername,
+    });
   };
   // Update avatar
   const updateUserAvatar = async (newAvatarId: number) => {
     if (!auth.currentUser) {
       throw new Error("You are not authenticated to perform this action");
     }
-    try {
-      // Update Firestore
-      const userRef = doc(usersCollection, auth.currentUser.uid);
-      await updateDoc(userRef, {
-        avatar: newAvatarId,
-      });
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      }
-    }
+
+    // Update Firestore
+    const userRef = doc(usersCollection, auth.currentUser.uid);
+    await updateDoc(userRef, {
+      avatar: newAvatarId,
+    });
   };
 
   // Delete User
@@ -162,18 +139,13 @@ export const AuthContextProvider = ({
       throw new Error("You are not authenticated to perform this action");
     }
     const userId = auth.currentUser.uid;
-    try {
-      // Delete the user data from Firestore
-      const userDocRef = doc(usersCollection, userId);
-      await deleteDoc(userDocRef);
 
-      // Delete the user from Firebase Authentication
-      await deleteUser(auth.currentUser);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      }
-    }
+    // Delete the user data from Firestore
+    const userDocRef = doc(usersCollection, userId);
+    await deleteDoc(userDocRef);
+
+    // Delete the user from Firebase Authentication
+    await deleteUser(auth.currentUser);
   };
 
   // Re-authenticate user
