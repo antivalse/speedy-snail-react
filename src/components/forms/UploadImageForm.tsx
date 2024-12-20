@@ -95,8 +95,6 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
     setFile({ file: null, preview: null });
     setTitle(null);
     setError(null);
-
-    console.log("Form successfully submitted and reset.");
   };
 
   return (

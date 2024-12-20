@@ -32,8 +32,6 @@ const LandingPage = () => {
   // Access function to create new schedule in Firebase
   const { createSchedule, createScheduleError } = useCreateSchedule();
 
-  console.log("create schedule error: ", createScheduleError);
-
   const handleBtnClick = async () => {
     setLoading(true);
 

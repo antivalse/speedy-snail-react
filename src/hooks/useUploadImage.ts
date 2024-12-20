@@ -32,7 +32,6 @@ export const useUploadImage = () => {
     try {
       // Upload the file to Firebase Storage
       const uploadResult = await uploadBytes(storageRef, file);
-      console.log("File uploaded successfully:", uploadResult);
 
       // Get the download URL of the uploaded image
       const downloadURL = await getDownloadURL(uploadResult.ref);
@@ -48,7 +47,6 @@ export const useUploadImage = () => {
       };
 
       await addDoc(imagesCollection, imageData);
-      console.log("Image metadata saved to Firestore");
     } catch (err) {
       if (err instanceof Error) {
         setError("Error uploading image, please try again.");
