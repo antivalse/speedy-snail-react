@@ -30,7 +30,9 @@ const LandingPage = () => {
   const schedules = useGetSchedules();
 
   // Access function to create new schedule in Firebase
-  const { createSchedule } = useCreateSchedule();
+  const { createSchedule, createScheduleError } = useCreateSchedule();
+
+  console.log("create schedule error: ", createScheduleError);
 
   const handleBtnClick = async () => {
     setLoading(true);
@@ -136,6 +138,14 @@ const LandingPage = () => {
         </div>
 
         {loading && <LoadingSpinner />}
+        {createScheduleError && createScheduleError.length > 0 && (
+          <p
+            className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+            role="alert"
+          >
+            {createScheduleError}
+          </p>
+        )}
       </div>
     </>
   );
