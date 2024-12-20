@@ -35,8 +35,6 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
     preview: imageData?.url || null,
   });
 
-  // storage ref test:
-
   const { user } = useAuth();
 
   // Get categories from database
