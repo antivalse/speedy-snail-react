@@ -11,6 +11,7 @@ interface ForgotPasswordProps {
 
 const ForgotPassword: React.FC<ForgotPasswordProps> = ({ setShowModal }) => {
   const [email, setEmail] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const { setLoading, resetPassword } = useAuth();
 
@@ -31,11 +32,11 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ setShowModal }) => {
       }, 2000);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        console.error("There was an error sending reset email");
+        setError("There was an error sending reset email");
       } else if (err instanceof Error) {
-        console.error(err.message);
+        setError(err.message);
       } else {
-        console.error("Something went wrong. Please try reset your machine");
+        setError("Something went wrong. Please try reset your machine");
       }
     }
   };
@@ -64,6 +65,14 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ setShowModal }) => {
               Send
             </button>
           </form>
+          {error && error.length > 0 && (
+            <p
+              className="p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
         </div>
       </div>
     </>
