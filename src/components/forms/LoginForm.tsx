@@ -44,17 +44,14 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     } catch (err) {
       if (err instanceof FirebaseError) {
         setLoading(false);
-
         setError(err.message);
       }
       if (err instanceof Error) {
         setLoading(false);
-
         setError(err.message);
       }
     }
     setLoading(false);
-
     setSubmittingForm(false);
   };
 
