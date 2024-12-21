@@ -118,8 +118,11 @@ const LandingPage = () => {
               Go to Settings
             </button>
             <button
-              className="btn btn--clear btn--clear--pink"
+              className={`btn btn--clear btn--clear--pink ${
+                joke && joke.length > 0 ? "opacity-50" : ""
+              }`}
               onClick={getRandomSnailJoke}
+              disabled={!!joke && joke.length > 0}
             >
               Laugh
             </button>
