@@ -162,6 +162,7 @@ const SettingsForm = () => {
             type="text"
             className="form__input-field"
             {...register("username", {
+              onChange: (e) => (e.target.value = e.target.value.trim()),
               minLength: {
                 message: "You have to enter at least 3 characters",
                 value: 3,
@@ -180,6 +181,7 @@ const SettingsForm = () => {
             type="email"
             className="form__input-field"
             {...register("email", {
+              onChange: (e) => (e.target.value = e.target.value.trim()),
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Regex for email validation
                 message: "Please enter a valid email address",
@@ -197,6 +199,7 @@ const SettingsForm = () => {
             type="password"
             className="form__input-field"
             {...register("password", {
+              onChange: (e) => (e.target.value = e.target.value.trim()),
               minLength: {
                 message: "You have to enter at least 8 characters",
                 value: 8,
@@ -217,6 +220,7 @@ const SettingsForm = () => {
             className="form__input-field"
             autoComplete="off"
             {...register("confirmPassword", {
+              onChange: (e) => (e.target.value = e.target.value.trim()),
               minLength: {
                 message: "You have to enter at least 8 characters",
                 value: 8,
