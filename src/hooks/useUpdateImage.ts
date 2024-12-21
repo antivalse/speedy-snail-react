@@ -15,8 +15,6 @@ const useUpdateImage = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log("is updating from update image: ", isUpdating);
-
   // Get the uid
   const { user } = useAuth();
 

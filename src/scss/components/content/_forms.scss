@@ -112,6 +112,13 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
     &:hover {
       background-color: $secondary-900;
     }
+
+    &--upload {
+      border-radius: 0.938rem;
+      &:hover {
+        background-color: $primary-100;
+      }
+    }
   }
 }
 

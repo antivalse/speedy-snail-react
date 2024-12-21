@@ -196,7 +196,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
                     value={category.title}
                     role="option"
                     aria-selected="false"
-                    className="cursor-pointer color-p300"
+                    className="cursor-pointer color-p300 my-2"
                     onClick={() => handleSelect(category.title)}
                   >
                     {category.title}

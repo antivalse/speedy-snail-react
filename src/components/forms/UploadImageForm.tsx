@@ -1,7 +1,12 @@
 /* Add New Image Form Component */
 
 import { useState } from "react";
-import { arrowDown, editImageIcon, plusIcon } from "../../assets/icons";
+import {
+  arrowDown,
+  arrowUp,
+  editImageIcon,
+  plusIcon,
+} from "../../assets/icons";
 import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
 import { useUploadImage } from "../../hooks/useUploadImage";
@@ -9,6 +14,7 @@ import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { Image } from "../../types/Image.types";
+import handleInputChange from "../../utils/helpers/handleInputChange";
 
 interface ImageFormProps {
   heading: string;
@@ -47,16 +53,21 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
   // Navigate
   const navigate = useNavigate();
 
-  // Handle change on image input
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0];
-      setFile({
-        file: selectedFile,
-        preview: URL.createObjectURL(selectedFile),
-      });
-    }
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (
+  //     e.target.type === "file" &&
+  //     e.target.files &&
+  //     e.target.files.length > 0
+  //   ) {
+  //     const selectedFile = e.target.files[0];
+  //     setFile({
+  //       file: selectedFile,
+  //       preview: URL.createObjectURL(selectedFile),
+  //     });
+  //   } else if (e.target.type === "text") {
+  //     setTitle(e.target.value.trim());
+  //   }
+  // };
 
   // Handle selection of category in dropdown
   const handleSelect = (category: string) => {
@@ -98,23 +109,26 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
   };
 
   return (
-    <div className="form mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
+    <div className="form mx-auto p-5 flex flex-col items-center gap-4 bg-p50">
       {isUploading && <LoadingSpinner />}
       <h2 className="heading heading--primary color-p300">{heading}</h2>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form
+        className="form__image-form flex flex-col gap-4 max-w-md"
+        onSubmit={handleSubmit}
+      >
+        <h3>Image</h3>
         {isAddNew ? (
-          <div className="self-center">
-            <h3>Image</h3>
+          <div className="form__image-form__image-container">
             {file.preview ? (
               <img
                 src={file.preview}
                 alt="Uploaded Preview"
-                className="form__add-image bg-p100"
+                className="form__add-image form__add-image--upload"
               />
             ) : (
               <label
                 htmlFor="file-upload"
-                className="form__add-image bg-p100 flex justify-center items-center mt-3 border-dotted border-2 cursor-pointer"
+                className="form__add-image form__add-image--upload bg-p100 flex justify-center items-center border-dotted border-2 cursor-pointer"
               >
                 <span>{plusIcon}</span>
                 <input
@@ -122,7 +136,7 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
                   type="file"
                   className="hidden" // Hide the input but keep it accessible
                   accept=".png,.jpg,.jpeg,.webp,image/png"
-                  onChange={handleChange}
+                  onChange={(e) => handleInputChange(e, setFile, setTitle)}
                 />
               </label>
             )}
@@ -147,9 +161,9 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
         </label>
         <input
           type="text"
-          className="form__input-field"
+          className="form__input-field form__input-field--text-center"
           minLength={3}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => handleInputChange(e, setFile, setTitle)}
         />
 
         {error && error.length > 0 && error.includes("title") && <p>{error}</p>}
@@ -161,14 +175,17 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
             role="combobox"
             onClick={() => setShowCategories(!showCategories)}
           >
-            <p className="heading heading--primary">
+            <p className="body body--secondary">
               {selectedCategory
                 ? selectedCategory
                 : imageData?.category
                 ? imageData.category
                 : "Categories"}
             </p>
-            <span className="form-dropdown__icon p-5">{arrowDown}</span>
+            <span className="form-dropdown__icon p-5">
+              {" "}
+              {showCategories ? arrowUp : arrowDown}
+            </span>
           </div>
           {showCategories && (
             <div
