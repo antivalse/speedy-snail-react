@@ -93,7 +93,7 @@ const LandingPage = () => {
       />
       <div className="landing-page flex flex-col items-center my-10 color-p300">
         <div className="landing-page__main flex flex-col items-center bg-p100">
-          <h2 className="heading heading--primary">
+          <h2 className="heading heading--primary text-center">
             Welcome, {data?.username}!{" "}
           </h2>
 
@@ -107,7 +107,7 @@ const LandingPage = () => {
               : "In the Speedy Snail universe, the possibilities are endless! What do you want to do today?"}
           </p>
 
-          <div className="flex gap-5">
+          <div className="landing-page__main__buttons flex flex-col">
             <button
               className="btn btn--clear btn--clear--darker"
               onClick={handleBtnClick}

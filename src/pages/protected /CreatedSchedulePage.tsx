@@ -1,23 +1,25 @@
-import { useNavigate, useParams } from "react-router-dom";
-import TodaysDate from "../../components/content/TodaysDate";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import useGetSchedule from "../../hooks/useGetSchedule";
-import useGetImages from "../../hooks/useGetImages";
-import { Image } from "../../types/Image.types";
+/* Created Schedule Page */
+
 import { useEffect, useState } from "react";
-import useGetCategories from "../../hooks/useGetCategories";
-import shuffleArray from "../../utils/helpers/shuffleArray";
-import AddImage from "../../components/ui/AddImage";
-import scrollToDiv from "../../utils/helpers/scrollToDiv";
-import SortByCategory from "../../components/content/SortByCategory";
+import { useNavigate, useParams } from "react-router-dom";
 import { clearIcon, closeIcon } from "../../assets/icons";
-import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { createdScheduleMessage } from "../../assets/infoMessages";
+import TodaysDate from "../../components/content/TodaysDate";
+import SortByCategory from "../../components/content/SortByCategory";
 import SplideCarousel from "../../components/content/SplideCarousel";
 import Assistant from "../../components/content/Assistant";
-import isSameDate from "../../utils/helpers/isSameDate";
-import useGetDefaultImages from "../../hooks/useGetDefaultImages";
+import AddImage from "../../components/ui/AddImage";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import SearchForm from "../../components/forms/SearchForm";
+import useGetCategories from "../../hooks/useGetCategories";
+import useGetDefaultImages from "../../hooks/useGetDefaultImages";
+import useGetImages from "../../hooks/useGetImages";
+import useGetSchedule from "../../hooks/useGetSchedule";
+import useUpdateSchedule from "../../hooks/useUpdateSchedule";
+import { Image } from "../../types/Image.types";
+import isSameDate from "../../utils/helpers/isSameDate";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import shuffleArray from "../../utils/helpers/shuffleArray";
 
 const CreatedSchedulePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -172,7 +174,7 @@ const CreatedSchedulePage = () => {
       userSchedule?._id,
       removeAllImagesFromSchedule
     );
-  }, []);
+  }, [isSameDate]);
 
   return (
     <>

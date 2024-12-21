@@ -7,16 +7,30 @@
   &__main {
     width: 90%;
     border-radius: 1.875rem;
-    padding: 5rem;
+    padding: 2rem;
 
     @include m.breakpoint-up(sm) {
       width: 85%;
+      padding: 5rem;
     }
 
     &__text {
-      padding: 3rem;
+      padding: 1rem;
       border-radius: 1.875rem;
       margin-top: 1.5rem;
+      width: 100%;
+      text-align: center;
+      @include m.breakpoint-up(sm) {
+        padding: 3rem;
+        width: 70%;
+      }
+    }
+
+    &__buttons {
+      @include m.breakpoint-up(sm) {
+        flex-direction: row;
+        gap: 1rem;
+      }
     }
   }
 }

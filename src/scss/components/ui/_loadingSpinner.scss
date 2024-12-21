@@ -1,5 +1,7 @@
 /* Loading Spinner Styles */
 
+@use "../../utils/mixins" as m;
+
 .loading-spinner {
   background-color: $primary-300;
   width: 100vw;
@@ -12,10 +14,16 @@
 
   &__spinner {
     position: fixed;
-    top: 50%;
-    right: 50%;
+    top: 45%;
+    right: 25%;
     z-index: 3;
     animation: rotation 0.75s infinite ease;
+    @include m.breakpoint-up("sm") {
+      right: 40%;
+    }
+    @include m.breakpoint-up("md") {
+      right: 50%;
+    }
   }
 }
 
@@ -23,7 +31,6 @@
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(359deg);
   }
