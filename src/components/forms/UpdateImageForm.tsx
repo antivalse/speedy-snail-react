@@ -58,16 +58,6 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
   // Store reference to image in storage
   const storageRef = ref(storage, `user_images/${user?.uid}/${fileName}`);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0];
-      setFile({
-        file: selectedFile,
-        preview: URL.createObjectURL(selectedFile),
-      });
-    }
-  };
-
   // Handle selection of category in dropdown
   const handleSelect = (category: string) => {
     setSelectedCategory(category);

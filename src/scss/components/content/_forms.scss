@@ -11,7 +11,7 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
 $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 
 .form {
-  width: 80%;
+  width: 90%;
   border: 3px solid $primary-300;
   border-radius: 1.875rem;
 
@@ -86,9 +86,19 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
   }
 
   &__avatars {
-    width: 120%;
+    width: 100%;
+    flex-wrap: wrap;
+
+    @include m.breakpoint-up("md") {
+      flex-wrap: nowrap;
+    }
 
     &__icon {
+      svg {
+        width: 5rem;
+        height: 5rem;
+      }
+
       transition: 0.3s ease-in-out;
       &:hover,
       &:focus {

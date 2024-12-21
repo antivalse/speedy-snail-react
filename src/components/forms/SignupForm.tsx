@@ -2,13 +2,13 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import SubmitButton from "../buttons/SubmitButton";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { avatars } from "../../assets/icons";
-import { SignupDetails } from "../../types/User.types";
-import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import { FirebaseError } from "firebase/app";
+import useAuth from "../../hooks/useAuth";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import { SignupDetails } from "../../types/User.types";
+import { avatars } from "../../assets/icons";
+import SubmitButton from "../buttons/SubmitButton";
 import LoadingSpinner from "../ui/LoadingSpinner";
 
 const SignupForm = () => {
@@ -39,8 +39,22 @@ const SignupForm = () => {
     setSubmittingForm(true);
     setLoading(true);
 
+    // Trim the input fields
+    const trimmedData = {
+      ...data,
+      email: data.email.trim(),
+      username: data.username.trim(),
+      password: data.password.trim(),
+      confirmPassword: data.confirmPassword?.trim(),
+    };
+
     try {
-      await signup(data.email, data.password, data.username, data.avatarId);
+      await signup(
+        trimmedData.email,
+        trimmedData.password,
+        trimmedData.username,
+        trimmedData.avatarId
+      );
       navigate("/launchpad");
     } catch (err) {
       if (err instanceof Error) {
@@ -161,7 +175,7 @@ const SignupForm = () => {
             <h3 className="heading heading--primary color-p300 mt-10 text-center">
               Pick an avatar
             </h3>
-            <ul className="form__avatars flex flex-wrap justify-center gap-8 p-5 my-8">
+            <ul className="form__avatars flex justify-center mt-5">
               {avatars.map((avatar) => (
                 <li key={avatar.id} className="form__avatars__icon">
                   <label>

@@ -53,22 +53,6 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
   // Navigate
   const navigate = useNavigate();
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (
-  //     e.target.type === "file" &&
-  //     e.target.files &&
-  //     e.target.files.length > 0
-  //   ) {
-  //     const selectedFile = e.target.files[0];
-  //     setFile({
-  //       file: selectedFile,
-  //       preview: URL.createObjectURL(selectedFile),
-  //     });
-  //   } else if (e.target.type === "text") {
-  //     setTitle(e.target.value.trim());
-  //   }
-  // };
-
   // Handle selection of category in dropdown
   const handleSelect = (category: string) => {
     setSelectedCategory(category);
