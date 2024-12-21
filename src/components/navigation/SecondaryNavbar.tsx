@@ -57,6 +57,15 @@ const SecondaryNavbar = () => {
             >
               <div className="py-1" role="none">
                 <a
+                  href="/launchpad"
+                  className="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabIndex={-1}
+                  id="menu-item-1"
+                >
+                  Launchpad
+                </a>
+                <a
                   href={
                     schedules.data && schedules.data.length > 0
                       ? `/schedule/${schedules.data[0]._id}`
