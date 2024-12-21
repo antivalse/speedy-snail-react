@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SubmitButton from "../buttons/SubmitButton";
 import useAuth from "../../hooks/useAuth";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 interface ConformationModalProps {
   heading: string;
@@ -17,11 +18,13 @@ const ConfirmationModal: React.FC<ConformationModalProps> = ({
 }) => {
   const [password, setPassword] = useState<string>(""); // Store password input
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { reAuthenticateUser } = useAuth();
 
   const handleDelete = async () => {
     setError(null);
+    setLoading(true);
 
     try {
       // Call the reAuthenticateUser function
@@ -31,9 +34,11 @@ const ConfirmationModal: React.FC<ConformationModalProps> = ({
       onConfirm();
     } catch (err) {
       if (err instanceof Error) {
+        setLoading(false);
         setError(err.message);
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -44,7 +49,7 @@ const ConfirmationModal: React.FC<ConformationModalProps> = ({
 
         <input
           type="password"
-          className="form__input-field"
+          className="form__input-field form__input-field--confirmation"
           required
           minLength={8}
           onChange={(e) => setPassword(e.target.value)}
@@ -61,11 +66,12 @@ const ConfirmationModal: React.FC<ConformationModalProps> = ({
         )}
 
         <div className="flex justify-center gap-5">
-          <SubmitButton
-            btnText="Cancel"
+          <button
             className="btn btn--submit self-center cursor-pointer bg-p50 color-p300"
             onClick={onCancel}
-          />
+          >
+            Cancel
+          </button>
           <SubmitButton
             btnText="Delete"
             className="btn btn--submit btn--submit--danger cursor-pointer"
@@ -73,6 +79,7 @@ const ConfirmationModal: React.FC<ConformationModalProps> = ({
           />
         </div>
       </div>
+      {loading && <LoadingSpinner />}
     </div>
   );
 };

@@ -1,19 +1,19 @@
 /* Landing Page */
 
 import { useEffect, useState } from "react";
-import useGetUser from "../../hooks/useGetUser";
-import scrollToDiv from "../../utils/helpers/scrollToDiv";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import useCreateSchedule from "../../hooks/useCreateSchedule";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import useGetSchedules from "../../hooks/useGetSchedules";
 import Assistant from "../../components/content/Assistant";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import useCreateSchedule from "../../hooks/useCreateSchedule";
+import useGetSchedules from "../../hooks/useGetSchedules";
+import useGetUser from "../../hooks/useGetUser";
+import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import { snailJokes } from "../../assets/snailJokes";
 import {
   landingPageMessage,
   landingPageMessageCreated,
 } from "../../assets/infoMessages";
-import { snailJokes } from "../../assets/snailJokes";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -98,7 +98,7 @@ const LandingPage = () => {
           </h2>
 
           <p
-            className={`landing-page__main__text ${
+            className={`landing-page__main__text body ${
               joke ? "bg-s800" : "bg-p150"
             }`}
           >

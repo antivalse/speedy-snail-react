@@ -1,7 +1,7 @@
 /* Update Image Form */
 
 import { useEffect, useState } from "react";
-import { arrowDown, editImageIcon } from "../../assets/icons";
+import { arrowDown, arrowUp } from "../../assets/icons";
 import useGetCategories from "../../hooks/useGetCategories";
 import SubmitButton from "../buttons/SubmitButton";
 import LoadingSpinner from "../ui/LoadingSpinner";
@@ -84,6 +84,11 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
     setShowConfirmationModal(false);
   };
 
+  const openConfirmationModal = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowConfirmationModal(true);
+  };
+
   // Handle form submittion
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -113,20 +118,21 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
   }, []);
 
   return (
-    <div className="form mx-auto p-12 flex flex-col items-center gap-12 bg-p50">
-      {isUpdating && <LoadingSpinner />}
+    <div className="form mx-auto p-5 flex flex-col items-center gap-4 bg-p50">
       <h2 id="edit-heading" className="heading heading--primary color-p300">
         Edit Image Details
       </h2>
       <form
-        className="flex flex-col gap-4 w-full max-w-md"
+        className="form__image-form flex flex-col gap-4 max-w-md"
         onSubmit={handleSubmit}
       >
-        <div className="relative self-center">
+        <div className="relative form__image-form__image-container">
           <label htmlFor="file">
-            <span className="absolute top-2 right-2 cursor-pointer">
-              {editImageIcon}
-            </span>
+            <div className="absolute top-0 image-overlay cursor-pointer flex justify-center items-center">
+              <span className="body body--secondary color-p50 ">
+                Change Image
+              </span>
+            </div>
             <input
               type="file"
               id="file"
@@ -136,31 +142,25 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
             />
           </label>
           {file.preview ? (
-            <img
-              src={file.preview}
-              alt="Preview"
-              className="form__add-image "
-            />
+            <img src={file.preview} alt="Preview" className="form__add-image" />
           ) : (
             <img
               src={imageData?.url}
               alt="Preview"
-              className="form__add-image "
+              className="form__add-image"
             />
           )}
         </div>
-
         <label className="color-p300" htmlFor="title">
           Title
         </label>
         <input
           type="text"
-          className="form__input-field"
+          className="form__input-field form__input-field--text-center"
           minLength={3}
           placeholder={imageData?.title.toUpperCase() || ""}
           onChange={(e) => setTitle(e.target.value)}
         />
-
         {error && error.length > 0 && error.includes("title") && <p>{error}</p>}
         <div className="relative">
           <div
@@ -170,14 +170,16 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
             role="combobox"
             onClick={() => setShowCategories(!showCategories)}
           >
-            <p className="heading heading--primary">
+            <p className="body body--secondary">
               {selectedCategory
                 ? selectedCategory
                 : imageData?.category
                 ? imageData.category
                 : "Categories"}
             </p>
-            <span className="form-dropdown__icon p-5">{arrowDown}</span>
+            <span className="form-dropdown__icon p-5">
+              {showCategories ? arrowUp : arrowDown}
+            </span>
           </div>
           {showCategories && (
             <div
@@ -194,7 +196,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
                     value={category.title}
                     role="option"
                     aria-selected="false"
-                    className="cursor-pointer color-p300 my-2"
+                    className="cursor-pointer color-p300"
                     onClick={() => handleSelect(category.title)}
                   >
                     {category.title}
@@ -212,13 +214,14 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
           <SubmitButton
             className="btn btn--submit self-center"
             btnText={btnText}
-            onClick={() => handleSubmit}
+            onClick={handleSubmit}
           />{" "}
-          <SubmitButton
+          <button
             className="btn btn--submit btn--submit--danger"
-            btnText="Delete Image"
-            onClick={() => setShowConfirmationModal(true)}
-          />
+            onClick={openConfirmationModal}
+          >
+            Delete
+          </button>
         </div>
       </form>
 
@@ -230,6 +233,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
           onConfirm={handleDelete}
         />
       )}
+      {isUpdating && <LoadingSpinner />}
     </div>
   );
 };

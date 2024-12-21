@@ -15,6 +15,8 @@ const useUpdateImage = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  console.log("is updating from update image: ", isUpdating);
+
   // Get the uid
   const { user } = useAuth();
 
@@ -58,23 +60,28 @@ const useUpdateImage = () => {
       }
     } catch (err) {
       if (err instanceof Error) {
+        setIsUpdating(false);
         setError(
           `Something went wrong when trying to update image: ${err.message} `
         );
       }
+    } finally {
+      setIsUpdating(false);
     }
   };
 
   const deleteImage = async (id: string | undefined, imageUrl: string) => {
+    setError(null); // Clear any previous errors
+
     if (!id) {
       setError("Document ID is undefined or invalid.");
+      setIsUpdating(false); // Reset isUpdating if validation fails
       return;
     }
 
     try {
       // Delete Firestore document
       await deleteDoc(doc(imagesCollection, id));
-
       // Delete image from Firebase Storage
       const storageRef = ref(storage, imageUrl);
       await deleteObject(storageRef);
@@ -84,12 +91,16 @@ const useUpdateImage = () => {
           `Something went wrong when trying to delete the image: ${err.message}`
         );
       }
+    } finally {
+      setIsUpdating(false);
     }
   };
+
   return {
     updateImage,
     deleteImage,
     isUpdating,
+    setIsUpdating,
     error,
     setError,
   };

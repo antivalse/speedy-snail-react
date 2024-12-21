@@ -7,7 +7,7 @@ interface SubmitButtonProps {
   className: string;
   submittingForm?: boolean;
   success?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.FormEvent) => Promise<void>;
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({

@@ -3,6 +3,7 @@
 @use "../../variables/colors" as c;
 @use "../../utils/mixins" as m;
 @import "../../globals/fonts";
+@import "../../globals"; /* Import the globals to access .image-overlay class */
 
 $primary-100: map-get(map-get(c.$colors, primary), 100);
 $primary-200: map-get(map-get(c.$colors, primary), 200);
@@ -18,11 +19,25 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
     width: 60%;
   }
 
+  &__image-form {
+    width: 100%;
+
+    &__image-container {
+      background-color: $primary-100;
+      border-radius: 0.938rem;
+      display: flex;
+      justify-content: center;
+      &:hover .image-overlay {
+        opacity: 1; /* Show overlay only on hovered item */
+        pointer-events: auto;
+      }
+    }
+  }
+
   &__input-field {
     background-color: $primary-100;
     color: $primary-300;
     width: 100%;
-    // height: 5rem;
     border-radius: 0.938rem;
     font-size: 1.15rem;
     padding: 1rem;
@@ -54,6 +69,14 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
       background-color: $primary-100 !important;
       color: $primary-300 !important;
     }
+
+    &--text-center {
+      text-align: center;
+    }
+
+    &--confirmation {
+      width: 50%;
+    }
   }
 
   &__reset {
@@ -82,7 +105,6 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
   &__add-image {
     height: 15.25rem;
     width: 21.313rem;
-    border-radius: 0.938rem;
     object-fit: contain;
     background-color: $primary-100;
     transition: 0.3s background-color ease-in-out;
@@ -103,7 +125,5 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 .form-dropdown {
   background-color: $primary-100;
   color: $primary-300;
-  height: 5rem;
   border-radius: 0.938rem;
-  padding: 1rem;
 }

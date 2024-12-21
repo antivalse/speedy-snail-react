@@ -285,8 +285,7 @@ const SettingsForm = () => {
             className="btn btn--submit self-center cursor-pointer"
             submittingForm={submittingForm}
           />
-          <SubmitButton
-            btnText="Delete Account"
+          <button
             className="btn btn--submit btn--submit--danger cursor-pointer"
             onClick={() => setShowConfirmationModal(true)}
           />

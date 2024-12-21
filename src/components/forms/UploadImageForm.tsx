@@ -103,7 +103,7 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
       <h2 className="heading heading--primary color-p300">{heading}</h2>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {isAddNew ? (
-          <div>
+          <div className="self-center">
             <h3>Image</h3>
             {file.preview ? (
               <img
@@ -202,7 +202,7 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
         <SubmitButton
           className="btn btn--submit self-center"
           btnText={btnText}
-          onClick={() => handleSubmit}
+          onClick={handleSubmit}
         />
       </form>
     </div>
