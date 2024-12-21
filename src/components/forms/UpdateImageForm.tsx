@@ -13,6 +13,7 @@ import { ref } from "firebase/storage";
 import { storage } from "../../firebase/config";
 import useAuth from "../../hooks/useAuth";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
+import handleInputChange from "../../utils/helpers/handleInputChange";
 
 interface ImageFormProps {
   btnText: string;
@@ -138,7 +139,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
               id="file"
               accept=".png,.jpg,.jpeg,.webp,image/png"
               className="hidden"
-              onChange={handleFileChange}
+              onChange={(e) => handleInputChange(e, setFile, setTitle)}
             />
           </label>
           {file.preview ? (
@@ -159,7 +160,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
           className="form__input-field form__input-field--text-center"
           minLength={3}
           placeholder={imageData?.title.toUpperCase() || ""}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => handleInputChange(e, setFile, setTitle)}
         />
         {error && error.length > 0 && error.includes("title") && <p>{error}</p>}
         <div className="relative">
