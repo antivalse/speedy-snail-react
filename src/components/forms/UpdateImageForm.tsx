@@ -174,7 +174,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
           </div>
           {showCategories && (
             <div
-              className="absolute right-3 mt-2 z-10 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
+              className="absolute mt-2 z-10 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
               role="listbox"
               aria-orientation="vertical"
               aria-labelledby="menu-button"
@@ -187,7 +187,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
                     value={category.title}
                     role="option"
                     aria-selected="false"
-                    className="cursor-pointer color-p300 my-2"
+                    className="form-dropdown__option body body--secondary cursor-pointer color-p300 my-1 text-center"
                     onClick={() => handleSelect(category.title)}
                   >
                     {category.title}
