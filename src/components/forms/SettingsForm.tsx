@@ -238,7 +238,7 @@ const SettingsForm = () => {
           <h3 className="heading heading--primary color-p300 mt-10 text-center">
             Try a new avatar
           </h3>
-          <ul className="form__avatars flex flex-wrap justify-center gap-8 p-5 my-8">
+          <ul className="form__avatars flex justify-center my-2">
             {avatars.map((avatar) => (
               <li key={avatar.id} className="form__avatars__icon">
                 <label>
@@ -279,7 +279,7 @@ const SettingsForm = () => {
           />
           {errors.currentPassword && <p>{errors.currentPassword.message}</p>}
         </div>
-        <div className="flex justify-center gap-5">
+        <div className="flex flex-wrap justify-around">
           <SubmitButton
             btnText="Update"
             className="btn btn--submit self-center cursor-pointer"
@@ -288,7 +288,9 @@ const SettingsForm = () => {
           <button
             className="btn btn--submit btn--submit--danger cursor-pointer"
             onClick={() => setShowConfirmationModal(true)}
-          />
+          >
+            Delete Account
+          </button>
         </div>
       </form>
       {error && error.length > 0 && (
