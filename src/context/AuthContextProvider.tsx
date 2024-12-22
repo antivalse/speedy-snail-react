@@ -34,8 +34,6 @@ export const AuthContextProvider = ({
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState<string | null>(null);
 
-  console.log("user is: ", user);
-
   // Sign up the user
   const signup = async (
     email: string,

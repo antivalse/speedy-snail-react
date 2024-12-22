@@ -17,7 +17,6 @@ import useGetImages from "../../hooks/useGetImages";
 import useGetSchedule from "../../hooks/useGetSchedule";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { Image } from "../../types/Image.types";
-// import isSameDate from "../../utils/helpers/isSameDate";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import shuffleArray from "../../utils/helpers/shuffleArray";
 
@@ -129,7 +128,7 @@ const CreatedSchedulePage = () => {
 
     if (schedule.length === 8) {
       setInfoMessage(
-        "Oops, you can't add more than 8 images to schedule. Remove one or clear all to start over"
+        "Oops, you can't add more than 8 activities. Remove one or clear all to start over"
       );
       scrollToDiv("assistant-greeting");
 
@@ -174,15 +173,6 @@ const CreatedSchedulePage = () => {
     scrollToDiv("assistant-greeting");
     setInfoMessage(createdScheduleMessage);
   }, []);
-
-  // useEffect(() => {
-  //   // Check if the schedule is created today or not
-  //   isSameDate(
-  //     userSchedule?.createdAt,
-  //     userSchedule?._id,
-  //     removeAllImagesFromSchedule
-  //   );
-  // }, [isSameDate]);
 
   return (
     <>
