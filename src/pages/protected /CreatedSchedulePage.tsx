@@ -17,7 +17,7 @@ import useGetImages from "../../hooks/useGetImages";
 import useGetSchedule from "../../hooks/useGetSchedule";
 import useUpdateSchedule from "../../hooks/useUpdateSchedule";
 import { Image } from "../../types/Image.types";
-import isSameDate from "../../utils/helpers/isSameDate";
+// import isSameDate from "../../utils/helpers/isSameDate";
 import scrollToDiv from "../../utils/helpers/scrollToDiv";
 import shuffleArray from "../../utils/helpers/shuffleArray";
 
@@ -159,7 +159,7 @@ const CreatedSchedulePage = () => {
     removeAllImagesFromSchedule(userSchedule?._id || "");
     setSchedule([]);
     setInfoMessage("Nice, room for more adventures!");
-    scrollToDiv("assistant-greetingi");
+    scrollToDiv("assistant-greeting");
   };
 
   useEffect(() => {
@@ -286,7 +286,7 @@ const CreatedSchedulePage = () => {
                 </div>
 
                 {imagesToDisplay.length > 0 ? (
-                  <ul className="grid grid-cols-4 gap-5 mt-5">
+                  <ul className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-5">
                     {imagesToDisplay?.map((item, index) => (
                       <li
                         key={index}
