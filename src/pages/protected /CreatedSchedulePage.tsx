@@ -113,15 +113,23 @@ const CreatedSchedulePage = () => {
   // Handle image click and update the schedule
   const handleImageClick = (id: string) => {
     const selectedImage = combinedImages?.find((img) => img._id === id);
+    setInfoMessage("Excellent choice!");
 
     // Abort if no image was selected or if the maximum amount of activities are set
     if (!selectedImage) {
       return;
     }
 
-    if (schedule.length === 6) {
+    const idsInSched = schedule.map((item) => item._id);
+
+    if (idsInSched.includes(selectedImage._id)) {
+      scrollToDiv("assistant-greeting");
+      setInfoMessage("Oops, you already added that activity! Try another one?");
+    }
+
+    if (schedule.length === 8) {
       setInfoMessage(
-        "Oops, you can't add more than 6 images to schedule. Remove one or clear all to start over"
+        "Oops, you can't add more than 8 images to schedule. Remove one or clear all to start over"
       );
       scrollToDiv("assistant-greeting");
 
@@ -167,33 +175,53 @@ const CreatedSchedulePage = () => {
     setInfoMessage(createdScheduleMessage);
   }, []);
 
-  useEffect(() => {
-    // Check if the schedule is created today or not
-    isSameDate(
-      userSchedule?.createdAt,
-      userSchedule?._id,
-      removeAllImagesFromSchedule
-    );
-  }, [isSameDate]);
+  // useEffect(() => {
+  //   // Check if the schedule is created today or not
+  //   isSameDate(
+  //     userSchedule?.createdAt,
+  //     userSchedule?._id,
+  //     removeAllImagesFromSchedule
+  //   );
+  // }, [isSameDate]);
 
   return (
     <>
       <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center">
-        <div className="relative plan-page__schedule flex flex-col items-center bg-p100 py-10 mb-12">
+        <div
+          className={`relative      ${
+            schedule.length > 5
+              ? "plan-page__schedule plan-page__schedule--long"
+              : "plan-page__schedule"
+          } flex flex-col items-center bg-p100 py-10 mb-12`}
+        >
           <TodaysDate />
-          <ul className="plan-page__schedule__images px-3 mt-5">
+          <ul
+            className={`${
+              schedule.length > 5
+                ? "plan-page__schedule__images plan-page__schedule__images--long"
+                : "plan-page__schedule__images"
+            } px-3 mt-5 `}
+          >
             {schedule?.map((item, index) => (
               <li
                 key={index}
-                className="relative plan-page__schedule__images__list-item my-5 bg-p50 flex flex-col justify-center"
+                className={`relative ${
+                  schedule.length > 5
+                    ? "plan-page__schedule__images__list-item plan-page__schedule__images__list-item--long"
+                    : "plan-page__schedule__images__list-item"
+                } my-5 bg-p50 flex flex-col justify-center`}
               >
                 <div className="flex flex-col items-center">
-                  <h3 className="body body--secondary color-p200">
+                  <h3 className="body body--secondary color-p200 mb-3">
                     {item.title}
                   </h3>
                   <img
-                    className="plan-page__schedule__images__list-item__image cursor-pointer"
+                    className={` ${
+                      schedule.length > 5
+                        ? "plan-page__schedule__images__list-item__image plan-page__schedule__images__list-item__image--long"
+                        : "plan-page__schedule__images__list-item__image"
+                    } cursor-pointer`}
                     src={item.url}
                     alt={item.title}
                   />
@@ -211,8 +239,11 @@ const CreatedSchedulePage = () => {
               </li>
             ))}
 
-            {schedule && schedule.length < 6 ? (
-              <AddImage handleClick={() => setShowModal(true)} />
+            {schedule && schedule.length < 8 ? (
+              <AddImage
+                handleClick={() => setShowModal(true)}
+                isLongSchedule={schedule.length > 5}
+              />
             ) : (
               ""
             )}

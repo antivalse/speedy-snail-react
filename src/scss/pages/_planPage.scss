@@ -13,6 +13,13 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
   &__schedule {
     width: 100%;
 
+    &--long {
+      @include m.breakpoint-up("md") {
+        width: 60%;
+        border-radius: 1.875rem;
+      }
+    }
+
     &__clear {
       position: absolute;
       top: 1%;
@@ -30,18 +37,19 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
         flex-direction: row;
       }
 
+      &--long {
+        @include m.breakpoint-up("md") {
+          flex-direction: column;
+        }
+      }
+
       &__list-item {
         position: relative; /* Ensure positioning context for the overlay */
-        width: 20.063rem;
-        height: 20.063rem;
+        width: 22.063rem;
+        height: 22.063rem;
         border-radius: 1.875rem;
         opacity: 1;
         transition: 0.5s ease;
-
-        @include m.breakpoint-up("sm") {
-          width: 22.063rem;
-          height: 22.063rem;
-        }
 
         @include m.breakpoint-up("md") {
           width: 14rem;
@@ -59,7 +67,19 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
           object-fit: contain;
           @include m.breakpoint-up("md") {
             height: 10rem;
-            width: 100%;
+          }
+
+          &--long {
+            width: 22.061;
+            height: 14.704rem;
+            object-fit: contain;
+          }
+        }
+
+        &--long {
+          @include m.breakpoint-up("sm") {
+            width: 22.063rem;
+            height: 22.063rem;
           }
         }
       }

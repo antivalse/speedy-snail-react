@@ -6,7 +6,7 @@ export const landingPageMessageCreated =
   "Yay, you're back! Time to get stuff done!";
 
 export const createdScheduleMessage =
-  "Add more images by clicking on the plus-sign. You can remove activities or clear schedule if you need to!";
+  "Add up to 8 activities by clicking on the plus-sign. You can remove activities or clear schedule if you need to!";
 
 export const funDayMessage = "Wow what a fun day you have planned!";
 

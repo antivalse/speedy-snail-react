@@ -6,15 +6,10 @@
 $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 
 .add-image {
-  width: 20.063rem;
-  height: 20.063rem;
+  width: 22.063rem;
+  height: 22.063rem;
   border-radius: 1.875rem;
   transition: 0.3s background-color ease-in-out;
-
-  @include m.breakpoint-up("sm") {
-    width: 22.063rem;
-    height: 22.063rem;
-  }
 
   @include m.breakpoint-up("md") {
     width: 14rem;
@@ -23,5 +18,10 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
 
   &:hover {
     background-color: $secondary-900;
+  }
+
+  &--long {
+    width: 22.063rem;
+    height: 22.063rem;
   }
 }
