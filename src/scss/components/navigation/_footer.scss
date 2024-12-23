@@ -31,9 +31,10 @@ $primary-300: map-get(map-get(c.$colors, primary), 300);
     a {
       cursor: pointer;
       .social-media-icon-background {
-        transition: fill 0.2s ease-in-out;
+        transition: fill 0.3s ease-in-out;
 
-        &:hover {
+        &:hover,
+        &:focus {
           fill: $primary-300;
         }
       }
