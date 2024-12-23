@@ -1,6 +1,6 @@
 /* Secondary Navbar Component */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { avatars, hamburgerMenuIcon } from "../../assets/icons";
 import { Link } from "react-router-dom";
@@ -13,6 +13,10 @@ import useTheme from "../../hooks/useTheme";
 const SecondaryNavbar = () => {
   const [showNavDropdown, setShowNavDropdown] = useState<boolean>(false);
   const [showUserDropdown, setShowUserDropdown] = useState<boolean>(false);
+
+  // Refs to track dropdowns
+  const navDropdownRef = useRef<HTMLDivElement | null>(null);
+  const userDropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Get the logout function from auth context
   const { logout } = useAuth();
@@ -28,6 +32,29 @@ const SecondaryNavbar = () => {
 
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        navDropdownRef.current &&
+        !navDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowNavDropdown(false);
+      }
+      if (
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -48,6 +75,7 @@ const SecondaryNavbar = () => {
           </div>
           {showNavDropdown && (
             <div
+              ref={navDropdownRef}
               className="absolute left-0 z-10 mt-4 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
@@ -114,6 +142,7 @@ const SecondaryNavbar = () => {
           </span>
           {showUserDropdown && (
             <div
+              ref={userDropdownRef}
               className="absolute right-0 mt-2 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
@@ -130,7 +159,7 @@ const SecondaryNavbar = () => {
                     id="menu-item-0"
                   >
                     {data?.username}
-                  </p>
+                  </p>{" "}
                 </div>
 
                 <div className="secondary-nav__change-mode flex items-center justify-between mt-1 px-4">
