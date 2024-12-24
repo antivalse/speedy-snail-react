@@ -39,7 +39,8 @@ a {
   text-decoration: none;
   color: #4f453e;
   transition: font-size 0.4s ease-in-out;
-  &:hover {
+  &:hover,
+  &:focus {
     font-weight: bolder;
     font-size: 1.015rem;
   }

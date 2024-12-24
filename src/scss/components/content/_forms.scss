@@ -27,7 +27,8 @@ $secondary-800: map-get(map-get(c.$colors, secondary), 800);
       border-radius: 0.938rem;
       display: flex;
       justify-content: center;
-      &:hover .image-overlay {
+      &:hover,
+      &:focus .image-overlay {
         opacity: 1; /* Show overlay only on hovered item */
         pointer-events: auto;
       }
@@ -80,7 +81,8 @@ $secondary-800: map-get(map-get(c.$colors, secondary), 800);
   }
 
   &__reset {
-    &:hover {
+    &:hover,
+    &:focus {
       color: $primary-200;
     }
   }
@@ -119,13 +121,15 @@ $secondary-800: map-get(map-get(c.$colors, secondary), 800);
     background-color: $primary-100;
     transition: 0.3s background-color ease-in-out;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: $secondary-800;
     }
 
     &--upload {
       border-radius: 0.938rem;
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: $primary-100;
       }
     }

@@ -22,7 +22,8 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
       flex-shrink: 0;
       width: 100%;
       transition: 0.5s ease-in-out;
-      &:hover {
+      &:hover,
+      &:focus {
         background-color: darken($secondary-900, 3%);
       }
 

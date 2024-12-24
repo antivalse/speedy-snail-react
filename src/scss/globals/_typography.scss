@@ -75,7 +75,8 @@ $secondary-400: map-get(map-get(c.$colors, secondary), 400);
     text-transform: uppercase;
 
     &--greeting {
-      &:hover {
+      &:hover,
+      &:focus {
         font-weight: 800;
       }
     }

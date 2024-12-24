@@ -56,7 +56,8 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
           height: 16rem;
         }
 
-        &:hover .image-overlay {
+        &:hover,
+        &:focus .image-overlay {
           opacity: 1; /* Show overlay only on hovered item */
           pointer-events: auto;
         }

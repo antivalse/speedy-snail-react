@@ -16,7 +16,8 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 800);
     height: 16rem;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $secondary-900;
   }
 
