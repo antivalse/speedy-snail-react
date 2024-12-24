@@ -80,7 +80,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     scrollToDiv("assistant-greeting");
-  }, []);
+  }, [joke]);
 
   return (
     <>
@@ -97,15 +97,18 @@ const LandingPage = () => {
             Welcome, {data?.username}!{" "}
           </h2>
 
-          <p
+          <div
+            id="main-text"
             className={`landing-page__main__text body ${
               joke ? "bg-s800" : "bg-p150"
             }`}
           >
-            {joke
-              ? joke
-              : "In the Speedy Snail universe, the possibilities are endless! What do you want to do today?"}
-          </p>
+            <p>
+              {joke
+                ? joke
+                : "In the Speedy Snail universe, the possibilities are endless! What do you want to do today?"}
+            </p>
+          </div>
 
           <div className="landing-page__main__buttons flex flex-col">
             <button

@@ -173,7 +173,8 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
           </div>
           {showCategories && (
             <div
-              className="absolute mt-2 z-10 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
+              className="absolute top-1/4 z-10 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
+              style={{ transform: "translateY(-50%)" }} // Center vertically
               role="listbox"
               aria-orientation="vertical"
               aria-labelledby="menu-button"
