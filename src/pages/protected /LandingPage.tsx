@@ -82,6 +82,10 @@ const LandingPage = () => {
     scrollToDiv("assistant-greeting");
   }, [joke]);
 
+  useEffect(() => {
+    scrollToDiv("assistant-greeting");
+  }, []);
+
   return (
     <>
       <Assistant
