@@ -15,6 +15,7 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { Image } from "../../types/Image.types";
 import handleInputChange from "../../utils/helpers/handleInputChange";
+import CategoriesDropDown from "../modals/CategoriesDropDown";
 
 interface ImageFormProps {
   heading: string;
@@ -172,29 +173,7 @@ const UploadImageForm: React.FC<ImageFormProps> = ({
             </span>
           </div>
           {showCategories && (
-            <div
-              className="absolute top-1/4 z-10 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
-              style={{ transform: "translateY(-50%)" }} // Center vertically
-              role="listbox"
-              aria-orientation="vertical"
-              aria-labelledby="menu-button"
-              tabIndex={-1}
-            >
-              <div role="listbox">
-                {data?.map((category) => (
-                  <option
-                    key={category._id}
-                    value={category.title}
-                    role="option"
-                    aria-selected="false"
-                    className="form-dropdown__option body body--secondary cursor-pointer color-p300 my-1 text-center"
-                    onClick={() => handleSelect(category.title)}
-                  >
-                    {category.title}
-                  </option>
-                ))}
-              </div>
-            </div>
+            <CategoriesDropDown data={data} handleSelectFn={handleSelect} />
           )}
           {error && error.length > 0 && error.includes("category") && (
             <p>{error}</p>
