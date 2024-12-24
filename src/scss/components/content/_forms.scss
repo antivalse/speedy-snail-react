@@ -27,9 +27,9 @@ $secondary-800: map-get(map-get(c.$colors, secondary), 800);
       border-radius: 0.938rem;
       display: flex;
       justify-content: center;
-      &:hover,
+      &:hover .image-overlay,
       &:focus .image-overlay {
-        opacity: 1; /* Show overlay only on hovered item */
+        opacity: 1;
         pointer-events: auto;
       }
     }
