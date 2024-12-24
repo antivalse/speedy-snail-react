@@ -8,14 +8,14 @@ $secondary-500: map-get(map-get(c.$colors, secondary), 500);
 
 .about {
   &__text {
-    width: 80%;
+    width: 95%;
     border-radius: 1.25rem;
     margin-top: 10rem;
     margin-bottom: 10rem;
     text-align: justify;
 
     @include m.breakpoint-up(sm) {
-      width: 65%;
+      width: 75%;
     }
   }
 }

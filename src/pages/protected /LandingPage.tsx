@@ -91,7 +91,7 @@ const LandingPage = () => {
             : landingPageMessage
         }
       />
-      <div className="landing-page flex flex-col items-center my-10 color-p300">
+      <div className="landing-page flex flex-col items-center mb-10 color-p300">
         <div className="landing-page__main flex flex-col items-center bg-p100">
           <h2 className="heading heading--primary text-center">
             Welcome, {data?.username}!{" "}

@@ -27,8 +27,8 @@ const AboutPage = () => {
         <p className="color-s400 body mt-5 mb-10">
           {" "}
           Every morning, the schedule resets, making it simple to start fresh.
-          By limiting each day’s schedule to 5-6 pictures, SpeedySnail provides
-          a clear, structured overview of what to expect. Easy-to-search and
+          By limiting each day’s schedule to 8 pictures, SpeedySnail provides a
+          clear, structured overview of what to expect. Easy-to-search and
           categorized images ensure that planning remains quick and stress-free.
           SpeedySnail combines simplicity with vibrant design to empower
           children to manage their days while creating a sense of comfort and
