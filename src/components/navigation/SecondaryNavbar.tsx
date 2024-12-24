@@ -14,9 +14,13 @@ const SecondaryNavbar = () => {
   const [showNavDropdown, setShowNavDropdown] = useState<boolean>(false);
   const [showUserDropdown, setShowUserDropdown] = useState<boolean>(false);
 
-  // Refs to track dropdowns
+  // Refs to track dropdown menus
   const navDropdownRef = useRef<HTMLDivElement | null>(null);
   const userDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Refs to menu icons
+  const hamburgerDropdownBtn = useRef<HTMLSpanElement | null>(null);
+  const userMenuDropDownBtn = useRef<HTMLSpanElement | null>(null);
 
   // Get the logout function from auth context
   const { logout } = useAuth();
@@ -33,18 +37,24 @@ const SecondaryNavbar = () => {
   // Check for schedules in schedules collection that match the user id
   const schedules = useGetSchedules();
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // Check if the click is outside the nav dropdown
       if (
         navDropdownRef.current &&
-        !navDropdownRef.current.contains(event.target as Node)
+        !navDropdownRef.current.contains(event.target as Node) &&
+        hamburgerDropdownBtn.current &&
+        !hamburgerDropdownBtn.current.contains(event.target as Node)
       ) {
         setShowNavDropdown(false);
       }
+
+      // Check if the click is outside the user dropdown
       if (
         userDropdownRef.current &&
-        !userDropdownRef.current.contains(event.target as Node)
+        !userDropdownRef.current.contains(event.target as Node) &&
+        userMenuDropDownBtn.current &&
+        !userMenuDropDownBtn.current.contains(event.target as Node)
       ) {
         setShowUserDropdown(false);
       }
@@ -56,6 +66,17 @@ const SecondaryNavbar = () => {
     };
   }, []);
 
+  // Toggle drop down open states when clicking on the icons
+  const toggleNavDropdown = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setShowNavDropdown((prev) => !prev);
+  };
+
+  const toggleUserDropdown = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setShowUserDropdown((prev) => !prev);
+  };
+
   return (
     <>
       {loading && <LoadingSpinner />}
@@ -64,10 +85,11 @@ const SecondaryNavbar = () => {
           {" "}
           <div className="flex gap-3 items-center">
             <span
+              ref={hamburgerDropdownBtn}
               className="hamburger-icon"
               aria-expanded="true"
               aria-haspopup="true"
-              onClick={() => setShowNavDropdown(!showNavDropdown)}
+              onClick={toggleNavDropdown}
             >
               {hamburgerMenuIcon}
             </span>
@@ -133,10 +155,11 @@ const SecondaryNavbar = () => {
         </h2>{" "}
         <div className="relative">
           <span
-            className=" secondary-nav__avatar"
+            ref={userMenuDropDownBtn}
+            className="secondary-nav__avatar"
             aria-expanded="true"
             aria-haspopup="true"
-            onClick={() => setShowUserDropdown(!showUserDropdown)}
+            onClick={toggleUserDropdown}
           >
             {userAvatar?.icon}
           </span>
