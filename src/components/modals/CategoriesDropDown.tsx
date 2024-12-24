@@ -13,8 +13,8 @@ const CategoriesDropDown: React.FC<CategoriesDropDownProps> = ({
 }) => {
   return (
     <div
-      className="absolute top-1/4 z-10 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5"
-      style={{ transform: "translateY(-50%)", zIndex: 9999 }} // Center vertically
+      className="categories-dropdown"
+      style={{ top: "25%", transform: "translateY(-50%)" }} // Center vertically
       role="listbox"
       aria-orientation="vertical"
       aria-labelledby="menu-button"
