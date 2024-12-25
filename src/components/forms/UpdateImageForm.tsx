@@ -160,7 +160,7 @@ const UpdateImageForm: React.FC<ImageFormProps> = ({ btnText, imageData }) => {
             aria-expanded="true"
             aria-haspopup="true"
             role="combobox"
-            onClick={() => setShowCategories(!showCategories)}
+            onClick={() => setShowCategories(true)}
           >
             <p className="body body--secondary">
               {selectedCategory

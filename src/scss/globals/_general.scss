@@ -81,13 +81,10 @@ a {
 
 .categories-dropdown {
   position: absolute;
-  z-index: 9999;
-  width: 100%;
   top: 25%;
   transform: translateY(-50%);
-  transform-origin: top right;
-  border-radius: 0.375rem;
+  z-index: 9999;
+  width: 100%;
   background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
