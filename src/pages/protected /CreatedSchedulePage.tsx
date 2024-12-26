@@ -113,6 +113,7 @@ const CreatedSchedulePage = () => {
   const handleImageClick = (id: string) => {
     const selectedImage = combinedImages?.find((img) => img._id === id);
     setInfoMessage("Excellent choice!");
+    scrollToDiv("schedule");
 
     // Abort if no image was selected or if the maximum amount of activities are set
     if (!selectedImage) {
@@ -179,6 +180,7 @@ const CreatedSchedulePage = () => {
       <Assistant message={infoMessage} />
       <div className="plan-page flex flex-col items-center">
         <div
+          id="schedule"
           className={`relative      ${
             schedule.length > 5
               ? "plan-page__schedule plan-page__schedule--long"
