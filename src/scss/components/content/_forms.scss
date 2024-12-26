@@ -14,6 +14,7 @@ $secondary-800: map-get(map-get(c.$colors, secondary), 800);
   width: 90%;
   border: 3px solid $primary-300;
   border-radius: 1.875rem;
+  color: $primary-300;
 
   @include m.breakpoint-up("sm") {
     width: 60%;
