@@ -162,6 +162,12 @@ const CreatedSchedulePage = () => {
     scrollToDiv("assistant-greeting");
   };
 
+  // Handle case where user removes an image
+  const handleRemoveImage = (item: Image) => {
+    removeImageFromSchedule(userSchedule?._id || "", item);
+    setInfoMessage("Yay, room for some more fun activities!");
+  };
+
   useEffect(() => {
     // If there is an error (for instance user tries to acces other users schedule by typing id in url). Navigate to schedule page
     if (getScheduleError) {
@@ -220,9 +226,7 @@ const CreatedSchedulePage = () => {
                 </div>
                 <div
                   className="absolute top-0 image-overlay cursor-pointer flex justify-center items-center"
-                  onClick={() =>
-                    removeImageFromSchedule(userSchedule?._id || "", item)
-                  }
+                  onClick={() => handleRemoveImage(item)}
                 >
                   <span className="body body--secondary color-p50 ">
                     Remove
