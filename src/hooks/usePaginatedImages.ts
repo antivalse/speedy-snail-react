@@ -1,3 +1,5 @@
+/* Custom hook to get paginated images */
+
 import { useState } from "react";
 import { Image } from "../types/Image.types"; // Assuming Image has properties like id, url, title, category, isDefault
 import {

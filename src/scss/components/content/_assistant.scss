@@ -11,8 +11,6 @@ $secondary-900: map-get(map-get(c.$colors, secondary), 900);
 
 .assistant {
   height: 100px;
-  // position: sticky;
-  // z-index: 10;
   margin-top: 10rem;
   &__greeting {
     background-color: $secondary-700;

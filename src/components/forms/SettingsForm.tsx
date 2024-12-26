@@ -1,16 +1,16 @@
 /* Settings Form Component */
 
-import { useState, useRef, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import SubmitButton from "../buttons/SubmitButton";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { avatars } from "../../assets/icons";
-import { UpdateUserDetails } from "../../types/User.types";
-import useGetUser from "../../hooks/useGetUser";
 import { FirebaseError } from "firebase/app";
-import LoadingSpinner from "../ui/LoadingSpinner";
+import { useEffect, useRef, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { avatars } from "../../assets/icons";
+import useAuth from "../../hooks/useAuth";
+import useGetUser from "../../hooks/useGetUser";
+import { UpdateUserDetails } from "../../types/User.types";
 import ConfirmationModal from "../modals/ConfirmationModal";
+import SubmitButton from "../buttons/SubmitButton";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 const SettingsForm = () => {
   const [error, setError] = useState<string | null>(null);

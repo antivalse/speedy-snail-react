@@ -1,9 +1,11 @@
+/* Contact Form Component */
+
+import emailjs from "emailjs-com";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { closeIcon } from "../../assets/icons";
 import { ContactInfo } from "../../types/ContactForm.types";
 import SubmitButton from "../buttons/SubmitButton";
-import { useState } from "react";
-import { closeIcon } from "../../assets/icons";
-import emailjs from "emailjs-com";
 
 interface ContactFormProps {
   closeModal: () => void;

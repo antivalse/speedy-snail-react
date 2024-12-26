@@ -1,8 +1,10 @@
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+/* Splide Carousel Component */
+
 import "@splidejs/react-splide/css";
-import { Image } from "../../types/Image.types";
 import "../../scss/components/content/_splideCarousel.scss";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 import useTheme from "../../hooks/useTheme";
+import { Image } from "../../types/Image.types";
 
 interface SplideCarouselProps {
   images: Image[] | [];

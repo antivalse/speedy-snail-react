@@ -1,10 +1,9 @@
 /* App Assistant Component */
 
+import { useEffect, useState } from "react";
 import Typewriter from "typewriter-effect";
-
 import { snailAssistant, snailAssistantDarkmode } from "../../assets/icons";
 import useTheme from "../../hooks/useTheme";
-import { useEffect, useState } from "react";
 
 interface AssistantProps {
   message: string | null;
